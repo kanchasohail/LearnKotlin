@@ -68,15 +68,21 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     //Material 1 for bottom navigation
-    implementation("androidx.compose.material:material:1.4.3")
+    implementation("androidx.compose.material:material:1.5.0")
 
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.6.0")
+    implementation("androidx.navigation:navigation-compose:2.7.0")
 
     // View Model
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
 
     // To change status bar color
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
+
+//    //Animated Navigation
+//    implementation("com.google.accompanist:accompanist-navigation-animation:0.33.0") // 16
+
+    // Data Store
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
 }
