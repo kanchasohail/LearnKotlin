@@ -18,10 +18,10 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.social.learnkotlin.navigation.Screens
+import com.social.learnkotlin.ui.theme.LearnKotlinTheme
 import com.social.learnkotlin.view.bottom_and_top_bars.BottomNavBar
 import com.social.learnkotlin.view.bottom_and_top_bars.BottomNavigationViewModel
 import com.social.learnkotlin.view.bottom_and_top_bars.MyAppBar
-import com.social.learnkotlin.ui.theme.LearnKotlinTheme
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)

@@ -1,5 +1,6 @@
 package com.social.learnkotlin.view.profile_screen
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.renderscript.Allocation
 import android.renderscript.Element
@@ -22,15 +23,23 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material.TextField
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
@@ -38,10 +47,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -51,6 +66,9 @@ import com.social.learnkotlin.ui.common_views.DefaultFontText
 import com.social.learnkotlin.ui.common_views.TwoFloatingArchLoadingIndicator
 import com.social.learnkotlin.ui.common_views.bottomBorder
 import com.social.learnkotlin.ui.common_views.scaffoldGradientBg
+import com.social.learnkotlin.ui.theme.RubikFontFamily
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @Preview(showSystemUi = true)
 @Composable
@@ -64,7 +82,7 @@ fun ProfileScreen(navController: NavController = rememberNavController()) {
             .fillMaxSize()
             .background(scaffoldGradientBg())
     ) {
-        ProfileSection(viewModel = viewModel)
+        ProfileSection(viewModel = viewModel , context = context)
         StatsSection()
         ProfilePageOptions(navController = navController)
     }
@@ -72,8 +90,13 @@ fun ProfileScreen(navController: NavController = rememberNavController()) {
 }
 
 @Composable
-private fun ProfileSection(modifier: Modifier = Modifier, viewModel: ProfileScreenViewModel) {
+private fun ProfileSection(modifier: Modifier = Modifier, viewModel: ProfileScreenViewModel , context: Context) {
     val image = viewModel.profileImage
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(Unit){
+        viewModel.getUseName(context)
+    }
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -104,7 +127,7 @@ private fun ProfileSection(modifier: Modifier = Modifier, viewModel: ProfileScre
                     contentDescription = "profile"
                 )
                 IconButton(
-                    onClick = { /*TODO*/ },
+                    onClick = {                              },
                     modifier = Modifier
                         .shadow(
                             10.dp,
@@ -135,12 +158,43 @@ private fun ProfileSection(modifier: Modifier = Modifier, viewModel: ProfileScre
                     color = Color.Gray,
                     fontWeight = FontWeight.SemiBold
                 )
-                DefaultFontText(
-                    text = "Md Sohail",
-                    fontSize = 22.sp,
-                    color = Color.White,
-                    fontWeight = FontWeight.SemiBold
-                )
+                if (viewModel.isEditingName) {
+                    OutlinedTextField(
+                        value = viewModel.userName,
+//                        value = TextFieldValue(
+//                            viewModel.userName,
+//                            selection = TextRange(viewModel.userName.length)
+//                        ),
+                        onValueChange = { viewModel.userName = it.toString() },
+                        maxLines = 1,
+                        textStyle = TextStyle(
+                            fontSize = 22.sp,
+                            color = Color.White,
+                            fontWeight = FontWeight.SemiBold,
+                            fontFamily = RubikFontFamily
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                viewModel.isEditingName = false
+                                viewModel.viewModelScope.launch {
+                                    viewModel.saveUserName(context)
+                                }
+                            }
+                        ),
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Text,
+                            imeAction = ImeAction.Done
+                        ),
+                        modifier = Modifier.focusRequester(focusRequester)
+                    )
+                } else {
+                    DefaultFontText(
+                        text = viewModel.userName,
+                        fontSize = 22.sp,
+                        color = Color.White,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
                 DefaultFontText(
                     text = "This name will be shown on your certificate!",
                     fontSize = 16.sp,
@@ -148,13 +202,32 @@ private fun ProfileSection(modifier: Modifier = Modifier, viewModel: ProfileScre
                     modifier = Modifier.padding(top = 5.dp)
                 )
             }
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(28.dp)
-                )
+            IconButton(onClick = {
+                viewModel.isEditingName = !viewModel.isEditingName
+                if (!viewModel.isEditingName) {
+                    viewModel.viewModelScope.launch {
+                        viewModel.saveUserName(context)
+                    }
+                }
+            }) {
+                if (viewModel.isEditingName) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_save_icon),
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(28.dp)
+                    )
+                    LaunchedEffect(Unit) {
+                        focusRequester.requestFocus()
+                    }
+                } else {
+                    Icon(
+                        imageVector = Icons.Rounded.Edit,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(28.dp)
+                    )
+                }
             }
         }
 
@@ -238,7 +311,9 @@ private fun ProfilePageOptions(
     LazyColumn(modifier = modifier.fillMaxSize()) {
         items(5) {
             OptionItem(optionName = "Report a problem", icon = R.drawable.ic_report, onClick = {
-                navController.navigate(Screens.IssueSelectingScreen.route)
+                navController.navigate(
+                    Screens.IssueSelectingScreen.route
+                )
             })
         }
     }

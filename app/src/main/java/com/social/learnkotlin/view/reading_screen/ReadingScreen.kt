@@ -222,7 +222,7 @@ private fun ReadingCard(modifier: Modifier = Modifier) {
             }
             Row() {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_save_icon),
+                    painter = painterResource(id = R.drawable.ic_bookmark_icon),
                     contentDescription = "Save",
                     tint = Color.White,
                     modifier = Modifier.padding(horizontal = 5.dp)
