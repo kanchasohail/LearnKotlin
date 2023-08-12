@@ -85,4 +85,7 @@ dependencies {
     // Data Store
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
+    //For displaying uri image
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
 }

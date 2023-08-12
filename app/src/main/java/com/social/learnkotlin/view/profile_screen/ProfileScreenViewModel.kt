@@ -2,10 +2,14 @@ package com.social.learnkotlin.view.profile_screen
 
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -27,6 +31,8 @@ class ProfileScreenViewModel : ViewModel() {
 
     var isEditingName by mutableStateOf(false)
 
+    var selectedImage by  mutableStateOf<Uri?>(null)
+
 
     suspend fun saveUserName(context: Context) {
         context.dataStore.edit { profile ->
@@ -35,10 +41,11 @@ class ProfileScreenViewModel : ViewModel() {
         isEditingName = false
     }
 
-
     suspend fun getUseName(context: Context) {
     val thisUserName  =  context.dataStore.data.first()[USER_NAME] ?: ""
         userName = thisUserName
     }
+
+
 
 }
