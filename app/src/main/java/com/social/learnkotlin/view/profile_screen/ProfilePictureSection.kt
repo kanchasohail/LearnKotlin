@@ -40,9 +40,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewModelScope
 import coil.compose.rememberAsyncImagePainter
 import com.social.learnkotlin.R
-import com.social.learnkotlin.ui.common_views.bottomBorder
+import kotlinx.coroutines.launch
 import java.io.InputStream
 
 @Composable
@@ -55,16 +56,17 @@ fun ProfilePictureSection(
     val galleryLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             viewModel.selectedImage = uri
+            viewModel.viewModelScope.launch {
+                viewModel.saveProfileImage(context)
+            }
         }
-
-    LaunchedEffect(Unit) {
-        viewModel.getUseName(context)
+    LaunchedEffect(Unit){
+         viewModel.getProfilePicture(context)
     }
 
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .bottomBorder(2.dp, Color.Gray)
             .padding(12.dp),
     ) {
 

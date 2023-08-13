@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.social.learnkotlin.navigation.Screens
 import com.social.learnkotlin.view.editor_screen.EditorScreen
-import com.social.learnkotlin.view.lessons_screen.LearningScreen
+import com.social.learnkotlin.view.lessons_screen.LessonsScreen
 import com.social.learnkotlin.view.profile_screen.ProfileScreen
 import com.social.learnkotlin.view.reading_screen.ReadingScreen
 import com.social.learnkotlin.view.report_problem_screen.IssueDescribingScreen
@@ -26,7 +26,7 @@ fun NavigationGraph(navController: NavHostController) {
 
         //Learning Screen
         composable(Screens.LessonsScreen.route) {
-            LearningScreen(navController = navController)
+            LessonsScreen(navController = navController)
         }
 
         //Editor Screen
@@ -40,8 +40,15 @@ fun NavigationGraph(navController: NavHostController) {
         }
 
         //Reading Screen
-        composable(Screens.ReadingScreen.route) {
-            ReadingScreen(navController)
+        composable(Screens.ReadingScreen.route + "/{lesson_index}", arguments = listOf(
+            navArgument("lesson_index") {
+                type = NavType.StringType
+            }
+        )) { entry ->
+            ReadingScreen(
+                navController,
+                lessonIndex = entry.arguments?.getString("lesson_index")?.toInt()
+            )
         }
 
         //Upgrade To Premium Screen

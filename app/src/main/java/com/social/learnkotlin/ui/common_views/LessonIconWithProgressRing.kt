@@ -5,11 +5,10 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,8 +23,10 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.social.learnkotlin.R
 
 @Composable
 fun LessonIconWithProgressRing(
@@ -33,9 +34,10 @@ fun LessonIconWithProgressRing(
     radius: Dp = 30.dp,
     strokeColor: Color = Color.Green,
     iconBgColor: Color = Color.Cyan,
-    strokeWidth: Dp = 5.dp,
+    strokeWidth: Dp = 4.5.dp,
     animDuration: Int = 1000,
-    animDelay: Int = 0
+    animDelay: Int = 0,
+    icon:Int =  R.drawable.ic_kotlin_icon,
 ) {
     var animationPlayed by remember { mutableStateOf(false) }
     val currentPercentage =
@@ -71,13 +73,15 @@ fun LessonIconWithProgressRing(
         }
 
         Box(modifier = Modifier
-            .background(Brush.radialGradient(
-                listOf(
-                    iconBgColor,
-                    iconBgColor.copy(.5f),
-                    Color.Transparent
-                )
-            ), shape = CircleShape)
+            .background(
+                Brush.radialGradient(
+                    listOf(
+                        iconBgColor,
+                        iconBgColor.copy(.5f),
+                        Color.Transparent
+                    )
+                ), shape = CircleShape
+            )
             .clip(CircleShape)) {
             Box(
                 modifier = Modifier
@@ -86,9 +90,9 @@ fun LessonIconWithProgressRing(
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Default.DateRange,
+                    painter = painterResource(id = icon),
                     contentDescription = "lesson icon",
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.fillMaxSize(.85f).padding(8.dp)
                 )
             }
         }
