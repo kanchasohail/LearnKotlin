@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.social.learnkotlin.R
+import com.social.learnkotlin.view.lessons_screen.LockedAndCompletedIcon
 
 
 @Composable
@@ -31,7 +32,9 @@ fun LessonCard(
     subjectName: String,
     lessonName: String,
     descriptionText: String,
-    readingDuration: Int
+    readingDuration: Int,
+    isCompleted:Boolean = false,
+    isOnGoing:Boolean = false
 ) {
     Column(
         modifier = modifier
@@ -48,7 +51,13 @@ fun LessonCard(
                 .padding(16.dp),
             contentAlignment = Alignment.CenterStart
         ) {
-            LessonIconWithProgressRing(percentage = 0.7f)
+          if(isCompleted){
+              LockedAndCompletedIcon(isLocked = false)
+          }else if(isOnGoing){
+              LessonIconWithProgressRing(percentage = 0.7f)
+          }else{
+              LockedAndCompletedIcon()
+          }
         }
 
         Column(Modifier.padding(16.dp)) {

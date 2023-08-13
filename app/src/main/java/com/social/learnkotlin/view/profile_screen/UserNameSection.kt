@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewModelScope
 import com.social.learnkotlin.R
 import com.social.learnkotlin.ui.common_views.DefaultFontText
+import com.social.learnkotlin.ui.common_views.bottomBorder
 import com.social.learnkotlin.ui.theme.RubikFontFamily
 import kotlinx.coroutines.launch
 
@@ -40,8 +41,12 @@ fun UserNameSection(
     modifier: Modifier = Modifier
 ) {
     val focusRequester = remember { FocusRequester() }
+    LaunchedEffect(Unit) {
+        viewModel.getUserName(context)
+    }
     Row(
-        modifier = modifier.padding(12.dp),
+        modifier = modifier
+            .bottomBorder(2.dp, Color.Gray).padding(12.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Column {

@@ -2,7 +2,6 @@ package com.social.learnkotlin.view.profile_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,7 +25,6 @@ import androidx.navigation.NavController
 import com.social.learnkotlin.R
 import com.social.learnkotlin.navigation.Screens
 import com.social.learnkotlin.ui.common_views.DefaultFontText
-import com.social.learnkotlin.ui.common_views.TwoFloatingArchLoadingIndicator
 import com.social.learnkotlin.ui.common_views.bottomBorder
 import com.social.learnkotlin.ui.common_views.scaffoldGradientBg
 
@@ -42,31 +40,10 @@ fun ProfileScreen(navController: NavController) {
     ) {
         ProfilePictureSection(viewModel = viewModel, context = context)
         UserNameSection(viewModel = viewModel, context = context)
-        StatsSection()
+        ProfileStatsSection()
         ProfilePageOptions(navController = navController)
     }
 
-}
-
-
-@Composable
-private fun StatsSection(modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier
-            .padding(vertical = 10.dp)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceAround
-    ) {
-        Column {
-            TwoFloatingArchLoadingIndicator()
-        }
-        Column {
-            TwoFloatingArchLoadingIndicator()
-        }
-        Column {
-            TwoFloatingArchLoadingIndicator()
-        }
-    }
 }
 
 @Composable
@@ -112,5 +89,4 @@ private fun OptionItem(
         Spacer(modifier = Modifier.width(8.dp))
         DefaultFontText(text = optionName, fontSize = 22.sp, color = Color.White)
     }
-
 }
