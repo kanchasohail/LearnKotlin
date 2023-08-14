@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.OutlinedTextField
@@ -17,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
@@ -46,10 +48,11 @@ fun UserNameSection(
     }
     Row(
         modifier = modifier
-            .bottomBorder(2.dp, Color.Gray).padding(12.dp),
+            .bottomBorder(2.dp, Color.Gray)
+            .padding(12.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Column {
+        Column(modifier = Modifier.weight(.8f)) {
             DefaultFontText(
                 text = "Name:",
                 fontSize = 18.sp,
@@ -95,19 +98,24 @@ fun UserNameSection(
             }
             DefaultFontText(
                 text = "This name will be shown on your certificate!",
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 color = Color.Gray,
                 modifier = Modifier.padding(top = 5.dp)
             )
         }
-        IconButton(onClick = {
-            viewModel.isEditingName = !viewModel.isEditingName
-            if (!viewModel.isEditingName) {
-                viewModel.viewModelScope.launch {
-                    viewModel.saveUserName(context)
+        IconButton(
+            onClick = {
+                viewModel.isEditingName = !viewModel.isEditingName
+                if (!viewModel.isEditingName) {
+                    viewModel.viewModelScope.launch {
+                        viewModel.saveUserName(context)
+                    }
                 }
-            }
-        }) {
+            },
+            modifier = Modifier
+                .weight(.1f)
+                .shadow(12.dp, ambientColor = Color.Gray, shape = CircleShape)
+        ) {
             if (viewModel.isEditingName) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_save_icon),

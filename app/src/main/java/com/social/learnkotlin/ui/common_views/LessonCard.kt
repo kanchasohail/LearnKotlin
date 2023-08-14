@@ -8,10 +8,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -82,14 +82,16 @@ fun LessonCard(
                     .background(
                         colorResource(id = R.color.chip_color)
                     )
+                    .padding(horizontal = 7.dp, vertical = 2.dp)
             ) {
                 Icon(
-                    imageVector = Icons.Rounded.PlayArrow,
+                    painter = painterResource(id = R.drawable.ic_timer),
                     contentDescription = "time",
-                    tint = Color.White
+                    tint = Color.White,
+                    modifier = Modifier.size(16.dp)
                 )
+                Spacer(modifier = Modifier.width(3.dp))
                 DefaultFontText(text = "$readingDuration mins", color = Color.White)
-                Spacer(modifier = Modifier.width(8.dp))
             }
         }
     }
