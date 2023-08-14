@@ -63,7 +63,6 @@ class ProfileScreenViewModel : ViewModel() {
         context.dataStore.edit { profile ->
             profile[PROFILE_IMAGE] = imageString ?: "null"
         }
-        Log.d("Image String" , "$imageString")
     }
 
     suspend fun getProfilePicture(context: Context){

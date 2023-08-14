@@ -5,10 +5,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.renderscript.Allocation
-import android.renderscript.Element
-import android.renderscript.RenderScript
-import android.renderscript.ScriptIntrinsicBlur
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -29,16 +25,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewModelScope
 import coil.compose.rememberAsyncImagePainter
@@ -130,7 +127,7 @@ fun ProfilePictureSection(
 private fun ImageBackdropFilter(
     imageResId: Int?,
     imageUri: Uri?,
-    blurRadius: Float = 20f,
+    blurRadius: Dp = 2.dp,
 ) {
     val context = LocalContext.current
 //    val imageBitmap = ImageBitmap.imageResource(context.resources, imageResId)
@@ -140,14 +137,12 @@ private fun ImageBackdropFilter(
         else -> throw IllegalArgumentException("Both imageResId and imageUri are null.")
     }
     val modifier = Modifier
-    // Apply blur to the imageBitmap
-    val blurredImageBitmap = applyBlur(imageBitmap, blurRadius)
 
     Image(
-        bitmap = blurredImageBitmap,
+        bitmap = imageBitmap,
         contentDescription = null,
         contentScale = ContentScale.Crop,
-        modifier = modifier.then(Modifier.fillMaxSize())
+        modifier = modifier.then(Modifier.fillMaxSize()).blur(blurRadius)
     )
 }
 
@@ -166,33 +161,4 @@ private fun uriToImageBitmap(uri: Uri): ImageBitmap? {
     }
 
     return null
-}
-
-
-
-@Composable
-private fun applyBlur(imageBitmap: ImageBitmap, radius: Float): ImageBitmap {
-
-    val context = LocalContext.current
-    val bitmap: Bitmap = imageBitmap.asAndroidBitmap()
-
-    val renderScript = RenderScript.create(context)
-    val input = Allocation.createFromBitmap(renderScript, bitmap)
-    val output = Allocation.createTyped(renderScript, input.type)
-    val blur = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript))
-
-    blur.setInput(input)
-    blur.setRadius(radius)
-    blur.forEach(output)
-
-    output.copyTo(bitmap)
-
-    renderScript.destroy()
-
-    return imageBitmap
-
-    /*    https://developer.android.com/guide/topics/renderscript/migrate */
-//    var blurredBitmap = Toolkit.blur(imageBitmap, radius)
-//    return blurredBitmap
-
 }
