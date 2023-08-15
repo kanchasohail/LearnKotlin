@@ -2,6 +2,7 @@ package com.social.learnkotlin
 
 import NavigationGraph
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -24,6 +25,9 @@ import com.social.learnkotlin.view.bottom_and_top_bars.BottomNavigationViewModel
 import com.social.learnkotlin.view.bottom_and_top_bars.MyAppBar
 
 class MainActivity : ComponentActivity() {
+
+    private var pressedTime: Long = 0
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,4 +75,22 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    // on below line we are calling on back press method.
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        // on below line we are checking if the press time is greater than 2 sec
+        if (pressedTime + 2000 > System.currentTimeMillis()) {
+            // if time is greater than 2 sec we are closing the application.
+            super.onBackPressed()
+            finish()
+        } else {
+            // in else condition displaying a toast message.
+            Toast.makeText(baseContext, "Press back again to exit", Toast.LENGTH_SHORT).show();
+        }
+        // on below line initializing our press time variable
+        pressedTime = System.currentTimeMillis();
+    }
+
+
 }
