@@ -25,7 +25,7 @@ sealed class BackPress {
     val context = LocalContext.current
 
     if(showToast){
-        Toast.makeText(context, "Press again to exit", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Press back again to exit", Toast.LENGTH_SHORT).show()
         showToast= false
     }
 

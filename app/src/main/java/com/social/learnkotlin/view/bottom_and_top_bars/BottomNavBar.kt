@@ -1,6 +1,8 @@
 package com.social.learnkotlin.view.bottom_and_top_bars
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.height
@@ -61,8 +63,9 @@ fun BottomNavBar(navController: NavController) {
     AnimatedVisibility(
         visible = bottomBarState.value,
         enter = slideInVertically(initialOffsetY = { it }),
-        exit = slideOutVertically(targetOffsetY = { it }),
-    ) {
+//        exit = slideOutVertically(targetOffsetY = { it }),
+        exit = fadeOut(animationSpec = tween(durationMillis = 0, delayMillis = 0)),
+        ) {
         BottomNavigation(
             backgroundColor = colorResource(id = R.color.app_bar_background),
             contentColor = Color.White,

@@ -38,6 +38,7 @@ fun ProfileScreen(navController: NavController) {
             .fillMaxSize()
             .background(scaffoldGradientBg())
     ) {
+        //TODO this profile picture section is creating a lot of performance issues
         ProfilePictureSection(viewModel = viewModel, context = context)
         UserNameSection(viewModel = viewModel, context = context)
         ProfileStatsSection()

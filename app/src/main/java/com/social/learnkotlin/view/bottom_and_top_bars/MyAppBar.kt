@@ -1,6 +1,8 @@
 package com.social.learnkotlin.view.bottom_and_top_bars
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Spacer
@@ -65,7 +67,8 @@ fun MyAppBar(
     AnimatedVisibility(
         visible = appBarState.value,
         enter = slideInVertically(initialOffsetY = { -it }),
-        exit = slideOutVertically(targetOffsetY = { -it }),
+//        exit = slideOutVertically(targetOffsetY = { -it }),
+        exit = fadeOut(animationSpec = tween(durationMillis = 0, delayMillis = 0)),
     ) {
         TopAppBar(
             backgroundColor = backgroundColor,

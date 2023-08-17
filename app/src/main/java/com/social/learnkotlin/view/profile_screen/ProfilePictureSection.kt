@@ -8,6 +8,7 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -57,8 +58,8 @@ fun ProfilePictureSection(
                 viewModel.saveProfileImage(context)
             }
         }
-    LaunchedEffect(Unit){
-         viewModel.getProfilePicture(context)
+    LaunchedEffect(Unit) {
+        viewModel.getProfilePicture(context)
     }
 
     Column(
@@ -92,7 +93,8 @@ fun ProfilePictureSection(
                     modifier = Modifier
                         .size(150.dp)
                         .padding(8.dp)
-                        .clip(CircleShape),
+                        .clip(CircleShape)
+                        .border(0.2.dp, color = Color.Gray, shape = CircleShape),
                     contentScale = ContentScale.Crop,
                     contentDescription = "profile"
                 )
@@ -122,7 +124,6 @@ fun ProfilePictureSection(
 }
 
 
-
 @Composable
 private fun ImageBackdropFilter(
     imageResId: Int?,
@@ -142,7 +143,9 @@ private fun ImageBackdropFilter(
         bitmap = imageBitmap,
         contentDescription = null,
         contentScale = ContentScale.Crop,
-        modifier = modifier.then(Modifier.fillMaxSize()).blur(blurRadius)
+        modifier = modifier
+            .then(Modifier.fillMaxSize())
+            .blur(blurRadius)
     )
 }
 

@@ -1,4 +1,15 @@
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideIn
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.geometry.Offset
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -24,7 +35,7 @@ fun NavigationGraph(navController: NavHostController) {
             SplashScreen(navController)
         }
 
-        //Learning Screen
+        //Lessons Screen
         composable(Screens.LessonsScreen.route) {
             LessonsScreen(navController = navController)
         }
@@ -40,11 +51,18 @@ fun NavigationGraph(navController: NavHostController) {
         }
 
         //Reading Screen
-        composable(Screens.ReadingScreen.route + "/{lesson_index}", arguments = listOf(
-            navArgument("lesson_index") {
-                type = NavType.StringType
-            }
-        )) { entry ->
+        composable(Screens.ReadingScreen.route + "/{lesson_index}",
+            enterTransition = {
+                slideInVertically(
+                    initialOffsetY = { -10 },
+                    animationSpec = tween(1000, delayMillis = 40, easing = FastOutSlowInEasing)
+                )
+            },
+            arguments = listOf(
+                navArgument("lesson_index") {
+                    type = NavType.StringType
+                }
+            )) { entry ->
             ReadingScreen(
                 navController,
                 lessonIndex = entry.arguments?.getString("lesson_index")?.toInt()
@@ -52,12 +70,28 @@ fun NavigationGraph(navController: NavHostController) {
         }
 
         //Upgrade To Premium Screen
-        composable(Screens.UpgradeToPremiumScreen.route) {
+        composable(
+            Screens.UpgradeToPremiumScreen.route,
+            enterTransition = {
+                slideInVertically(
+                    initialOffsetY = { -10 },
+                    animationSpec = tween(1000, delayMillis = 40, easing = FastOutSlowInEasing)
+                )
+            },
+        ) {
             UpgradeToPremiumScreen(navController)
         }
 
         //Report Problem Screens..
-        composable(Screens.IssueSelectingScreen.route) {
+        composable(
+            Screens.IssueSelectingScreen.route,
+            enterTransition = {
+                slideInVertically(
+                    initialOffsetY = { -10 },
+                    animationSpec = tween(1000, delayMillis = 40, easing = FastOutSlowInEasing)
+                ) + fadeIn(animationSpec = tween(1000 , delayMillis = 100))
+            },
+        ) {
             IssueSelectingScreen(navController)
         }
         composable(
