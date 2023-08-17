@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                 ) {
                     val navController = rememberNavController()
-//                    NavigationGraph(navController = navController)
+
                     Scaffold(
                         containerColor = colorResource(id = R.color.gradient_end_bg),
                         topBar = {

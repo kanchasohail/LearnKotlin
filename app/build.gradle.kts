@@ -79,9 +79,6 @@ dependencies {
     // To change status bar color
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
 
-//    //Animated Navigation
-//    implementation("com.google.accompanist:accompanist-navigation-animation:0.33.0") // 16
-
     // Data Store
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
