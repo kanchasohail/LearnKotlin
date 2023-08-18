@@ -1,4 +1,4 @@
-package com.social.learnkotlin.ui.common_views
+package com.social.learnkotlin.view.lessons_screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -16,14 +16,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.social.learnkotlin.R
-import com.social.learnkotlin.view.lessons_screen.LockedAndCompletedIcon
+import com.social.learnkotlin.ui.common_views.DefaultFontText
+import com.social.learnkotlin.ui.common_views.LessonIconWithProgressRing
 
 
 @Composable
@@ -33,8 +37,8 @@ fun LessonCard(
     lessonName: String,
     descriptionText: String,
     readingDuration: Int,
-    isCompleted:Boolean = false,
-    isOnGoing:Boolean = false
+    isCompleted: Boolean = false,
+    isOnGoing: Boolean = false
 ) {
     Column(
         modifier = modifier
@@ -47,17 +51,26 @@ fun LessonCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
-                .background(Color.DarkGray)
+                .background(Brush.linearGradient(
+                    listOf(
+                        Color.Black,
+                        Color.Green
+                    )
+                ))
+                .paint(
+                    painter = painterResource(id = R.drawable.kotlin_bg),
+                    contentScale = ContentScale.FillBounds
+                )
                 .padding(16.dp),
             contentAlignment = Alignment.CenterStart
         ) {
-          if(isCompleted){
-              LockedAndCompletedIcon(isLocked = false)
-          }else if(isOnGoing){
-              LessonIconWithProgressRing(percentage = 0.7f)
-          }else{
-              LockedAndCompletedIcon()
-          }
+            if (isCompleted) {
+                LockedAndCompletedIcon(isLocked = false)
+            } else if (isOnGoing) {
+                LessonIconWithProgressRing(percentage = 0.7f)
+            } else {
+                LockedAndCompletedIcon()
+            }
         }
 
         Column(Modifier.padding(16.dp)) {
