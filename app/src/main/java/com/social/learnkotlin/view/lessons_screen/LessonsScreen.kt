@@ -15,7 +15,6 @@ import androidx.navigation.NavController
 import com.social.learnkotlin.model.static_data.AllLessons
 import com.social.learnkotlin.navigation.PressBackAgainToExit
 import com.social.learnkotlin.navigation.Screens
-import com.social.learnkotlin.ui.common_views.LessonCard
 import com.social.learnkotlin.ui.common_views.scaffoldGradientBg
 
 @Composable

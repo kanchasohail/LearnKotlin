@@ -1,6 +1,6 @@
 package com.social.learnkotlin
 
-import NavigationGraph
+import com.social.learnkotlin.navigation.NavigationGraph
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

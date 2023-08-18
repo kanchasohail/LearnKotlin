@@ -1,21 +1,15 @@
-import androidx.compose.animation.AnimatedContentTransitionScope
+package com.social.learnkotlin.navigation
+
 import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideIn
-import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.geometry.Offset
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.social.learnkotlin.navigation.Screens
 import com.social.learnkotlin.view.editor_screen.EditorScreen
 import com.social.learnkotlin.view.lessons_screen.LessonsScreen
 import com.social.learnkotlin.view.profile_screen.ProfileScreen
