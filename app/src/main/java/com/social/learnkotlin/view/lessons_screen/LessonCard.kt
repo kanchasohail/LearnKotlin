@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -47,16 +48,26 @@ fun LessonCard(
             .clip(RoundedCornerShape(8.dp))
             .background(colorResource(id = R.color.app_bar_background))
     ) {
+        val transparentGradientBrush = Brush.linearGradient(
+            colors = listOf(
+                Color(0x1AFFFFFF),
+                Color(0x66747272)
+            )
+        )
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
-                .background(Brush.linearGradient(
-                    listOf(
-                        Color.Black,
-                        Color.Green
+                .then(Modifier.graphicsLayer(alpha = 0.5f))
+                .background(
+                    Brush.linearGradient(
+                        listOf(
+                            Color.Black,
+                            Color.Green
+                        )
                     )
-                ))
+                )
                 .paint(
                     painter = painterResource(id = R.drawable.kotlin_bg),
                     contentScale = ContentScale.FillBounds
