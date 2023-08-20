@@ -37,7 +37,6 @@ fun LessonsScreen(navController: NavController) {
         items(AllLessons.lessonsList.size) { index: Int ->
             val name = AllLessons.lessonsList[index]
             LessonCard(
-                subjectName = name,
                 lessonName = name,
                 descriptionText = name,
                 readingDuration = index,

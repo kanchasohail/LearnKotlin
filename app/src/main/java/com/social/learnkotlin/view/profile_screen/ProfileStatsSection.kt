@@ -15,7 +15,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.social.learnkotlin.ui.common_views.CircularProgressWithText
 import com.social.learnkotlin.ui.common_views.DefaultFontText
 import com.social.learnkotlin.ui.theme.Purple80
 
@@ -42,14 +41,6 @@ fun ProfileStatsSection(modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(8.dp)
             )
 
-            CircularProgressWithText(
-                0.7f,
-                55,
-                textColor = Purple80,
-                radius = 45.dp,
-                strokeWidth = 6.dp
-            )
-
         }
         Column(
             modifier = Modifier.weight(.4f),
@@ -62,13 +53,6 @@ fun ProfileStatsSection(modifier: Modifier = Modifier) {
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(8.dp)
-            )
-            CircularProgressWithText(
-                0.4f,
-                20,
-                textColor = Purple80,
-                radius = 45.dp,
-                strokeWidth = 6.dp
             )
 
         }
