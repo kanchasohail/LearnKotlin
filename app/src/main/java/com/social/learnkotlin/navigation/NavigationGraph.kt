@@ -50,7 +50,7 @@ fun NavigationGraph(navController: NavHostController) {
                 slideInVertically(
                     initialOffsetY = { -10 },
                     animationSpec = tween(1000, delayMillis = 40, easing = FastOutSlowInEasing)
-                )
+                )+ fadeIn(animationSpec = tween(1000 , delayMillis = 100))
             },
             arguments = listOf(
                 navArgument("lesson_index") {
@@ -70,7 +70,7 @@ fun NavigationGraph(navController: NavHostController) {
                 slideInVertically(
                     initialOffsetY = { -10 },
                     animationSpec = tween(1000, delayMillis = 40, easing = FastOutSlowInEasing)
-                )
+                )+ fadeIn(animationSpec = tween(1000 , delayMillis = 100))
             },
         ) {
             UpgradeToPremiumScreen(navController)

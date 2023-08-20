@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -34,7 +35,6 @@ import com.social.learnkotlin.ui.common_views.LessonIconWithProgressRing
 @Composable
 fun LessonCard(
     modifier: Modifier = Modifier,
-    subjectName: String,
     lessonName: String,
     descriptionText: String,
     readingDuration: Int,
@@ -48,46 +48,54 @@ fun LessonCard(
             .clip(RoundedCornerShape(8.dp))
             .background(colorResource(id = R.color.app_bar_background))
     ) {
-        val transparentGradientBrush = Brush.linearGradient(
-            colors = listOf(
-                Color(0x1AFFFFFF),
-                Color(0x66747272)
-            )
-        )
-
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
-                .then(Modifier.graphicsLayer(alpha = 0.5f))
-                .background(
-                    Brush.linearGradient(
-                        listOf(
-                            Color.Black,
-                            Color.Green
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .then(Modifier.graphicsLayer(alpha = 0.5f))
+                    .background(
+                        Brush.linearGradient(
+                            listOf(
+                                Color.Black,
+                                Color.Green
+                            )
                         )
                     )
-                )
-                .paint(
-                    painter = painterResource(id = R.drawable.kotlin_bg),
-                    contentScale = ContentScale.FillBounds
-                )
-                .padding(16.dp),
-            contentAlignment = Alignment.CenterStart
-        ) {
-            if (isCompleted) {
-                LockedAndCompletedIcon(isLocked = false)
-            } else if (isOnGoing) {
-                LessonIconWithProgressRing(percentage = 0.7f)
-            } else {
-                LockedAndCompletedIcon()
+                    .paint(
+                        painter = painterResource(id = R.drawable.kotlin_bg),
+                        contentScale = ContentScale.FillBounds
+                    )
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp), contentAlignment = Alignment.CenterStart
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    if (isCompleted) {
+                        LockedAndCompletedIcon(isLocked = false)
+                    } else if (isOnGoing) {
+                        LessonIconWithProgressRing(percentage = 0.7f)
+                    } else {
+                        LockedAndCompletedIcon()
+                    }
+                    Spacer(modifier = Modifier.width(20.dp))
+                    DefaultFontText(
+                        text = lessonName,
+                        fontSize = 32.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                }
+
             }
         }
 
         Column(Modifier.padding(16.dp)) {
-            DefaultFontText(text = subjectName, fontSize = 16.sp, color = Color.White)
-            Spacer(modifier = Modifier.height(8.dp))
-
             DefaultFontText(
                 text = lessonName,
                 fontSize = 20.sp,
