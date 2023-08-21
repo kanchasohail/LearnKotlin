@@ -39,7 +39,7 @@ fun LessonsScreen(navController: NavController) {
             LessonCard(
                 lessonName = name,
                 descriptionText = name,
-                readingDuration = index,
+                pagesCount = index,
                 isOnGoing = onGoingLessonIndex == index,
                 isCompleted = onGoingLessonIndex > index,
                 modifier = Modifier.clickable {

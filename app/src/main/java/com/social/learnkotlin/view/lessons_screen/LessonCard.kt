@@ -37,7 +37,7 @@ fun LessonCard(
     modifier: Modifier = Modifier,
     lessonName: String,
     descriptionText: String,
-    readingDuration: Int,
+    pagesCount: Int,
     isCompleted: Boolean = false,
     isOnGoing: Boolean = false
 ) {
@@ -117,13 +117,13 @@ fun LessonCard(
                     .padding(horizontal = 7.dp, vertical = 2.dp)
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_timer),
+                    painter = painterResource(id = R.drawable.ic_pages_icon),
                     contentDescription = "time",
                     tint = Color.White,
-                    modifier = Modifier.size(16.dp)
+                    modifier = Modifier.size(14.dp)
                 )
                 Spacer(modifier = Modifier.width(3.dp))
-                DefaultFontText(text = "$readingDuration mins", color = Color.White)
+                DefaultFontText(text = "$pagesCount pages", color = Color.White)
             }
         }
     }
