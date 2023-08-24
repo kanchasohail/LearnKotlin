@@ -10,6 +10,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.social.learnkotlin.view.codes_screen.CodesScreen
 import com.social.learnkotlin.view.editor_screen.EditorScreen
 import com.social.learnkotlin.view.lessons_screen.LessonsScreen
 import com.social.learnkotlin.view.profile_screen.ProfileScreen
@@ -34,8 +35,21 @@ fun NavigationGraph(navController: NavHostController) {
             LessonsScreen(navController = navController)
         }
 
+        //Codes Screen
+        composable(Screens.CodesScreen.route) {
+            CodesScreen(navController = navController)
+        }
+
         //Editor Screen
-        composable(Screens.EditorScreen.route) {
+        composable(
+            Screens.EditorScreen.route,
+            enterTransition = {
+                slideInVertically(
+                    initialOffsetY = { -10 },
+                    animationSpec = tween(1000, delayMillis = 40, easing = FastOutSlowInEasing)
+                ) + fadeIn(animationSpec = tween(1000, delayMillis = 100))
+            },
+        ) {
             EditorScreen(navController = navController)
         }
 
@@ -50,7 +64,7 @@ fun NavigationGraph(navController: NavHostController) {
                 slideInVertically(
                     initialOffsetY = { -10 },
                     animationSpec = tween(1000, delayMillis = 40, easing = FastOutSlowInEasing)
-                )+ fadeIn(animationSpec = tween(1000 , delayMillis = 100))
+                ) + fadeIn(animationSpec = tween(1000, delayMillis = 100))
             },
             arguments = listOf(
                 navArgument("lesson_index") {
@@ -70,7 +84,7 @@ fun NavigationGraph(navController: NavHostController) {
                 slideInVertically(
                     initialOffsetY = { -10 },
                     animationSpec = tween(1000, delayMillis = 40, easing = FastOutSlowInEasing)
-                )+ fadeIn(animationSpec = tween(1000 , delayMillis = 100))
+                ) + fadeIn(animationSpec = tween(1000, delayMillis = 100))
             },
         ) {
             UpgradeToPremiumScreen(navController)
@@ -83,7 +97,7 @@ fun NavigationGraph(navController: NavHostController) {
                 slideInVertically(
                     initialOffsetY = { -10 },
                     animationSpec = tween(1000, delayMillis = 40, easing = FastOutSlowInEasing)
-                ) + fadeIn(animationSpec = tween(1000 , delayMillis = 100))
+                ) + fadeIn(animationSpec = tween(1000, delayMillis = 100))
             },
         ) {
             IssueSelectingScreen(navController)

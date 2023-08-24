@@ -3,6 +3,7 @@ package com.social.learnkotlin.navigation
 sealed class Screens(val route: String) {
     object SplashScreen : Screens("splash_screen")
     object LessonsScreen : Screens("lessons_screen")
+    object CodesScreen : Screens("codes_screen")
     object EditorScreen : Screens("editor_screen")
     object ProfileScreen : Screens("profile_screen")
     object ReadingScreen : Screens("reading_screen")

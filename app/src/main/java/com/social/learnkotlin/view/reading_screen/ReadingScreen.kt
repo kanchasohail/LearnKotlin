@@ -73,7 +73,7 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                         verticalArrangement = Arrangement.Center,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 8.dp)
+                            .padding(top = 8.dp , end = 12.dp)
                     ) {
                         DefaultFontText(
                             text = thisLesson,
