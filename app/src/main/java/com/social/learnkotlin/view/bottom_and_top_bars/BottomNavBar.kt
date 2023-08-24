@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
@@ -31,7 +30,7 @@ import com.social.learnkotlin.navigation.Screens
 fun BottomNavBar(navController: NavController) {
     val items = listOf(
         BottomNavItem.LearningScreen,
-        BottomNavItem.EditorScreen,
+        BottomNavItem.CodesScreen,
         BottomNavItem.ProfileScreen
     )
 
@@ -47,7 +46,7 @@ fun BottomNavBar(navController: NavController) {
             bottomBarState.value = true
         }
 
-        Screens.EditorScreen.route -> {
+        Screens.CodesScreen.route -> {
             bottomBarState.value = true
         }
 
@@ -93,10 +92,10 @@ fun BottomNavBar(navController: NavController) {
                     selectedContentColor = Color.White,
                     unselectedContentColor = Color.White.copy(0.4f),
                     alwaysShowLabel = true,
-                    selected = currentRoute == item.screen_route,
+                    selected = currentRoute == item.screenRoute,
                     onClick = {
                         viewModel.screenTitle = item.title
-                        navController.navigate(item.screen_route) {
+                        navController.navigate(item.screenRoute) {
 
                             navController.graph.startDestinationRoute?.let { screenRoute ->
                                 popUpTo(screenRoute) {
