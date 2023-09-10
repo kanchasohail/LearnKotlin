@@ -1,8 +1,7 @@
-package com.social.learnkotlin.ui.common_views
+package com.social.learnkotlin.ui.layout
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -14,12 +13,14 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.social.learnkotlin.R
+import com.social.learnkotlin.ui.layout.DefaultFontText
+import com.social.learnkotlin.ui.theme.cyanColor
 
 @Composable
 fun MyButton(
     modifier: Modifier = Modifier,
     buttonText: String,
-    buttonColor: Color = colorResource(id = R.color.button_color),
+    buttonColor: Color = cyanColor,
     buttonTextColor:Color = Color.Black,
     onClick: () -> Unit
 ) {

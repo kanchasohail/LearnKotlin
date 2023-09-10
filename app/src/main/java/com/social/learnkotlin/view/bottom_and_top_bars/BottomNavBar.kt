@@ -5,25 +5,23 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.social.learnkotlin.R
 import com.social.learnkotlin.navigation.Screens
 
 @Composable
@@ -39,6 +37,8 @@ fun BottomNavBar(navController: NavController) {
     val navBackStackEntry1 by navController.currentBackStackEntryAsState()
 
     val viewModel = viewModel<BottomNavigationViewModel>()
+
+    var selectedItem by remember { mutableIntStateOf(0) }
 
 
     when (navBackStackEntry1?.destination?.route) {
@@ -64,39 +64,22 @@ fun BottomNavBar(navController: NavController) {
         enter = slideInVertically(initialOffsetY = { it }),
 //        exit = slideOutVertically(targetOffsetY = { it }),
         exit = fadeOut(animationSpec = tween(durationMillis = 0, delayMillis = 0)),
-        ) {
-        BottomNavigation(
-            backgroundColor = colorResource(id = R.color.app_bar_background),
-            contentColor = Color.White,
-            modifier = Modifier.height(60.dp)
-        ) {
-            val navBackStackEntry by navController.currentBackStackEntryAsState()
-            val currentRoute = navBackStackEntry?.destination?.route
-
-            items.forEach { item ->
-                BottomNavigationItem(
+    ) {
+        NavigationBar(modifier = Modifier.height(76.dp)) {
+            items.forEachIndexed { index, item ->
+                NavigationBarItem(
                     icon = {
                         Icon(
                             painterResource(id = item.icon),
-                            contentDescription = item.title,
-                            modifier = Modifier
-                                .size(30.dp)
+                            contentDescription = item.title
                         )
                     },
-                    label = {
-                        Text(
-                            text = item.title,
-                            fontSize = 14.sp
-                        )
-                    },
-                    selectedContentColor = Color.White,
-                    unselectedContentColor = Color.White.copy(0.4f),
-                    alwaysShowLabel = true,
-                    selected = currentRoute == item.screenRoute,
+                    label = { Text(item.title) },
+                    selected = selectedItem == index,
                     onClick = {
+                        selectedItem = index
                         viewModel.screenTitle = item.title
                         navController.navigate(item.screenRoute) {
-
                             navController.graph.startDestinationRoute?.let { screenRoute ->
                                 popUpTo(screenRoute) {
                                     saveState = true
@@ -108,7 +91,6 @@ fun BottomNavBar(navController: NavController) {
                     }
                 )
             }
-
         }
     }
 }

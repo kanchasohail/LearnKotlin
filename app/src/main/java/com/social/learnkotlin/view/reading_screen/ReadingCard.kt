@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.social.learnkotlin.R
-import com.social.learnkotlin.ui.common_views.DefaultFontText
+import com.social.learnkotlin.ui.layout.DefaultFontText
 
 @Composable
 fun ReadingCard(modifier: Modifier = Modifier) {

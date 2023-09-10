@@ -6,6 +6,15 @@ import androidx.compose.ui.graphics.Color
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)
+val cyanColor = Color(0xFF10FFCB)
+val crownColor = Color(0xFFFFB442)
+val chipColor = Color(0xFF567A80)
+val gradientEndGreen  = Color(0xFF122E13)
+val lightPrimaryColor = Color(0xFF06535E)
+
+
+
+val darkPrimaryColor = Color(0xFF001514)
 
 val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)

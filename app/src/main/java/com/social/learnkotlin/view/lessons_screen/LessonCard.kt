@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,8 +29,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.social.learnkotlin.R
-import com.social.learnkotlin.ui.common_views.DefaultFontText
+import com.social.learnkotlin.ui.layout.DefaultFontText
 import com.social.learnkotlin.ui.common_views.LessonIconWithProgressRing
+import com.social.learnkotlin.ui.theme.chipColor
 
 
 @Composable
@@ -46,7 +48,7 @@ fun LessonCard(
             .padding(8.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
-            .background(colorResource(id = R.color.app_bar_background))
+            .background(MaterialTheme.colorScheme.primary)
     ) {
         Box(
             modifier = Modifier
@@ -112,7 +114,7 @@ fun LessonCard(
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
                     .background(
-                        colorResource(id = R.color.chip_color)
+                        chipColor
                     )
                     .padding(horizontal = 7.dp, vertical = 2.dp)
             ) {
