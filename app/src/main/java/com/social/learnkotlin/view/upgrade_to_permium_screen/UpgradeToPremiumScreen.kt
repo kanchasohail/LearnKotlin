@@ -12,13 +12,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,11 +27,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -49,7 +49,6 @@ import com.social.learnkotlin.R
 import com.social.learnkotlin.ui.common_views.bottomBorder
 import com.social.learnkotlin.ui.layout.DefaultFontText
 import com.social.learnkotlin.ui.layout.MyButton
-import com.social.learnkotlin.ui.layout.scaffoldGradientBg
 import com.social.learnkotlin.ui.theme.RubikFontFamily
 import com.social.learnkotlin.ui.theme.crownColor
 
@@ -57,6 +56,8 @@ import com.social.learnkotlin.ui.theme.crownColor
 @Composable
 fun UpgradeToPremiumScreen(navController: NavController) {
     val viewModel = viewModel<UpgradeToPremiumViewModel>()
+    val contentColor = MaterialTheme.colorScheme.onBackground
+    val primaryColor = MaterialTheme.colorScheme.primary
 
     Scaffold(
         topBar = {
@@ -68,25 +69,23 @@ fun UpgradeToPremiumScreen(navController: NavController) {
                         tint = crownColor,
                         modifier = Modifier
                             .size(38.dp)
-                            .padding(bottom = 3.dp , start = 5.dp)
+                            .padding(bottom = 3.dp, start = 5.dp)
                     )
                 },
                 title = {
-                    DefaultFontText(text = "Premium", fontSize = 30.sp, color = Color.White)
+                    DefaultFontText(text = "Premium", fontSize = 30.sp, color = contentColor)
                 },
                 actions = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             imageVector = Icons.Rounded.Close,
                             contentDescription = "close",
-                            tint = Color.White,
+                            tint = contentColor,
                             modifier = Modifier.size(30.dp)
                         )
                     }
                 },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                )
+                modifier = Modifier.shadow(6.dp)
             )
         },
 
@@ -100,9 +99,6 @@ fun UpgradeToPremiumScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(
-                    scaffoldGradientBg()
-                )
                 .verticalScroll(rememberScrollState())
         ) {
             Spacer(modifier = Modifier.padding(top = 10.dp))
@@ -111,7 +107,7 @@ fun UpgradeToPremiumScreen(navController: NavController) {
                 text = buildAnnotatedString {
                     append("Get Premium for just")
 
-                    withStyle(style = SpanStyle(color = Color.Cyan)) {
+                    withStyle(style = SpanStyle(color = primaryColor)) {
                         append("\n2.99$")
                     }
                 },
@@ -120,22 +116,20 @@ fun UpgradeToPremiumScreen(navController: NavController) {
                     lineHeight = 40.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center,
-                    color = Color.White,
+                    color = contentColor,
                     fontFamily = RubikFontFamily
                 ),
                 modifier = Modifier.fillMaxWidth()
 
             )
 
-            FeaturesListCard(
-                modifier = Modifier
-                    .padding(top = 10.dp)
-                    .padding(8.dp),
-            )
+            FeaturesListCard()
             Spacer(modifier = Modifier.weight(1f))
             MyButton(
                 buttonText = "Get Premium",
-                modifier = Modifier.padding(start = 10.dp, end = 10.dp, bottom = 10.dp)
+                buttonTextColor = MaterialTheme.colorScheme.onPrimary,
+                buttonColor = primaryColor,
+                modifier = Modifier.padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
             ) {
 
             }
@@ -148,77 +142,86 @@ fun UpgradeToPremiumScreen(navController: NavController) {
 fun FeaturesListCard(
     modifier: Modifier = Modifier,
 ) {
-    val internalBgColor = Color(0xFF0E1852)
-    val externalBgColor = Color(0xFF3C4CA3)
+    val internalBgColor = MaterialTheme.colorScheme.secondary.copy(0.25f)
+    val externalBgColor = MaterialTheme.colorScheme.primary.copy(0.2f)
 
-    Column(
+    Card(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp))
-            .background(Color(0xFF0E1852))
-            .padding(start = 8.dp)
+            .padding(top = 10.dp)
+            .padding(8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+        )
     ) {
 
-        Row(
-            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp)
         ) {
-            Box(
-                modifier = Modifier
-                    .width(80.dp)
-                    .background(
-                        internalBgColor
-                    ), contentAlignment = Alignment.Center
+            Row(
+                modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End
             ) {
-                TopModeText(title = "Basic")
+                Box(
+                    modifier = Modifier
+                        .width(80.dp)
+                        .background(
+                            internalBgColor
+                        ), contentAlignment = Alignment.Center
+                ) {
+                    TopModeText(title = "Basic")
+                }
+                Box(
+                    modifier = Modifier
+                        .width(80.dp)
+                        .background(
+                            externalBgColor
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    TopModeText(title = "Pro")
+                }
             }
-            Box(
-                modifier = Modifier
-                    .width(80.dp)
-                    .background(
-                        externalBgColor
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                TopModeText(title = "Pro")
-            }
+
+            BenefitListItem(
+                title = "Read any lesson",
+                isLocked = false,
+                internalBgColor = internalBgColor,
+                externalBgColor = externalBgColor
+            )
+            BenefitListItem(
+                title = "Coding playground practice",
+                isLocked = false,
+                internalBgColor = internalBgColor,
+                externalBgColor = externalBgColor
+            )
+            BenefitListItem(
+                title = "Certificate",
+                isLocked = false,
+                internalBgColor = internalBgColor,
+                externalBgColor = externalBgColor
+            )
+            BenefitListItem(
+                title = "Premium Certificate",
+                internalBgColor = internalBgColor,
+                externalBgColor = externalBgColor
+            )
+            BenefitListItem(
+                title = "No Advertisements",
+                internalBgColor = internalBgColor,
+                externalBgColor = externalBgColor
+            )
+            BenefitListItem(
+                title = "Take Quizzes Offline",
+                isLastItem = true,
+                internalBgColor = internalBgColor,
+                externalBgColor = externalBgColor
+            )
+
         }
-
-        BenefitListItem(
-            title = "Read any lesson",
-            isLocked = false,
-            internalBgColor = internalBgColor,
-            externalBgColor = externalBgColor
-        )
-        BenefitListItem(
-            title = "Coding playground practice",
-            isLocked = false,
-            internalBgColor = internalBgColor,
-            externalBgColor = externalBgColor
-        )
-        BenefitListItem(
-            title = "Certificate",
-            isLocked = false,
-            internalBgColor = internalBgColor,
-            externalBgColor = externalBgColor
-        )
-        BenefitListItem(
-            title = "Premium Certificate",
-            internalBgColor = internalBgColor,
-            externalBgColor = externalBgColor
-        )
-        BenefitListItem(
-            title = "No Advertisements",
-            internalBgColor = internalBgColor,
-            externalBgColor = externalBgColor
-        )
-        BenefitListItem(
-            title = "Take Quizzes Offline",
-            isLastItem = true,
-            internalBgColor = internalBgColor,
-            externalBgColor = externalBgColor
-        )
-
     }
+
 }
 
 @Composable
@@ -261,7 +264,7 @@ private fun BenefitListItem(
             DefaultFontText(
                 text = title,
                 fontSize = 18.sp,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier.fillMaxWidth(0.7f)
             )
             if (isLocked) IconBox(
@@ -279,7 +282,7 @@ private fun IconBox(
     modifier: Modifier = Modifier,
     boxSize: Dp = 80.dp,
     icon: ImageVector = Icons.Rounded.CheckCircle,
-    iconColor: Color = Color.Cyan,
+    iconColor: Color = MaterialTheme.colorScheme.primary,
     backGroundColor: Color
 ) {
     Box(

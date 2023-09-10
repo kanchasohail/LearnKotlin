@@ -1,6 +1,5 @@
 package com.social.learnkotlin.view.report_problem_screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,13 +19,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
@@ -37,14 +36,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.social.learnkotlin.ui.layout.DefaultFontText
 import com.social.learnkotlin.ui.layout.MyButton
-import com.social.learnkotlin.ui.layout.scaffoldGradientBg
-import com.social.learnkotlin.ui.theme.cyanColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
     val viewModel = viewModel<ReportProblemViewModel>()
     val context = LocalContext.current
+    val primaryColor = MaterialTheme.colorScheme.primary
 
     Scaffold(
         topBar = {
@@ -54,7 +52,6 @@ fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
                         Icon(
                             imageVector = Icons.Rounded.ArrowBack,
                             contentDescription = "Back",
-                            tint = Color.White
                         )
                     }
                 },
@@ -62,7 +59,6 @@ fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
                     DefaultFontText(
                         text = "Report a problem",
                         fontSize = 23.sp,
-                        color = Color.White,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -71,9 +67,7 @@ fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
                     IconButton(onClick = { /*TODO*/ }) {
                     }
                 },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                )
+                modifier = Modifier.shadow(6.dp)
             )
         },
         bottomBar = {
@@ -86,7 +80,6 @@ fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(scaffoldGradientBg())
                 .padding(paddingValues)
                 .imePadding()
                 .padding(12.dp),
@@ -95,7 +88,7 @@ fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
 
             DefaultFontText(
                 text = "Share more details below",
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 18.sp
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -107,24 +100,26 @@ fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
                     DefaultFontText(
                         text = "Type here...",
                         fontSize = 20.sp,
-                        color = Color.White
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
                     )
                 },
                 colors = textFieldColors(
-                    cursorColor = MaterialTheme.colorScheme.primary,
-                    focusedIndicatorColor = MaterialTheme.colorScheme.primary
+                    cursorColor = primaryColor,
+                    focusedIndicatorColor = primaryColor,
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    textColor = MaterialTheme.colorScheme.onSecondaryContainer
                 ),
-                textStyle = TextStyle(fontSize = 20.sp, color = Color.White),
+                textStyle = TextStyle(fontSize = 20.sp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(280.dp)
-                    .background(MaterialTheme.colorScheme.primary)
             )
             Spacer(modifier = Modifier.weight(1f))
 
             MyButton(
                 buttonText = "Submit",
-                buttonColor = if (reportMessage.isEmpty()) Color.Gray else cyanColor
+                buttonTextColor = MaterialTheme.colorScheme.onPrimary,
+                buttonColor = if (reportMessage.isEmpty()) Color.Gray else primaryColor
             ) {
                 if (reportMessage.isNotEmpty()) {
                     viewModel.submitReport(selectedIssue, reportMessage, navController, context)

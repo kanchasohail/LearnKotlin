@@ -1,8 +1,6 @@
 package com.social.learnkotlin.view.lessons_screen
 
 import android.widget.Toast
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -15,7 +13,6 @@ import androidx.navigation.NavController
 import com.social.learnkotlin.model.static_data.AllLessons
 import com.social.learnkotlin.navigation.PressBackAgainToExit
 import com.social.learnkotlin.navigation.Screens
-import com.social.learnkotlin.ui.layout.scaffoldGradientBg
 
 @Composable
 fun LessonsScreen(navController: NavController) {
@@ -28,21 +25,18 @@ fun LessonsScreen(navController: NavController) {
 
     LazyColumn(
         modifier = Modifier
-            .fillMaxSize()
-            .background(
-                scaffoldGradientBg()
-            ),
+            .fillMaxSize(),
         state = lazyListState
     ) {
         items(AllLessons.lessonsList.size) { index: Int ->
             val name = AllLessons.lessonsList[index]
             LessonCard(
                 lessonName = name,
-                descriptionText = name,
+                descriptionText = name.plus(" This is a short description of this lesson"),
                 pagesCount = index,
                 isOnGoing = onGoingLessonIndex == index,
                 isCompleted = onGoingLessonIndex > index,
-                modifier = Modifier.clickable {
+                onClick = {
                     if (index > onGoingLessonIndex) {
                         Toast.makeText(
                             context,
@@ -52,7 +46,7 @@ fun LessonsScreen(navController: NavController) {
                     } else {
                         navController.navigate(Screens.ReadingScreen.withArgs(index.toString()))
                     }
-                }
+                },
             )
         }
 

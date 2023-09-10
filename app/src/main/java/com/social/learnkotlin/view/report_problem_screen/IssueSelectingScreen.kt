@@ -1,6 +1,5 @@
 package com.social.learnkotlin.view.report_problem_screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,12 +17,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,9 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.social.learnkotlin.R
 import com.social.learnkotlin.ui.layout.DefaultFontText
-import com.social.learnkotlin.ui.layout.scaffoldGradientBg
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showSystemUi = true)
@@ -49,7 +45,6 @@ fun IssueSelectingScreen(navController: NavController = rememberNavController())
                         Icon(
                             imageVector = Icons.Rounded.ArrowBack,
                             contentDescription = "Back",
-                            tint = Color.White
                         )
                     }
                 },
@@ -57,7 +52,6 @@ fun IssueSelectingScreen(navController: NavController = rememberNavController())
                     DefaultFontText(
                         text = "Report a problem",
                         fontSize = 23.sp,
-                        color = Color.White,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -67,16 +61,13 @@ fun IssueSelectingScreen(navController: NavController = rememberNavController())
 
                     }
                 },
-                colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                )
+                modifier = Modifier.shadow(6.dp)
             )
         }
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(scaffoldGradientBg())
                 .padding(paddingValues)
                 .padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -89,12 +80,13 @@ fun IssueSelectingScreen(navController: NavController = rememberNavController())
 
 @Composable
 private fun IssueSelectingCard(viewModel: ReportProblemViewModel, navController: NavController) {
+    val textColor = MaterialTheme.colorScheme.onBackground
     DefaultFontText(
         text = "What do you want to share with us?",
         fontSize = 30.sp,
         lineHeight = 40.sp,
         textAlign = TextAlign.Center,
-        color = Color.White
+        color = textColor
     )
     Spacer(modifier = Modifier.height(5.dp))
     ReportTileItem(
@@ -141,7 +133,7 @@ private fun IssueSelectingCard(viewModel: ReportProblemViewModel, navController:
 private fun ReportTileItem(
     text: String,
     modifier: Modifier = Modifier,
-    buttonColor: Color = Color.White,
+    buttonColor: Color = MaterialTheme.colorScheme.secondaryContainer,
     onClick: () -> Unit
 ) {
     Button(
@@ -156,7 +148,7 @@ private fun ReportTileItem(
             text = text,
             fontSize = 16.sp,
             fontWeight = FontWeight.W500,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
             modifier = Modifier.padding(vertical = 3.dp)
         )
     }

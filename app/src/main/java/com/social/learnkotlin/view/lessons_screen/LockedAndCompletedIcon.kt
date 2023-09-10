@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun LockedAndCompletedIcon(
     modifier: Modifier = Modifier,
-    radius: Dp = 30.dp,
+    radius: Dp = 24.dp,
     isLocked: Boolean = true
 ) {
     val iconBgColor: Color = if (isLocked) Color.Gray else Color.Green

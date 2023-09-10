@@ -1,6 +1,5 @@
 package com.social.learnkotlin.view.codes_screen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,13 +9,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.MoreVert
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,7 +28,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.social.learnkotlin.navigation.Screens
 import com.social.learnkotlin.ui.layout.DefaultFontText
-import com.social.learnkotlin.ui.layout.scaffoldGradientBg
 
 @Preview(showSystemUi = true)
 @Composable
@@ -38,11 +36,10 @@ fun CodesScreen(navController: NavController = rememberNavController()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(scaffoldGradientBg())
     ) {
         LazyColumn {
             items(22) {
-                CodeFileItem(modifier = Modifier.clickable {
+                CodeFileItem(onClick = {
                     navController.navigate(Screens.EditorScreen.route)
                 })
             }
@@ -51,15 +48,22 @@ fun CodesScreen(navController: NavController = rememberNavController()) {
 }
 
 @Composable
-fun CodeFileItem(modifier: Modifier = Modifier) {
+fun CodeFileItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    val contentColor = MaterialTheme.colorScheme.onSecondaryContainer
 
     Card(
         modifier = modifier
             .padding(8.dp)
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp)),
+            .clip(CardDefaults.shape)
+            .clickable {
+                onClick()
+            },
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
+        ),
         elevation = CardDefaults.cardElevation(
-            8.dp
+            4.dp
         )
     ) {
         Column(

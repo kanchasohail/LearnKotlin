@@ -14,6 +14,7 @@ import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -72,7 +73,7 @@ fun UserNameSection(
                     maxLines = 1,
                     textStyle = TextStyle(
                         fontSize = 22.sp,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.SemiBold,
                         fontFamily = RubikFontFamily
                     ),
@@ -94,7 +95,7 @@ fun UserNameSection(
                 DefaultFontText(
                     text = viewModel.userName,
                     fontSize = 22.sp,
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onSurface,
                     fontWeight = FontWeight.SemiBold
                 )
             }

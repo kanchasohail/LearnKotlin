@@ -31,14 +31,14 @@ fun BottomNavBar(navController: NavController) {
         BottomNavItem.CodesScreen,
         BottomNavItem.ProfileScreen
     )
-
     val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
 
     val navBackStackEntry1 by navController.currentBackStackEntryAsState()
 
     val viewModel = viewModel<BottomNavigationViewModel>()
 
-    var selectedItem by remember { mutableIntStateOf(0) }
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
 
     when (navBackStackEntry1?.destination?.route) {
@@ -62,22 +62,24 @@ fun BottomNavBar(navController: NavController) {
     AnimatedVisibility(
         visible = bottomBarState.value,
         enter = slideInVertically(initialOffsetY = { it }),
-//        exit = slideOutVertically(targetOffsetY = { it }),
         exit = fadeOut(animationSpec = tween(durationMillis = 0, delayMillis = 0)),
     ) {
-        NavigationBar(modifier = Modifier.height(76.dp)) {
+        NavigationBar(
+            modifier = Modifier.height(76.dp),
+        ) {
             items.forEachIndexed { index, item ->
                 NavigationBarItem(
                     icon = {
                         Icon(
                             painterResource(id = item.icon),
-                            contentDescription = item.title
+                            contentDescription = item.title,
                         )
                     },
-                    label = { Text(item.title) },
-                    selected = selectedItem == index,
+                    label = {
+                        Text(item.title)
+                    },
+                    selected = currentRoute == item.screenRoute,
                     onClick = {
-                        selectedItem = index
                         viewModel.screenTitle = item.title
                         navController.navigate(item.screenRoute) {
                             navController.graph.startDestinationRoute?.let { screenRoute ->

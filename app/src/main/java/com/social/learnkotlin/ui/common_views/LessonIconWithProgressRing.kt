@@ -31,13 +31,13 @@ import com.social.learnkotlin.R
 @Composable
 fun LessonIconWithProgressRing(
     percentage: Float,
-    radius: Dp = 30.dp,
+    radius: Dp = 24.dp,
     strokeColor: Color = Color.Green,
     iconBgColor: Color = Color.Cyan,
-    strokeWidth: Dp = 4.5.dp,
-    animDuration: Int = 1000,
+    strokeWidth: Dp = 4.dp,
+    animDuration: Int = 800,
     animDelay: Int = 0,
-    icon:Int =  R.drawable.ic_kotlin_icon,
+    icon:Int =  R.drawable.ic_more_horizontal,
 ) {
     var animationPlayed by remember { mutableStateOf(false) }
     val currentPercentage =
@@ -92,7 +92,7 @@ fun LessonIconWithProgressRing(
                 Icon(
                     painter = painterResource(id = icon),
                     contentDescription = "lesson icon",
-                    modifier = Modifier.fillMaxSize(.85f).padding(8.dp)
+                    modifier = Modifier.fillMaxSize().padding(8.dp)
                 )
             }
         }

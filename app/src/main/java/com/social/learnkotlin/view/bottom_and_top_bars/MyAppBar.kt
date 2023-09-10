@@ -4,7 +4,6 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -20,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -42,8 +42,6 @@ fun MyAppBar(
 
     val appBarState = rememberSaveable { (mutableStateOf(true)) }
     val navBackStackEntry1 by navController.currentBackStackEntryAsState()
-    val isDarkMode = isSystemInDarkTheme()
-
 
     when (navBackStackEntry1?.destination?.route) {
         Screens.LessonsScreen.route -> {
@@ -73,26 +71,23 @@ fun MyAppBar(
             title = {
                 DefaultFontText(
                     text = titleText,
-                    color = Color.White,
                     style = MaterialTheme.typography.titleLarge
                 )
             },
             actions = {
-                AssistChip(onClick = onChipClick, label = { Text(text = chipText) }, leadingIcon = {
-                    Icon(
-                        painterResource(id = chipIcon),
-                        contentDescription = null,
-                        tint = crownColor,
-                        modifier = Modifier
-                            .size(20.dp)
-                            .padding(bottom = 2.dp)
-                    )
-                })
+                AssistChip(
+                    onClick = onChipClick, label = { Text(text = chipText) }, leadingIcon = {
+                        Icon(
+                            painterResource(id = chipIcon),
+                            contentDescription = null,
+                            tint = crownColor,
+                            modifier = Modifier
+                                .size(20.dp)
+                                .padding(bottom = 2.dp)
+                        )
+                    }, modifier = Modifier.padding(end = 8.dp))
             },
-            modifier = Modifier.statusBarsPadding(),
-            colors = TopAppBarDefaults.smallTopAppBarColors(
-                containerColor = if (isDarkMode) MaterialTheme.colorScheme.surface else MaterialTheme.colorScheme.primary
-            ),
+            modifier = Modifier.statusBarsPadding().shadow(elevation = 6.dp),
         )
     }
 }

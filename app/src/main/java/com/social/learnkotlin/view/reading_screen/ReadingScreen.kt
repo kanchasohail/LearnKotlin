@@ -1,7 +1,6 @@
 package com.social.learnkotlin.view.reading_screen
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
@@ -40,7 +40,6 @@ import androidx.navigation.NavController
 import com.social.learnkotlin.model.static_data.AllLessons
 import com.social.learnkotlin.ui.layout.DefaultFontText
 import com.social.learnkotlin.ui.layout.MyButton
-import com.social.learnkotlin.ui.layout.scaffoldGradientBg
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,6 +59,8 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
 
     val thisLesson = AllLessons.lessonsList[lessonIndex ?: 0]
 
+    val appBarContentColor = MaterialTheme.colorScheme.onBackground
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -68,7 +69,6 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                         Icon(
                             imageVector = Icons.Rounded.ArrowBack,
                             contentDescription = "Back",
-                            tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
                 },
@@ -82,7 +82,6 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                     ) {
                         DefaultFontText(
                             text = thisLesson,
-                            color = MaterialTheme.colorScheme.onPrimary,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold
                         )
@@ -98,20 +97,21 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                         Icon(
                             imageVector = Icons.Rounded.Close,
                             contentDescription = "Back",
-                            tint = Color.White
                         )
                     }
                 },
                 colors = TopAppBarDefaults.smallTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary
-                )
+                    titleContentColor = appBarContentColor,
+                    actionIconContentColor = appBarContentColor,
+                    navigationIconContentColor = appBarContentColor
+                ),
+                modifier = Modifier.shadow(6.dp)
             )
         },
         bottomBar = {
             BottomAppBar(
                 modifier = Modifier
                     .height(70.dp)
-                    .background(scaffoldGradientBg())
             ) {
                 BottomButtons {
                     viewModel.onNextClick()
@@ -131,9 +131,6 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(
-                    scaffoldGradientBg()
-                )
                 .verticalScroll(scrollState),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -151,6 +148,7 @@ private fun LessonsCountBar(
     completedLessons: Int,
     strokeWidth: Float = 8f
 ) {
+    val primaryColor = MaterialTheme.colorScheme.primary
     Row(modifier = modifier.fillMaxWidth(0.8f)) {
 
         val totalLength = (dashCount * 2 - 1).toFloat()
@@ -166,7 +164,7 @@ private fun LessonsCountBar(
 
             while (currentX < endX) {
                 drawLine(
-                    color = if (currentBarNo <= completedLessons) Color.Cyan else Color.Black,
+                    color = if (currentBarNo <= completedLessons) primaryColor else Color.Black,
                     start = Offset(currentX, startY),
                     end = Offset(currentX + (size.width / totalLength), startY),
                     strokeWidth = strokeWidth,

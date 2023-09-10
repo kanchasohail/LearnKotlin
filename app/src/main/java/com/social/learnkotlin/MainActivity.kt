@@ -40,7 +40,6 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
 
                     Scaffold(
-                        containerColor = gradientEndGreen,
                         topBar = {
                             MyAppBar(
                                 titleText = bottomNavViewModel.screenTitle,
