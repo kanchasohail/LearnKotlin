@@ -1,39 +1,30 @@
 package com.social.learnkotlin.view.lessons_screen
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.social.learnkotlin.R
-import com.social.learnkotlin.ui.layout.DefaultFontText
 import com.social.learnkotlin.ui.common_views.LessonIconWithProgressRing
-import com.social.learnkotlin.ui.theme.chipColor
+import com.social.learnkotlin.ui.layout.DefaultFontText
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LessonCard(
     modifier: Modifier = Modifier,
@@ -41,91 +32,63 @@ fun LessonCard(
     descriptionText: String,
     pagesCount: Int,
     isCompleted: Boolean = false,
-    isOnGoing: Boolean = false
+    isOnGoing: Boolean = false,
+    onClick: () -> Unit
 ) {
-    Column(
+
+    val contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+    Card(
         modifier = modifier
-            .padding(8.dp)
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colorScheme.primary)
+            .padding(8.dp)
+            .clip(CardDefaults.shape)
+            .clickable {
+                onClick()
+            },
+        elevation = CardDefaults.elevatedCardElevation(
+            4.dp
+        ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer
+        )
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(100.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .then(Modifier.graphicsLayer(alpha = 0.5f))
-                    .background(
-                        Brush.linearGradient(
-                            listOf(
-                                Color.Black,
-                                Color.Green
-                            )
-                        )
-                    )
-                    .paint(
-                        painter = painterResource(id = R.drawable.kotlin_bg),
-                        contentScale = ContentScale.FillBounds
-                    )
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp), contentAlignment = Alignment.CenterStart
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    if (isCompleted) {
-                        LockedAndCompletedIcon(isLocked = false)
-                    } else if (isOnGoing) {
-                        LessonIconWithProgressRing(percentage = 0.7f)
-                    } else {
-                        LockedAndCompletedIcon()
-                    }
-                    Spacer(modifier = Modifier.width(20.dp))
-                    DefaultFontText(
-                        text = lessonName,
-                        fontSize = 32.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
-                }
-
-            }
-        }
-
-        Column(Modifier.padding(16.dp)) {
-            DefaultFontText(
-                text = lessonName,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color.White
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-
-            DefaultFontText(text = descriptionText, color = Color.White)
-            Spacer(modifier = Modifier.height(10.dp))
-
+        Column {
             Row(
-                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(
-                        chipColor
-                    )
-                    .padding(horizontal = 7.dp, vertical = 2.dp)
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_pages_icon),
-                    contentDescription = "time",
-                    tint = Color.White,
-                    modifier = Modifier.size(14.dp)
+                DefaultFontText(
+                    text = lessonName,
+                    fontSize = 26.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = contentColor
                 )
-                Spacer(modifier = Modifier.width(3.dp))
-                DefaultFontText(text = "$pagesCount pages", color = Color.White)
+
+                if (isCompleted) {
+                    LockedAndCompletedIcon(isLocked = false)
+                } else if (isOnGoing) {
+                    LessonIconWithProgressRing(percentage = 0.7f)
+                } else {
+                    LockedAndCompletedIcon()
+                }
+            }
+
+
+            Column(Modifier.padding(start = 12.dp, bottom = 12.dp)) {
+                DefaultFontText(
+                    text = descriptionText,
+                    color = contentColor,
+                    modifier = Modifier.fillMaxWidth(.82f)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+
+                AssistChip(
+                    onClick = { /*TODO*/ },
+                    label = { DefaultFontText(text = "$pagesCount pages") })
+
             }
         }
     }

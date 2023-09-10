@@ -41,7 +41,7 @@ fun ProfileStatsSection(modifier: Modifier = Modifier, navController: NavControl
             .padding(8.dp)
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(
-            8.dp
+            6.dp
         )
     ) {
         Column(
@@ -58,7 +58,8 @@ fun ProfileStatsSection(modifier: Modifier = Modifier, navController: NavControl
 
             LinearProgressIndicator(
                 progress = .3f,
-                trackColor = MaterialTheme.colorScheme.surface,
+                trackColor = MaterialTheme.colorScheme.secondaryContainer,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .padding(8.dp)
                     .fillMaxWidth()
