@@ -19,6 +19,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.social.learnkotlin.navigation.Screens
 import com.social.learnkotlin.ui.theme.LearnKotlinTheme
+import com.social.learnkotlin.ui.theme.gradientEndGreen
 import com.social.learnkotlin.view.bottom_and_top_bars.BottomNavBar
 import com.social.learnkotlin.view.bottom_and_top_bars.BottomNavigationViewModel
 import com.social.learnkotlin.view.bottom_and_top_bars.MyAppBar
@@ -27,7 +28,6 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
 
         setContent {
             val bottomNavViewModel = viewModel<BottomNavigationViewModel>()
@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
 
                     Scaffold(
-                        containerColor = colorResource(id = R.color.gradient_end_bg),
+                        containerColor = gradientEndGreen,
                         topBar = {
                             MyAppBar(
                                 titleText = bottomNavViewModel.screenTitle,

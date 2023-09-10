@@ -15,7 +15,7 @@ import androidx.navigation.NavController
 import com.social.learnkotlin.model.static_data.AllLessons
 import com.social.learnkotlin.navigation.PressBackAgainToExit
 import com.social.learnkotlin.navigation.Screens
-import com.social.learnkotlin.ui.common_views.scaffoldGradientBg
+import com.social.learnkotlin.ui.layout.scaffoldGradientBg
 
 @Composable
 fun LessonsScreen(navController: NavController) {
@@ -46,7 +46,7 @@ fun LessonsScreen(navController: NavController) {
                     if (index > onGoingLessonIndex) {
                         Toast.makeText(
                             context,
-                            "Please completed previous lessons first",
+                            "Please complete the previous lessons!` ",
                             Toast.LENGTH_LONG
                         ).show()
                     } else {

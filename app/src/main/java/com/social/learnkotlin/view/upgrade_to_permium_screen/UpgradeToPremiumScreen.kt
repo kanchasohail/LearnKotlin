@@ -14,23 +14,25 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Lock
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -44,12 +46,14 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.social.learnkotlin.R
-import com.social.learnkotlin.ui.common_views.DefaultFontText
-import com.social.learnkotlin.ui.common_views.MyButton
 import com.social.learnkotlin.ui.common_views.bottomBorder
-import com.social.learnkotlin.ui.common_views.scaffoldGradientBg
+import com.social.learnkotlin.ui.layout.DefaultFontText
+import com.social.learnkotlin.ui.layout.MyButton
+import com.social.learnkotlin.ui.layout.scaffoldGradientBg
 import com.social.learnkotlin.ui.theme.RubikFontFamily
+import com.social.learnkotlin.ui.theme.crownColor
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UpgradeToPremiumScreen(navController: NavController) {
     val viewModel = viewModel<UpgradeToPremiumViewModel>()
@@ -57,14 +61,17 @@ fun UpgradeToPremiumScreen(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
-                backgroundColor = colorResource(id = R.color.app_bar_background),
-                title = {
+                navigationIcon = {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_crown_img),
                         contentDescription = "pro",
-                        tint = colorResource(id = R.color.crown_color),
-                        modifier = Modifier.size(34.dp)
+                        tint = crownColor,
+                        modifier = Modifier
+                            .size(38.dp)
+                            .padding(bottom = 3.dp , start = 5.dp)
                     )
+                },
+                title = {
                     DefaultFontText(text = "Premium", fontSize = 30.sp, color = Color.White)
                 },
                 actions = {
@@ -77,6 +84,9 @@ fun UpgradeToPremiumScreen(navController: NavController) {
                         )
                     }
                 },
+                colors = TopAppBarDefaults.smallTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                )
             )
         },
 

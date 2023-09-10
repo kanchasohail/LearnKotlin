@@ -8,15 +8,4 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-
-    <color name="cyan_color">#10FFCB</color>
-
-
-    <color name="app_bar_background">#06535E</color>
-    <color name="gradient_end_bg">#122E13</color>
-    <color name="button_color">#10FFCB</color>
-    <color name="text_field_bg_color">#181E2A</color>
-    <color name="chip_color">#567A80</color>
-    <color name="crown_color">#FFB442</color>
-
 </resources>

@@ -9,41 +9,38 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ExposedDropdownMenuDefaults.textFieldColors
-import androidx.compose.material.IconButton
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.TextField
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuDefaults.textFieldColors
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.social.learnkotlin.R
-import com.social.learnkotlin.ui.common_views.DefaultFontText
-import com.social.learnkotlin.ui.common_views.MyButton
-import com.social.learnkotlin.ui.common_views.scaffoldGradientBg
+import com.social.learnkotlin.ui.layout.DefaultFontText
+import com.social.learnkotlin.ui.layout.MyButton
+import com.social.learnkotlin.ui.layout.scaffoldGradientBg
+import com.social.learnkotlin.ui.theme.cyanColor
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
     val viewModel = viewModel<ReportProblemViewModel>()
@@ -51,7 +48,7 @@ fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
 
     Scaffold(
         topBar = {
-            TopAppBar(backgroundColor = colorResource(id = R.color.app_bar_background),
+            TopAppBar(
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
@@ -73,7 +70,10 @@ fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
                 actions = {
                     IconButton(onClick = { /*TODO*/ }) {
                     }
-                }
+                },
+                colors = TopAppBarDefaults.smallTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                )
             )
         },
         bottomBar = {
@@ -111,20 +111,20 @@ fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
                     )
                 },
                 colors = textFieldColors(
-                    cursorColor = colorResource(id = R.color.app_bar_background),
-                    focusedIndicatorColor = colorResource(id = R.color.app_bar_background)
+                    cursorColor = MaterialTheme.colorScheme.primary,
+                    focusedIndicatorColor = MaterialTheme.colorScheme.primary
                 ),
                 textStyle = TextStyle(fontSize = 20.sp, color = Color.White),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(280.dp)
-                    .background(colorResource(id = R.color.text_field_bg_color))
+                    .background(MaterialTheme.colorScheme.primary)
             )
             Spacer(modifier = Modifier.weight(1f))
 
             MyButton(
                 buttonText = "Submit",
-                buttonColor = if (reportMessage.isEmpty()) Color.Gray else colorResource(id = R.color.button_color)
+                buttonColor = if (reportMessage.isEmpty()) Color.Gray else cyanColor
             ) {
                 if (reportMessage.isNotEmpty()) {
                     viewModel.submitReport(selectedIssue, reportMessage, navController, context)

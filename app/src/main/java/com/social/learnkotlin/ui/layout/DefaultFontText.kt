@@ -1,4 +1,4 @@
-package com.social.learnkotlin.ui.common_views
+package com.social.learnkotlin.ui.layout
 
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.material3.LocalContentColor

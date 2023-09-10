@@ -11,14 +11,17 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -27,7 +30,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,12 +37,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.social.learnkotlin.R
 import com.social.learnkotlin.model.static_data.AllLessons
-import com.social.learnkotlin.ui.common_views.DefaultFontText
-import com.social.learnkotlin.ui.common_views.MyButton
-import com.social.learnkotlin.ui.common_views.scaffoldGradientBg
+import com.social.learnkotlin.ui.layout.DefaultFontText
+import com.social.learnkotlin.ui.layout.MyButton
+import com.social.learnkotlin.ui.layout.scaffoldGradientBg
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
     val context = LocalContext.current
@@ -48,7 +50,10 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
     val viewModel = viewModel<ReadingScreenViewModel>(
         factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return ReadingScreenViewModel(context = context , onGoingLessonId = lessonIndex ?: 0) as T
+                return ReadingScreenViewModel(
+                    context = context,
+                    onGoingLessonId = lessonIndex ?: 0
+                ) as T
             }
         }
     )
@@ -63,7 +68,7 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                         Icon(
                             imageVector = Icons.Rounded.ArrowBack,
                             contentDescription = "Back",
-                            tint = Color.White
+                            tint = MaterialTheme.colorScheme.onPrimary
                         )
                     }
                 },
@@ -73,17 +78,18 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                         verticalArrangement = Arrangement.Center,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 8.dp , end = 12.dp)
+                            .padding(top = 8.dp, end = 12.dp)
                     ) {
                         DefaultFontText(
                             text = thisLesson,
-                            color = Color.White,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold
                         )
                         LessonsCountBar(
                             dashCount = viewModel.totalTopics,
-                            completedLessons = viewModel.completedTopics
+                            completedLessons = viewModel.completedTopics,
+                            modifier = Modifier.height(12.dp)
                         )
                     }
                 },
@@ -96,14 +102,13 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                         )
                     }
                 },
-                backgroundColor = colorResource(
-                    id = R.color.app_bar_background
+                colors = TopAppBarDefaults.smallTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primary
                 )
             )
         },
         bottomBar = {
             BottomAppBar(
-                backgroundColor = Color.Transparent,
                 modifier = Modifier
                     .height(70.dp)
                     .background(scaffoldGradientBg())
@@ -140,8 +145,13 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
 }
 
 @Composable
-private fun LessonsCountBar(dashCount: Int, completedLessons: Int, strokeWidth: Float = 8f) {
-    Row(modifier = Modifier.fillMaxWidth(0.8f)) {
+private fun LessonsCountBar(
+    modifier: Modifier = Modifier,
+    dashCount: Int,
+    completedLessons: Int,
+    strokeWidth: Float = 8f
+) {
+    Row(modifier = modifier.fillMaxWidth(0.8f)) {
 
         val totalLength = (dashCount * 2 - 1).toFloat()
 
