@@ -1,6 +1,7 @@
 package com.social.learnkotlin.view.profile_screen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,7 +21,9 @@ fun ProfileScreen(navController: NavController) {
         //TODO this profile picture section is creating a lot of performance issues
         ProfilePictureSection(viewModel = viewModel, context = context)
         UserNameSection(viewModel = viewModel, context = context)
-        ProfileStatsSection(navController = navController)
+        ProfileStatsSection()
+        AboutUsSection(navController = navController)
+        
     }
 
 }
