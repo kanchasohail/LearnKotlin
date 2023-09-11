@@ -1,6 +1,5 @@
 package com.social.learnkotlin
 
-import com.social.learnkotlin.navigation.NavigationGraph
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,13 +12,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
-import androidx.core.view.WindowCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.social.learnkotlin.navigation.NavigationGraph
 import com.social.learnkotlin.navigation.Screens
 import com.social.learnkotlin.ui.theme.LearnKotlinTheme
-import com.social.learnkotlin.ui.theme.gradientEndGreen
 import com.social.learnkotlin.view.bottom_and_top_bars.BottomNavBar
 import com.social.learnkotlin.view.bottom_and_top_bars.BottomNavigationViewModel
 import com.social.learnkotlin.view.bottom_and_top_bars.MyAppBar

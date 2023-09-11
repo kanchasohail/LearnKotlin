@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -32,8 +33,8 @@ import com.social.learnkotlin.R
 fun LessonIconWithProgressRing(
     percentage: Float,
     radius: Dp = 24.dp,
-    strokeColor: Color = Color.Green,
-    iconBgColor: Color = Color.Cyan,
+    strokeColor: Color = MaterialTheme.colorScheme.primary,
+    iconBgColor: Color = MaterialTheme.colorScheme.secondary,
     strokeWidth: Dp = 4.dp,
     animDuration: Int = 800,
     animDelay: Int = 0,
@@ -56,7 +57,7 @@ fun LessonIconWithProgressRing(
         Canvas(modifier = Modifier.size(radius * 2f)) {
 
             drawArc(
-                color = Color.Gray,
+                color = iconBgColor.copy(.5f),
                 startAngle = 0f,
                 sweepAngle = 360f,
                 useCenter = false,
@@ -92,7 +93,8 @@ fun LessonIconWithProgressRing(
                 Icon(
                     painter = painterResource(id = icon),
                     contentDescription = "lesson icon",
-                    modifier = Modifier.fillMaxSize().padding(8.dp)
+                    modifier = Modifier.fillMaxSize().padding(8.dp),
+                    tint = MaterialTheme.colorScheme.onPrimary
                 )
             }
         }

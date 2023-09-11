@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,34 +28,37 @@ fun LockedAndCompletedIcon(
     radius: Dp = 24.dp,
     isLocked: Boolean = true
 ) {
-    val iconBgColor: Color = if (isLocked) Color.Gray else Color.Green
+    val iconBgColor: Color =
+        if (isLocked) MaterialTheme.colorScheme.secondary.copy(.5f) else MaterialTheme.colorScheme.primary
+    Box(
+        modifier = Modifier
+            .size(radius * 2f)
+            .background(
+                Brush.radialGradient(
+                    listOf(
+                        iconBgColor,
+                        iconBgColor.copy(.5f),
+                        Color.Transparent
+                    )
+                ), shape = CircleShape
+            )
+            .clip(CircleShape),
+        contentAlignment = Alignment.Center
+    ) {
         Box(
-            modifier = Modifier.size(radius * 2f)
-                .background(
-                    Brush.radialGradient(
-                        listOf(
-                            iconBgColor,
-                            iconBgColor.copy(.5f),
-                            Color.Transparent
-                        )
-                    ), shape = CircleShape
-                )
-                .clip(CircleShape),
+            modifier = Modifier
+                .padding(4.dp)
+                .background(iconBgColor, shape = CircleShape),
             contentAlignment = Alignment.Center
         ) {
-            Box(
+            Icon(
+                imageVector = if (isLocked) Icons.Rounded.Lock else Icons.Rounded.CheckCircle,
+                contentDescription = "lesson icon",
                 modifier = Modifier
-                    .padding(4.dp)
-                    .background(iconBgColor, shape = CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = if (isLocked) Icons.Rounded.Lock else Icons.Rounded.CheckCircle,
-                    contentDescription = "lesson icon",
-                    modifier = Modifier
-                        .fillMaxSize(.85f)
-                        .padding(8.dp)
-                )
-            }
+                    .fillMaxSize(.85f)
+                    .padding(8.dp),
+                tint = MaterialTheme.colorScheme.onPrimary
+            )
         }
     }
+}

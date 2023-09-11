@@ -149,6 +149,7 @@ private fun LessonsCountBar(
     strokeWidth: Float = 8f
 ) {
     val primaryColor = MaterialTheme.colorScheme.primary
+    val secondaryColor = MaterialTheme.colorScheme.secondary.copy(.5f)
     Row(modifier = modifier.fillMaxWidth(0.8f)) {
 
         val totalLength = (dashCount * 2 - 1).toFloat()
@@ -164,7 +165,7 @@ private fun LessonsCountBar(
 
             while (currentX < endX) {
                 drawLine(
-                    color = if (currentBarNo <= completedLessons) primaryColor else Color.Black,
+                    color = if (currentBarNo <= completedLessons) primaryColor else secondaryColor,
                     start = Offset(currentX, startY),
                     end = Offset(currentX + (size.width / totalLength), startY),
                     strokeWidth = strokeWidth,
