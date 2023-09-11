@@ -49,8 +49,6 @@ fun CodesScreen(navController: NavController = rememberNavController()) {
 
 @Composable
 fun CodeFileItem(modifier: Modifier = Modifier, onClick: () -> Unit) {
-    val contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-
     Card(
         modifier = modifier
             .padding(8.dp)

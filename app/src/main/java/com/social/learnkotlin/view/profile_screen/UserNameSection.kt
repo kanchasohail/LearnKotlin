@@ -1,12 +1,15 @@
 package com.social.learnkotlin.view.profile_screen
 
 import android.content.Context
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -23,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -106,6 +110,18 @@ fun UserNameSection(
                 modifier = Modifier.padding(top = 5.dp)
             )
         }
+        val iconButtonModifier = Modifier
+            .size(40.dp)
+            .background(
+                MaterialTheme.colorScheme.secondaryContainer.copy(.4f),
+                shape = RoundedCornerShape(8.dp)
+            )
+            .border(
+                width = .5.dp,
+                color = MaterialTheme.colorScheme.primary,
+                shape = RoundedCornerShape(8.dp)
+            )
+            .padding(8.dp)
         IconButton(
             onClick = {
                 viewModel.isEditingName = !viewModel.isEditingName
@@ -117,14 +133,13 @@ fun UserNameSection(
             },
             modifier = Modifier
                 .weight(.1f)
-                .shadow(12.dp, ambientColor = Color.Gray, shape = CircleShape)
         ) {
             if (viewModel.isEditingName) {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_save_icon),
                     contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(28.dp)
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = iconButtonModifier
                 )
                 LaunchedEffect(Unit) {
                     focusRequester.requestFocus()
@@ -133,8 +148,8 @@ fun UserNameSection(
                 Icon(
                     imageVector = Icons.Rounded.Edit,
                     contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(28.dp)
+                    tint = MaterialTheme.colorScheme.secondary,
+                    modifier = iconButtonModifier
                 )
             }
         }
