@@ -20,8 +20,8 @@ import com.social.learnkotlin.ui.theme.cyanColor
 fun MyButton(
     modifier: Modifier = Modifier,
     buttonText: String,
-    buttonColor: Color = cyanColor,
-    buttonTextColor:Color = Color.Black,
+    buttonColor: Color = MaterialTheme.colorScheme.primary,
+    buttonTextColor:Color = MaterialTheme.colorScheme.onPrimary,
     onClick: () -> Unit
 ) {
     Surface(
