@@ -31,19 +31,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.social.learnkotlin.model.static_data.AllLessons
 import com.social.learnkotlin.ui.layout.DefaultFontText
 import com.social.learnkotlin.ui.layout.MyButton
+import com.social.learnkotlin.ui.theme.cyanColor
 
+@Preview(showSystemUi = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
+//fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
+fun ReadingScreen(navController: NavController = rememberNavController(), lessonIndex: Int? = 0) {
     val context = LocalContext.current
 
     val viewModel = viewModel<ReadingScreenViewModel>(
@@ -113,9 +118,7 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                 modifier = Modifier
                     .height(70.dp)
             ) {
-                BottomButtons {
-                    viewModel.onNextClick()
-                }
+                BottomButtons(viewModel)
             }
         }
     ) { paddingValues ->
@@ -180,7 +183,10 @@ private fun LessonsCountBar(
 
 
 @Composable
-private fun BottomButtons(onNextClick: () -> Unit) {
+private fun BottomButtons(viewModel: ReadingScreenViewModel) {
+    val secondaryColor = MaterialTheme.colorScheme.secondary
+    val onSecondaryColor = MaterialTheme.colorScheme.onSecondary
+    
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceAround,
@@ -190,17 +196,32 @@ private fun BottomButtons(onNextClick: () -> Unit) {
     ) {
 
         MyButton(
-            buttonText = "Ask a question",
-            modifier = Modifier.fillMaxWidth(0.6f),
-            buttonColor = Color.White,
-            buttonTextColor = Color.Gray
+            buttonText = "Previous",
+            modifier = Modifier.fillMaxWidth(0.45f),
+            buttonColor = if(viewModel.completedTopics > 1 )  secondaryColor else Color.White,
+            buttonTextColor = if(viewModel.completedTopics > 1 ) onSecondaryColor else Color.Gray
         ) {
-
+           viewModel.onPreviousClick()
         }
 
 
-        MyButton(buttonText = "Next", modifier = Modifier.fillMaxWidth(0.8f)) {
-            onNextClick()
+        if(viewModel.completedTopics == viewModel.totalTopics){
+            MyButton(
+                buttonText = "Start Quiz",
+                modifier = Modifier.fillMaxWidth(0.8f),
+                buttonColor = cyanColor,
+                buttonTextColor = Color.Black
+            ) {
+//                viewModel.onNextClick()
+            }
+
+        }else{
+            MyButton(
+                buttonText = "Next",
+                modifier = Modifier.fillMaxWidth(0.8f)
+            ) {
+                viewModel.onNextClick()
+            }
         }
 
     }

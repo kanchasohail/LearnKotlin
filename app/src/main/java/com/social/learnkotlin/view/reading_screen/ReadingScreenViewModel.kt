@@ -50,4 +50,13 @@ class ReadingScreenViewModel(context: Context , onGoingLessonId:Int) : ViewModel
                 .apply()
         }
     }
+
+    fun onPreviousClick(){
+            if (completedTopics > 1) {
+                completedTopics--
+                prefs.edit()
+                    .putInt(lastCompletedLessonKey, completedTopics)
+                    .apply()
+            }
+    }
 }
