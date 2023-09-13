@@ -31,24 +31,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.social.learnkotlin.model.static_data.AllLessons
 import com.social.learnkotlin.ui.layout.DefaultFontText
 import com.social.learnkotlin.ui.layout.MyButton
 import com.social.learnkotlin.ui.theme.cyanColor
 
-@Preview(showSystemUi = true)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-//fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
-fun ReadingScreen(navController: NavController = rememberNavController(), lessonIndex: Int? = 0) {
+fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
     val context = LocalContext.current
 
     val viewModel = viewModel<ReadingScreenViewModel>(
@@ -63,6 +59,7 @@ fun ReadingScreen(navController: NavController = rememberNavController(), lesson
     )
 
     val thisLesson = AllLessons.lessonsList[lessonIndex ?: 0]
+    viewModel.totalTopics = thisLesson.lessonTopics.size
 
     val appBarContentColor = MaterialTheme.colorScheme.onBackground
 
@@ -86,7 +83,7 @@ fun ReadingScreen(navController: NavController = rememberNavController(), lesson
                             .padding(top = 8.dp, end = 12.dp)
                     ) {
                         DefaultFontText(
-                            text = thisLesson,
+                            text = thisLesson.lessonName,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.SemiBold
                         )
@@ -138,7 +135,10 @@ fun ReadingScreen(navController: NavController = rememberNavController(), lesson
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            ReadingCard(modifier = Modifier.padding(10.dp))
+            ReadingCard(
+                modifier = Modifier.padding(10.dp),
+                lessonTopic = thisLesson.lessonTopics[viewModel.completedTopics -1]
+            )
         }
 
     }
@@ -186,7 +186,7 @@ private fun LessonsCountBar(
 private fun BottomButtons(viewModel: ReadingScreenViewModel) {
     val secondaryColor = MaterialTheme.colorScheme.secondary
     val onSecondaryColor = MaterialTheme.colorScheme.onSecondary
-    
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceAround,
@@ -198,14 +198,14 @@ private fun BottomButtons(viewModel: ReadingScreenViewModel) {
         MyButton(
             buttonText = "Previous",
             modifier = Modifier.fillMaxWidth(0.45f),
-            buttonColor = if(viewModel.completedTopics > 1 )  secondaryColor else Color.White,
-            buttonTextColor = if(viewModel.completedTopics > 1 ) onSecondaryColor else Color.Gray
+            buttonColor = if (viewModel.completedTopics > 1) secondaryColor else Color.White,
+            buttonTextColor = if (viewModel.completedTopics > 1) onSecondaryColor else Color.Gray
         ) {
-           viewModel.onPreviousClick()
+            viewModel.onPreviousClick()
         }
 
 
-        if(viewModel.completedTopics == viewModel.totalTopics){
+        if (viewModel.completedTopics == viewModel.totalTopics) {
             MyButton(
                 buttonText = "Start Quiz",
                 modifier = Modifier.fillMaxWidth(0.8f),
@@ -215,7 +215,7 @@ private fun BottomButtons(viewModel: ReadingScreenViewModel) {
 //                viewModel.onNextClick()
             }
 
-        }else{
+        } else {
             MyButton(
                 buttonText = "Next",
                 modifier = Modifier.fillMaxWidth(0.8f)

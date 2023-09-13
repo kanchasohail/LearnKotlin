@@ -29,11 +29,11 @@ fun LessonsScreen(navController: NavController) {
         state = lazyListState
     ) {
         items(AllLessons.lessonsList.size) { index: Int ->
-            val name = AllLessons.lessonsList[index]
+            val thisLesson = AllLessons.lessonsList[index]
             LessonCard(
-                lessonName = name,
-                descriptionText = name.plus(" This is a short description of this lesson"),
-                pagesCount = index,
+                lessonName = thisLesson.lessonName,
+                descriptionText = thisLesson.lessonDescription,
+                pagesCount = thisLesson.lessonTopics.size,
                 isOnGoing = onGoingLessonIndex == index,
                 isCompleted = onGoingLessonIndex > index,
                 onClick = {
