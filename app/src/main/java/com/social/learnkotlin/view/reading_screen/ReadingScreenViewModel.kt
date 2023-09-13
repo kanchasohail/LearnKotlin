@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.debounce
 
 class ReadingScreenViewModel(context: Context , onGoingLessonId:Int) : ViewModel() {
 
-//    var onGoingLessonId:Int = 0 //Todo This will be dynamic
     private val lastCompletedLessonKey:String = "last_completed_lesson$onGoingLessonId"
     private val scrollPositionKey:String = "last_scroll_position$onGoingLessonId"
 
@@ -22,9 +21,8 @@ class ReadingScreenViewModel(context: Context , onGoingLessonId:Int) : ViewModel
     }
     private val lastCompletedLesson: Int = prefs.getInt(lastCompletedLessonKey, 1)
 
-    val totalTopics: Int = 8
+    var totalTopics: Int = 0
 
-    //    var completedLessons = mutableStateOf(1)
     var completedTopics by mutableIntStateOf(lastCompletedLesson)
 
     val initialScrollPosition = prefs.getInt(scrollPositionKey, 0)
