@@ -59,7 +59,7 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
     )
 
     val thisLesson = AllLessons.lessonsList[lessonIndex ?: 0]
-    viewModel.totalTopics = thisLesson.lessonTopics.size
+    viewModel.totalTopics = thisLesson.pagesCount
 
     val appBarContentColor = MaterialTheme.colorScheme.onBackground
 
@@ -135,10 +135,18 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            ReadingCard(
-                modifier = Modifier.padding(10.dp),
-                lessonTopic = thisLesson.lessonTopics[viewModel.completedTopics -1]
-            )
+            val theseTopics =
+                thisLesson.lessonTopics.filter { it.topicId == viewModel.completedTopics }
+            theseTopics.map {
+                ReadingCard(
+                    modifier = Modifier.padding(10.dp),
+                    lessonTopic = it)
+            }
+
+//            ReadingCard(
+//                modifier = Modifier.padding(10.dp),
+//                lessonTopic = thisLesson.lessonTopics[viewModel.completedTopics - 1]
+//            )
         }
 
     }
