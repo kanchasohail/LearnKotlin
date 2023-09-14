@@ -1,7 +1,6 @@
 package com.social.learnkotlin.model.data_models
 
 data class LessonTopic(
-    val lessonId: Int,
     val topicId: Int,
     val header: String,
     val article: List<String>,

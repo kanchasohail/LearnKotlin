@@ -7,15 +7,14 @@ val lesson2_CodeEditor = Lesson(
     id = 2,
     lessonName = "Code Editor",
     lessonDescription = "An overview of what a code editor is",
-    lessonTopics = listOf(
+    pagesCount = 3, lessonTopics = listOf(
         LessonTopic(
-            lessonId = 1,
             topicId = 1,
-            header = "IWhat is Kotlin?",
+            header = "Code Editor",
             article = listOf(
-                "Kotlin is a modern, trending programming language.",
-                "Kotlin is a relatively new programming language developed by JetBrains.",
-                "Nowadays, Kotlin is widely used for Android apps development instead of Java. It is because Kotlin is safe, concise, and fun to read and write.",
+                "Congratulations for passing the first lesson of this amazing Kotlin tutorial.",
+                "Before we move forward to the next lessons, we need to learn something about code editors and how it works.",
+                "Code editor is simply a editor where we can edit our code.",
             ),
             codeExample = "null",
             codeOutPutExample = false,
@@ -23,34 +22,41 @@ val lesson2_CodeEditor = Lesson(
             note = "null",
         ),
         LessonTopic(
-            lessonId = 1,
             topicId = 2,
-            header = "About the tutorial -",
+            header = "Some code editors -",
             article = listOf(
-                "Our Kotlin tutorial will guide you to learn Kotlin step by step from scratch. Even if you do not have any knowledge about programming.",
-                "In this tutorial you will learn Kotlin with many interesting lessons, quizes and challenges. So, own your marks and let's go.",
-                "Here is an example of basic \"Hello World\" program in Kotlin:",
-            ),
-            codeExample = """fun main() {
-    println("Hello world")
-}""",
-            codeOutPutExample = true,
-            fact = "",
-            note = "You can click on that \\\"try it yourself\\\" button to open the editor and edit the code.",
-        ),
-        LessonTopic(
-            lessonId = 1,
-            topicId = 3,
-            header = "Why should we learn Kotlin?",
-            article = listOf(
-                "Kotlin is easy to learn, especially if you already know Java (it is 100% compatible with Java). But even if you don't know Java this tutorial is going to teach you everything from scratch.",
-                "Kotlin is used to develop Android apps, server side apps, and much more. But it is mostly used to develop Android apps.",
-                "We will learn more about Kotlin in next upcoming lessons. Before that let's see how much we learnt from this lesson (click on this play quiz button).",
+                "There are a lot of code editors out there, some of them are",
+                "       • Vs Code",
+                "       • InteliJ",
+                "       • Vim",
+                "       • Android Studio",
+                "You don't need to remember them, we have our own code editor built in this app.",
+                "So you do not need to worry if you do not have a pc or if you do not know how to use those code editors.",
+                "Our built in code editor is enough to practice all the lessons and exercises that you are going to learn throughout this tutorial.",
+                "Still, it is better to have some basic idea about how can we create a Kotlin file.",
+                "The extension of Kotlin is '.kt' for example if we want to make a Kotlin file named first it will look something like this 'first.kt' .",
             ),
             codeExample = "",
             codeOutPutExample = false,
             fact = "",
             note = "",
+        ),
+        LessonTopic(
+            topicId = 3,
+            header = "Here are some steps to build a Kotlin file - ",
+            article = listOf(
+                "Step 1 - Open any code editor and click on the options buttons and select \"New File\" option.",
+                "photo1",
+                "Step 2 - Type the name of your file with '.kt' extension.",
+                "photo2",
+                "Step 3 - This is how the Kotlin file will look like",
+                "photo3",
+                "I hope you have learnt something about code editors, let's play the quiz.",
+            ),
+            codeExample = "",
+            codeOutPutExample = false,
+            fact = "",
+            note = "We have inbuilt code editor in this app.",
         ),
     )
 )

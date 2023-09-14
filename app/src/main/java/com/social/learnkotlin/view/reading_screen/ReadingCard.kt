@@ -34,14 +34,15 @@ fun ReadingCard(modifier: Modifier = Modifier, lessonTopic: LessonTopic) {
                 .fillMaxWidth()
                 .padding(12.dp)
         ) {
-
-            DefaultFontText(
-                text = lessonTopic.header,
-                fontSize = 22.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
+           if(lessonTopic.header != "" && lessonTopic.header != "null"){
+               DefaultFontText(
+                   text = lessonTopic.header,
+                   fontSize = 22.sp,
+                   fontWeight = FontWeight.SemiBold,
+                   color = MaterialTheme.colorScheme.primary,
+                   modifier = Modifier.padding(bottom = 8.dp)
+               )
+           }
 
             lessonTopic.article.map {
                 DefaultFontText(text = it, fontSize = 20.sp, color = contentColor)

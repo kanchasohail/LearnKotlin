@@ -33,7 +33,7 @@ fun LessonsScreen(navController: NavController) {
             LessonCard(
                 lessonName = thisLesson.lessonName,
                 descriptionText = thisLesson.lessonDescription,
-                pagesCount = thisLesson.lessonTopics.size,
+                pagesCount = thisLesson.pagesCount,
                 isOnGoing = onGoingLessonIndex == index,
                 isCompleted = onGoingLessonIndex > index,
                 onClick = {
