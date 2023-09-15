@@ -68,17 +68,18 @@ fun BottomNavBar(navController: NavController) {
             modifier = Modifier.height(76.dp),
         ) {
             items.forEachIndexed { index, item ->
+                val isSelected = currentRoute == item.screenRoute
                 NavigationBarItem(
                     icon = {
                         Icon(
-                            painterResource(id = item.icon),
+                            painterResource(id = if(isSelected) item.icon else item.outlinedIcon),
                             contentDescription = item.title,
                         )
                     },
                     label = {
                         Text(item.title)
                     },
-                    selected = currentRoute == item.screenRoute,
+                    selected = isSelected,
                     onClick = {
                         viewModel.screenTitle = item.title
                         navController.navigate(item.screenRoute) {
