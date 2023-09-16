@@ -20,6 +20,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -86,6 +87,12 @@ fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
         ) {
             var reportMessage by remember { mutableStateOf("") }
 
+            val isButtonActive by remember {
+                derivedStateOf {
+                    reportMessage.isNotEmpty()
+                }
+            }
+
             DefaultFontText(
                 text = "Share more details below",
                 color = MaterialTheme.colorScheme.onSurface,
@@ -119,9 +126,9 @@ fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
             MyButton(
                 buttonText = "Submit",
                 buttonTextColor = MaterialTheme.colorScheme.onPrimary,
-                buttonColor = if (reportMessage.isEmpty()) Color.Gray else primaryColor
+                buttonColor = if (isButtonActive) primaryColor else Color.Gray
             ) {
-                if (reportMessage.isNotEmpty()) {
+                if (isButtonActive) {
                     viewModel.submitReport(selectedIssue, reportMessage, navController, context)
                 }
             }

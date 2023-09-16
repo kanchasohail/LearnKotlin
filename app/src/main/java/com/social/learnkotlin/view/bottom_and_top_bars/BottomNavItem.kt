@@ -4,10 +4,10 @@ import com.social.learnkotlin.R
 import com.social.learnkotlin.navigation.Screens
 
 sealed class BottomNavItem(
-    val title: String,
-    val icon: Int,
-    val screenRoute: String,
-    val outlinedIcon: Int
+    var title: String,
+    var icon: Int,
+    var screenRoute: String,
+    var outlinedIcon: Int
 ) {
 
     object LearningScreen :
