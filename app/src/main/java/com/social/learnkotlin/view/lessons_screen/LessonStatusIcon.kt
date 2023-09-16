@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.CheckCircle
 import androidx.compose.material.icons.rounded.Lock
+import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -17,21 +18,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-@Preview(showSystemUi = true)
+enum class LessonStatus {
+    Locked, ONGoing, Completed
+}
+
 @Composable
-fun LockedAndCompletedIcon(
+fun LessonStatusIcon(
     modifier: Modifier = Modifier,
     radius: Dp = 24.dp,
-    isLocked: Boolean = true
+    status: LessonStatus
 ) {
-    val iconBgColor: Color =
-        if (isLocked) MaterialTheme.colorScheme.secondary.copy(.5f) else MaterialTheme.colorScheme.primary
+
+    val icon = when(status){
+        LessonStatus.Locked -> Icons.Rounded.Lock
+        LessonStatus.Completed -> Icons.Rounded.CheckCircle
+        LessonStatus.ONGoing -> Icons.Rounded.PlayArrow
+    }
+
+    val iconBgColor: Color = when (status) {
+        LessonStatus.Locked -> MaterialTheme.colorScheme.secondary.copy(.5f)
+        LessonStatus.Completed -> MaterialTheme.colorScheme.primary
+        LessonStatus.ONGoing -> MaterialTheme.colorScheme.secondary.copy(.5f)
+    }
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(radius * 2f)
             .background(
                 Brush.radialGradient(
@@ -52,7 +65,7 @@ fun LockedAndCompletedIcon(
             contentAlignment = Alignment.Center
         ) {
             Icon(
-                imageVector = if (isLocked) Icons.Rounded.Lock else Icons.Rounded.CheckCircle,
+                imageVector = icon,
                 contentDescription = "lesson icon",
                 modifier = Modifier
                     .fillMaxSize(.85f)

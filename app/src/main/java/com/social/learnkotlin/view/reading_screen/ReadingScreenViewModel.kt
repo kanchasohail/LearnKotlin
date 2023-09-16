@@ -11,19 +11,22 @@ import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 
-class ReadingScreenViewModel(context: Context , onGoingLessonId:Int) : ViewModel() {
+class ReadingScreenViewModel(context: Context, onGoingLessonId: Int) : ViewModel() {
 
-    private val lastCompletedLessonKey:String = "last_completed_lesson$onGoingLessonId"
-    private val scrollPositionKey:String = "last_scroll_position$onGoingLessonId"
+    private val lastCompletedTopicKey: String = "last_completed_topic$onGoingLessonId"
+    private val scrollPositionKey: String = "last_scroll_position$onGoingLessonId"
+    private val onGoingLessonIndexKey: String = "on_going_lesson_index"
 
     private val prefs by lazy {
         context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
     }
-    private val lastCompletedLesson: Int = prefs.getInt(lastCompletedLessonKey, 1)
+    private val lastCompletedTopic: Int = prefs.getInt(lastCompletedTopicKey, 1)
 
     var totalTopics: Int = 0
 
-    var completedTopics by mutableIntStateOf(lastCompletedLesson)
+    var thisLessonIndex: Int = 0
+
+    var completedTopics by mutableIntStateOf(lastCompletedTopic)
 
     val initialScrollPosition = prefs.getInt(scrollPositionKey, 0)
 
@@ -44,17 +47,22 @@ class ReadingScreenViewModel(context: Context , onGoingLessonId:Int) : ViewModel
         if (totalTopics > completedTopics) {
             completedTopics++
             prefs.edit()
-                .putInt(lastCompletedLessonKey, completedTopics)
+                .putInt(lastCompletedTopicKey, completedTopics)
                 .apply()
         }
     }
 
-    fun onPreviousClick(){
-            if (completedTopics > 1) {
-                completedTopics--
-                prefs.edit()
-                    .putInt(lastCompletedLessonKey, completedTopics)
-                    .apply()
-            }
+    fun onPreviousClick() {
+        if (completedTopics > 1) {
+            completedTopics--
+            prefs.edit()
+                .putInt(lastCompletedTopicKey, completedTopics)
+                .apply()
+        }
+    }
+
+    //TODO Start the quiz
+    fun onStartClick() {
+        prefs.edit().putInt(onGoingLessonIndexKey, thisLessonIndex + 1).apply()
     }
 }

@@ -20,7 +20,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.social.learnkotlin.ui.common_views.LessonIconWithProgressRing
 import com.social.learnkotlin.ui.layout.DefaultFontText
 
 
@@ -49,7 +48,7 @@ fun LessonCard(
             4.dp
         ),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer
+            containerColor = if(isOnGoing)MaterialTheme.colorScheme.primaryContainer else MaterialTheme.colorScheme.secondaryContainer
         )
     ) {
         Column {
@@ -68,11 +67,11 @@ fun LessonCard(
                 )
 
                 if (isCompleted) {
-                    LockedAndCompletedIcon(isLocked = false)
+                    LessonStatusIcon(status = LessonStatus.Completed)
                 } else if (isOnGoing) {
-                    LessonIconWithProgressRing(percentage = 0.7f)
+                    LessonStatusIcon(status = LessonStatus.ONGoing)
                 } else {
-                    LockedAndCompletedIcon()
+                    LessonStatusIcon(status = LessonStatus.Locked)
                 }
             }
 
