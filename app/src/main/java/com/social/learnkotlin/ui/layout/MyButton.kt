@@ -25,8 +25,7 @@ fun MyButton(
     onClick: () -> Unit
 ) {
     Surface(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier,
         shape = RoundedCornerShape(8.dp),
         color = buttonColor
     ) {
