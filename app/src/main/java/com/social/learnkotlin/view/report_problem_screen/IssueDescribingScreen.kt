@@ -126,7 +126,8 @@ fun IssueDescribingScreen(navController: NavController, selectedIssue: String) {
             MyButton(
                 buttonText = "Submit",
                 buttonTextColor = MaterialTheme.colorScheme.onPrimary,
-                buttonColor = if (isButtonActive) primaryColor else Color.Gray
+                buttonColor = if (isButtonActive) primaryColor else Color.Gray,
+                modifier = Modifier.fillMaxWidth()
             ) {
                 if (isButtonActive) {
                     viewModel.submitReport(selectedIssue, reportMessage, navController, context)

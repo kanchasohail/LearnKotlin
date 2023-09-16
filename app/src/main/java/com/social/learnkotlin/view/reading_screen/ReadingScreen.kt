@@ -38,6 +38,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.social.learnkotlin.model.static_data.AllLessons
+import com.social.learnkotlin.navigation.Screens
 import com.social.learnkotlin.ui.layout.DefaultFontText
 import com.social.learnkotlin.ui.layout.MyButton
 import com.social.learnkotlin.ui.theme.cyanColor
@@ -116,7 +117,7 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                 modifier = Modifier
                     .height(70.dp)
             ) {
-                BottomButtons(viewModel)
+                BottomButtons(viewModel , navController)
             }
         }
     ) { paddingValues ->
@@ -193,7 +194,7 @@ private fun LessonsCountBar(
 
 
 @Composable
-private fun BottomButtons(viewModel: ReadingScreenViewModel) {
+private fun BottomButtons(viewModel: ReadingScreenViewModel , navController: NavController) {
     val secondaryColor = MaterialTheme.colorScheme.secondary
     val onSecondaryColor = MaterialTheme.colorScheme.onSecondary
 
@@ -222,7 +223,8 @@ private fun BottomButtons(viewModel: ReadingScreenViewModel) {
                 buttonColor = cyanColor,
                 buttonTextColor = Color.Black
             ) {
-                viewModel.onStartClick()
+//                viewModel.onStartClick()
+                navController.navigate(Screens.QuizScreen.withArgs(viewModel.thisLessonIndex.toString()))
             }
 
         } else {

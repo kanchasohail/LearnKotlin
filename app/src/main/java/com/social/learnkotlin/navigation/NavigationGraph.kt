@@ -14,6 +14,7 @@ import com.social.learnkotlin.view.codes_screen.CodesScreen
 import com.social.learnkotlin.view.editor_screen.EditorScreen
 import com.social.learnkotlin.view.lessons_screen.LessonsScreen
 import com.social.learnkotlin.view.profile_screen.ProfileScreen
+import com.social.learnkotlin.view.quiz_screen.QuizScreen
 import com.social.learnkotlin.view.reading_screen.ReadingScreen
 import com.social.learnkotlin.view.report_problem_screen.IssueDescribingScreen
 import com.social.learnkotlin.view.report_problem_screen.IssueSelectingScreen
@@ -75,6 +76,17 @@ fun NavigationGraph(navController: NavHostController) {
                 navController,
                 lessonIndex = entry.arguments?.getString("lesson_index")?.toInt()
             )
+        }
+
+        //QuizScreen
+        composable(Screens.QuizScreen.route + "/{lesson_index}",
+            arguments = listOf(
+                navArgument("lesson_index") {
+                    type = NavType.StringType
+                }
+            )
+        ) { entry ->
+            QuizScreen(entry.arguments?.getString("lesson_index")?.toInt() ?: 0)
         }
 
         //Upgrade To Premium Screen

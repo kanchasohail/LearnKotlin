@@ -7,6 +7,8 @@ sealed class Screens(val route: String) {
     object EditorScreen : Screens("editor_screen")
     object ProfileScreen : Screens("profile_screen")
     object ReadingScreen : Screens("reading_screen")
+
+    object QuizScreen:Screens("quiz_screen")
     object UpgradeToPremiumScreen : Screens("upgrade_to_premium_screen")
 
     //Report problem screens..
