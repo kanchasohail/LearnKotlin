@@ -59,6 +59,7 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
     )
 
     val thisLesson = AllLessons.lessonsList[lessonIndex ?: 0]
+    viewModel.thisLessonIndex = lessonIndex ?: 0
     viewModel.totalTopics = thisLesson.pagesCount
 
     val appBarContentColor = MaterialTheme.colorScheme.onBackground
@@ -140,7 +141,8 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
             theseTopics.map {
                 ReadingCard(
                     modifier = Modifier.padding(10.dp),
-                    lessonTopic = it)
+                    lessonTopic = it
+                )
             }
 
 //            ReadingCard(
@@ -220,7 +222,7 @@ private fun BottomButtons(viewModel: ReadingScreenViewModel) {
                 buttonColor = cyanColor,
                 buttonTextColor = Color.Black
             ) {
-//                viewModel.onNextClick()
+                viewModel.onStartClick()
             }
 
         } else {

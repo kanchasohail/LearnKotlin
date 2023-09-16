@@ -1,5 +1,6 @@
 package com.social.learnkotlin.view.lessons_screen
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,10 +17,15 @@ import com.social.learnkotlin.navigation.Screens
 
 @Composable
 fun LessonsScreen(navController: NavController) {
-    val viewModel = viewModel<LessonsScreenViewModel>()
     val lazyListState = rememberLazyListState()
-    val onGoingLessonIndex = viewModel.onGoingLessonIndex
     val context = LocalContext.current
+
+    val onGoingLessonIndexKey = "on_going_lesson_index"
+    val prefs by lazy {
+        context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+    }
+
+    val onGoingLessonIndex = prefs.getInt(onGoingLessonIndexKey, 0)
 
     PressBackAgainToExit()
 
@@ -53,7 +59,7 @@ fun LessonsScreen(navController: NavController) {
     }
 
     LaunchedEffect(onGoingLessonIndex) {
-        lazyListState.animateScrollToItem(onGoingLessonIndex - 1)
+        lazyListState.animateScrollToItem(if (onGoingLessonIndex == 0) onGoingLessonIndex else onGoingLessonIndex - 1)
     }
 
 }
