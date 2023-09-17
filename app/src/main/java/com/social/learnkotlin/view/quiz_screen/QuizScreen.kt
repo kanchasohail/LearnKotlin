@@ -30,19 +30,27 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.social.learnkotlin.ui.layout.DefaultFontText
 import com.social.learnkotlin.ui.layout.MyButton
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showSystemUi = true)
+//@Preview(showSystemUi = true)
 @Composable
-//fun QuizScreen(lessonIndex: Int) {
-fun QuizScreen(lessonIndex: Int = 2) {
-    val viewModel = viewModel<QuizViewModel>()
-    viewModel.lessonIndex = lessonIndex
-
+fun QuizScreen(lessonIndex: Int) {
+//fun QuizScreen(lessonIndex: Int = 2) {
+    val viewModel = viewModel<QuizViewModel>(
+        factory = object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return QuizViewModel(lessonIndex) as T
+            }
+        }
+    )
     val appBarContentColor = MaterialTheme.colorScheme.onBackground
+    val secondaryColor = MaterialTheme.colorScheme.secondary
+    val onSecondaryColor = MaterialTheme.colorScheme.onSecondary
 
     Scaffold(
         topBar = {
@@ -98,20 +106,26 @@ fun QuizScreen(lessonIndex: Int = 2) {
                         .fillMaxSize()
                         .padding(12.dp)
                 ) {
-                    DefaultFontText(text = "Question 1 of 5", fontSize = 18.sp)
+                    DefaultFontText(
+                        text = "Question ${viewModel.quizQuestionIndex + 1} of ${viewModel.quiz.size}",
+                        fontSize = 18.sp
+                    )
 
                     Spacer(modifier = Modifier.height(20.dp))
 
                     DefaultFontText(
-                        text = "Which version of HTML is currently in use?",
+                        text = viewModel.quiz[viewModel.quizQuestionIndex].question,
                         fontSize = 22.sp
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    OptionContainer(modifier = Modifier.padding(vertical = 6.dp))
-                    OptionContainer(modifier = Modifier.padding(vertical = 6.dp))
-                    OptionContainer(modifier = Modifier.padding(vertical = 6.dp))
+                    viewModel.quiz[viewModel.quizQuestionIndex].options.map {
+                        OptionContainer(
+                            modifier = Modifier.padding(vertical = 6.dp),
+                            optionText = it
+                        )
+                    }
 
                     Spacer(modifier = Modifier.height(10.dp))
 
@@ -125,14 +139,16 @@ fun QuizScreen(lessonIndex: Int = 2) {
                         MyButton(
                             buttonText = "Previous",
                             modifier = Modifier.fillMaxWidth(0.45f),
+                            buttonColor = if (viewModel.isPreviousButtonActive) secondaryColor else Color.White,
+                            buttonTextColor = if (viewModel.isPreviousButtonActive) onSecondaryColor else Color.Gray
                         ) {
-
+                            viewModel.onPreviousClick()
                         }
                         MyButton(
                             buttonText = "Next",
                             modifier = Modifier.fillMaxWidth(0.8f),
                         ) {
-
+                            viewModel.onNextClick()
                         }
                     }
 

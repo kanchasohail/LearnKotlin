@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.social.learnkotlin.ui.layout.DefaultFontText
 
 @Composable
-fun OptionContainer(modifier: Modifier = Modifier) {
+fun OptionContainer(modifier: Modifier = Modifier , optionText:String) {
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -31,7 +31,7 @@ fun OptionContainer(modifier: Modifier = Modifier) {
             RoundedCheckbox(isChecked = true) {
                 
             }
-            DefaultFontText(text = "Html5", fontSize = 18.sp)
+            DefaultFontText(text = optionText, fontSize = 18.sp)
         }
     }
 }

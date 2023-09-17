@@ -2,6 +2,7 @@ package com.social.learnkotlin.model.static_data.lessons_list
 
 import com.social.learnkotlin.model.data_models.Lesson
 import com.social.learnkotlin.model.data_models.LessonTopic
+import com.social.learnkotlin.model.data_models.QuizModel
 
 val lesson6_KotlinVariables = Lesson(
     id = 6,
@@ -51,6 +52,37 @@ val lesson6_KotlinVariables = Lesson(
             codeOutPutExample = false,
             fact = "",
             note = "",
+        ),
+    ),
+    quiz = listOf(
+        QuizModel(
+            question = "What is Kotlin?",
+            options = listOf(
+                "Kotlin is a markup language",
+                "Kotlin is a Programming language",
+                "Kotlin is an assembly language"
+            ),
+            correctAnswer = "Kotlin is a Programming language"
+        ),
+
+        QuizModel(
+            question = "Kotlin was developed by which company?",
+            options = listOf("Bell Laboratories", "Google", "JetBrains"),
+            correctAnswer = "JetBrains"
+        ),
+        QuizModel(
+            question = "What is Kotlin mostly used for?",
+            options = listOf(
+                "Android apps development",
+                "Web development",
+                "Game development"
+            ),
+            correctAnswer = "Android apps development"
+        ),
+        QuizModel(
+            question = "Before Kotlin which language was used for Android apps development?",
+            options = listOf("JavaScript", "HTML/CSS", "Java"),
+            correctAnswer = "Java"
         ),
     )
 )
