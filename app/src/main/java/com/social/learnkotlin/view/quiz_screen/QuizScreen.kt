@@ -18,16 +18,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
@@ -35,12 +34,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.social.learnkotlin.ui.layout.DefaultFontText
 import com.social.learnkotlin.ui.layout.MyButton
+import com.social.learnkotlin.ui.theme.cyanColor
 
 @OptIn(ExperimentalMaterial3Api::class)
-//@Preview(showSystemUi = true)
 @Composable
 fun QuizScreen(lessonIndex: Int) {
-//fun QuizScreen(lessonIndex: Int = 2) {
     val viewModel = viewModel<QuizViewModel>(
         factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -48,6 +46,10 @@ fun QuizScreen(lessonIndex: Int) {
             }
         }
     )
+    SideEffect {
+        viewModel.quizInitialSetup(viewModel.quiz)
+    }
+
     val appBarContentColor = MaterialTheme.colorScheme.onBackground
     val secondaryColor = MaterialTheme.colorScheme.secondary
     val onSecondaryColor = MaterialTheme.colorScheme.onSecondary
@@ -95,7 +97,7 @@ fun QuizScreen(lessonIndex: Int) {
         ) {
             Card(
                 modifier = Modifier
-                    .height(420.dp)
+                    .height(450.dp)
                     .fillMaxWidth()
                     .padding(8.dp), elevation = CardDefaults.cardElevation(
                     4.dp
@@ -104,7 +106,8 @@ fun QuizScreen(lessonIndex: Int) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(12.dp)
+                        .padding(12.dp),
+                    verticalArrangement = Arrangement.SpaceBetween
                 ) {
                     DefaultFontText(
                         text = "Question ${viewModel.quizQuestionIndex + 1} of ${viewModel.quiz.size}",
@@ -123,8 +126,14 @@ fun QuizScreen(lessonIndex: Int) {
                     viewModel.quiz[viewModel.quizQuestionIndex].options.map {
                         OptionContainer(
                             modifier = Modifier.padding(vertical = 6.dp),
-                            optionText = it
-                        )
+                            optionText = it,
+                            isChecked = viewModel.currentSelectedAnswer == it
+                        ) {
+                            viewModel.selectOption(
+                                selectedAnswer = it,
+                                correctAnswer = viewModel.quiz[viewModel.quizQuestionIndex].correctAnswer
+                            )
+                        }
                     }
 
                     Spacer(modifier = Modifier.height(10.dp))
@@ -144,11 +153,27 @@ fun QuizScreen(lessonIndex: Int) {
                         ) {
                             viewModel.onPreviousClick()
                         }
-                        MyButton(
-                            buttonText = "Next",
-                            modifier = Modifier.fillMaxWidth(0.8f),
-                        ) {
-                            viewModel.onNextClick()
+                        if(!viewModel.isLastQuestion){
+                            MyButton(
+                                buttonText = "Next",
+                                modifier = Modifier.fillMaxWidth(0.8f),
+                                buttonColor = if (viewModel.isAnswered) MaterialTheme.colorScheme.primary else Color.Gray
+                            ) {
+                                if (viewModel.isAnswered) {
+                                    viewModel.onNextClick()
+                                }
+                            }
+                        }else {
+                            MyButton(
+                                buttonText = "Submit",
+                                modifier = Modifier.fillMaxWidth(0.8f),
+                                buttonColor = if (viewModel.isAnswered) cyanColor else Color.Gray,
+                                buttonTextColor = Color.Black
+                            ) {
+                                if (viewModel.isAnswered) {
+//                                    viewModel.onNextClick()
+                                }
+                            }
                         }
                     }
 

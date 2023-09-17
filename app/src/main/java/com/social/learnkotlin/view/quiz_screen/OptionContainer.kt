@@ -1,6 +1,8 @@
 package com.social.learnkotlin.view.quiz_screen
 
+import android.text.BoringLayout
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,11 +18,19 @@ import androidx.compose.ui.unit.sp
 import com.social.learnkotlin.ui.layout.DefaultFontText
 
 @Composable
-fun OptionContainer(modifier: Modifier = Modifier , optionText:String) {
+fun OptionContainer(
+    modifier: Modifier = Modifier,
+    optionText: String,
+    isChecked: Boolean,
+    onClick: () -> Unit
+) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .border(0.5.dp, Color.Gray, shape = RoundedCornerShape(4.dp))
+            .clickable {
+                onClick()
+            }
     ) {
         Row(
             modifier = Modifier
@@ -28,8 +38,8 @@ fun OptionContainer(modifier: Modifier = Modifier , optionText:String) {
                 .padding(vertical = 4.dp, horizontal = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            RoundedCheckbox(isChecked = true) {
-                
+            RoundedCheckbox(isChecked = isChecked) {
+                onClick()
             }
             DefaultFontText(text = optionText, fontSize = 18.sp)
         }
