@@ -75,33 +75,34 @@ val lesson3_KotlinSyntax = Lesson(
     ),
     quiz = listOf(
         QuizModel(
-            question = "What is Kotlin?",
-            options = listOf(
-                "Kotlin is a markup language",
-                "Kotlin is a Programming language",
-                "Kotlin is an assembly language"
-            ),
-            correctAnswer = "Kotlin is a Programming language"
+            question = "Which function is executes the code in Kotlin?",
+            options = listOf("first() function", "main() function", "start() function"),
+            correctAnswer = "main() function"
         ),
 
         QuizModel(
-            question = "Kotlin was developed by which company?",
-            options = listOf("Bell Laboratories", "Google", "JetBrains"),
-            correctAnswer = "JetBrains"
+            question = "Which Kotlin function is used to output texts?",
+            options = listOf("output()", "write()", "println()"),
+            correctAnswer = "println()"
         ),
         QuizModel(
-            question = "What is Kotlin mostly used for?",
+            question = "Do we use ';' (semi-colon) to end the statements in Kotlin?",
+            options = listOf("No", "Yes", "Sometimes"),
+            correctAnswer = "No"
+        ),
+        QuizModel(
+            question = "Code in main() function executes when they are inside of?",
             options = listOf(
-                "Android apps development",
-                "Web development",
-                "Game development"
+                "'[]' square brackets",
+                "'()' round brackets",
+                "'{}' curly brackets"
             ),
-            correctAnswer = "Android apps development"
+            correctAnswer = "'{}' curly brackets"
         ),
         QuizModel(
-            question = "Before Kotlin which language was used for Android apps development?",
-            options = listOf("JavaScript", "HTML/CSS", "Java"),
-            correctAnswer = "Java"
+            question = "Which keyword is used to declare a function in Kotlin?",
+            options = listOf("function keyword", "fun keyword", "main keyword"),
+            correctAnswer = "fun keyword"
         ),
     )
 )

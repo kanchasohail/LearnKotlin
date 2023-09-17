@@ -53,33 +53,30 @@ val lesson4_KotlinOutput = Lesson(
     ),
     quiz = listOf(
         QuizModel(
-            question = "What is Kotlin?",
-            options = listOf(
-                "Kotlin is a markup language",
-                "Kotlin is a Programming language",
-                "Kotlin is an assembly language"
-            ),
-            correctAnswer = "Kotlin is a Programming language"
+            question = "What does output mean is Kotlin?",
+            options = listOf("Play music", "Display Images", "Print something on screen" ),
+            correctAnswer = "Print something on screen"
         ),
 
         QuizModel(
-            question = "Kotlin was developed by which company?",
-            options = listOf("Bell Laboratories", "Google", "JetBrains"),
-            correctAnswer = "JetBrains"
+            question = "What do we use to out text/values in Kotlin?",
+            options = listOf("print()", "println()", "Both"),
+            correctAnswer = "Both"
         ),
         QuizModel(
-            question = "What is Kotlin mostly used for?",
-            options = listOf(
-                "Android apps development",
-                "Web development",
-                "Game development"
-            ),
-            correctAnswer = "Android apps development"
+            question = "Which function adds a new line after output?",
+            options = listOf("println()", "print()", "both"),
+            correctAnswer = "println()"
         ),
         QuizModel(
-            question = "Before Kotlin which language was used for Android apps development?",
-            options = listOf("JavaScript", "HTML/CSS", "Java"),
-            correctAnswer = "Java"
+            question = "Which function doesn't add a new line after output?",
+            options = listOf("print()", "println() ", "Both"),
+            correctAnswer = "print()"
+        ),
+        QuizModel(
+            question = "How many print functions can we add in a Kotlin program?",
+            options = listOf("Less than 100", "More than 100", "As many as needed"),
+            correctAnswer = "As many as needed"
         ),
     )
 )
