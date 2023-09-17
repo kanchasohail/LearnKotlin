@@ -5,5 +5,6 @@ data class Lesson(
     val lessonName: String,
     val lessonDescription: String,
     val pagesCount: Int,
-    val lessonTopics: List<LessonTopic>
+    val lessonTopics: List<LessonTopic>,
+    val quiz: List<QuizModel>
 )

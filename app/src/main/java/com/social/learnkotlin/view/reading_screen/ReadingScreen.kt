@@ -23,6 +23,9 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -117,7 +120,7 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                 modifier = Modifier
                     .height(70.dp)
             ) {
-                BottomButtons(viewModel , navController)
+                BottomButtons(viewModel, navController)
             }
         }
     ) { paddingValues ->
@@ -194,9 +197,15 @@ private fun LessonsCountBar(
 
 
 @Composable
-private fun BottomButtons(viewModel: ReadingScreenViewModel , navController: NavController) {
+private fun BottomButtons(viewModel: ReadingScreenViewModel, navController: NavController) {
     val secondaryColor = MaterialTheme.colorScheme.secondary
     val onSecondaryColor = MaterialTheme.colorScheme.onSecondary
+
+    val isPreviousButtonActive by remember {
+        derivedStateOf {
+            viewModel.completedTopics > 1
+        }
+    }
 
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -209,8 +218,8 @@ private fun BottomButtons(viewModel: ReadingScreenViewModel , navController: Nav
         MyButton(
             buttonText = "Previous",
             modifier = Modifier.fillMaxWidth(0.45f),
-            buttonColor = if (viewModel.completedTopics > 1) secondaryColor else Color.White,
-            buttonTextColor = if (viewModel.completedTopics > 1) onSecondaryColor else Color.Gray
+            buttonColor = if (isPreviousButtonActive) secondaryColor else Color.White,
+            buttonTextColor = if (isPreviousButtonActive) onSecondaryColor else Color.Gray
         ) {
             viewModel.onPreviousClick()
         }
@@ -223,7 +232,7 @@ private fun BottomButtons(viewModel: ReadingScreenViewModel , navController: Nav
                 buttonColor = cyanColor,
                 buttonTextColor = Color.Black
             ) {
-//                viewModel.onStartClick()
+                viewModel.onStartClick()
                 navController.navigate(Screens.QuizScreen.withArgs(viewModel.thisLessonIndex.toString()))
             }
 
