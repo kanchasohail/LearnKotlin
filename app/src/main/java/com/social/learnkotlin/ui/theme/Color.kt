@@ -12,6 +12,9 @@ val chipColor = Color(0xFF567A80)
 val gradientEndGreen  = Color(0xFF122E13)
 val lightPrimaryColor = Color(0xFF06535E)
 
+val greenColor = Color(0xff306e2e)
+val redColor = Color(0xff8c2a23)
+
 
 
 val darkPrimaryColor = Color(0xFF001514)

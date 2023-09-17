@@ -7,9 +7,10 @@ import com.social.learnkotlin.model.data_models.QuizModel
 val lesson5_KotlinComments = Lesson(
     id = 5,
     lessonName = "Kotlin Comments",
-    lessonDescription = "Kotlin comments and their use cases", pagesCount = 3, lessonTopics = listOf(
+    lessonDescription = "Kotlin comments and their use cases",
+    pagesCount = 3,
+    lessonTopics = listOf(
         LessonTopic(
-
             topicId = 1,
             header = "IWhat is Kotlin?",
             article = listOf(
@@ -23,7 +24,6 @@ val lesson5_KotlinComments = Lesson(
             note = "null",
         ),
         LessonTopic(
-
             topicId = 2,
             header = "About the tutorial -",
             article = listOf(
@@ -39,7 +39,6 @@ val lesson5_KotlinComments = Lesson(
             note = "You can click on that \\\"try it yourself\\\" button to open the editor and edit the code.",
         ),
         LessonTopic(
-
             topicId = 3,
             header = "Why should we learn Kotlin?",
             article = listOf(
@@ -55,33 +54,34 @@ val lesson5_KotlinComments = Lesson(
     ),
     quiz = listOf(
         QuizModel(
-            question = "What is Kotlin?",
-            options = listOf(
-                "Kotlin is a markup language",
-                "Kotlin is a Programming language",
-                "Kotlin is an assembly language"
-            ),
-            correctAnswer = "Kotlin is a Programming language"
+            question = "Why do we use comments in Kotlin?",
+            options = listOf("To make code faster", "To explain code", "To prevent errors"),
+            correctAnswer = "To explain code"
         ),
 
         QuizModel(
-            question = "Kotlin was developed by which company?",
-            options = listOf("Bell Laboratories", "Google", "JetBrains"),
-            correctAnswer = "JetBrains"
+            question = "Do compilers ignore comments?",
+            options = listOf("Yes", "No"),
+            correctAnswer = "Yes"
         ),
         QuizModel(
-            question = "What is Kotlin mostly used for?",
+            question = "How many types of comments are there in Kotlin?",
+            options = listOf("One", "Two", "Five"),
+            correctAnswer = "Two"
+        ),
+        QuizModel(
+            question = "Which type of comment is this '//' ?",
             options = listOf(
-                "Android apps development",
-                "Web development",
-                "Game development"
+                "Multi-lined comment",
+                "Double-lined comment",
+                "Single-lined comment"
             ),
-            correctAnswer = "Android apps development"
+            correctAnswer = "Single-lined comment"
         ),
         QuizModel(
-            question = "Before Kotlin which language was used for Android apps development?",
-            options = listOf("JavaScript", "HTML/CSS", "Java"),
-            correctAnswer = "Java"
+            question = "Which one is used to write multi-lined comment?",
+            options = listOf("/*   */", "//", "<!--- -->"),
+            correctAnswer = "/*   */"
         ),
     )
 )

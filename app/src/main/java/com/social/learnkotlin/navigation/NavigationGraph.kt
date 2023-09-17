@@ -9,12 +9,16 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
+import com.social.learnkotlin.model.util.sharedViewModel
 import com.social.learnkotlin.view.codes_screen.CodesScreen
 import com.social.learnkotlin.view.editor_screen.EditorScreen
 import com.social.learnkotlin.view.lessons_screen.LessonsScreen
 import com.social.learnkotlin.view.profile_screen.ProfileScreen
+import com.social.learnkotlin.view.quiz_result_screen.QuizResultScreen
 import com.social.learnkotlin.view.quiz_screen.QuizScreen
+import com.social.learnkotlin.view.quiz_screen.QuizViewModel
 import com.social.learnkotlin.view.reading_screen.ReadingScreen
 import com.social.learnkotlin.view.report_problem_screen.IssueDescribingScreen
 import com.social.learnkotlin.view.report_problem_screen.IssueSelectingScreen
@@ -78,6 +82,37 @@ fun NavigationGraph(navController: NavHostController) {
             )
         }
 
+//        navigation(
+//            startDestination = "personal_details",
+//            route = "onboarding"
+//        ) {
+//            composable("personal_details") { entry ->
+//                val viewModel = entry.sharedViewModel<QuizViewModel>(navController)
+//
+//                PersonalDetailsScreen(
+//                    sharedState = state,
+//                    onNavigate = {
+//                        viewModel.updateState()
+//                        navController.navigate("terms_and_conditions")
+//                    }
+//                )
+//            }
+//            composable("terms_and_conditions") { entry ->
+//                val viewModel = entry.sharedViewModel<SharedViewModel>(navController)
+//                val state by viewModel.sharedState.collectAsStateWithLifecycle()
+//
+//                TermsAndConditionsScreen(
+//                    sharedState = state,
+//                    onOnboardingFinished = {
+//                        navController.navigate(route = "other_screen") {
+//                            popUpTo("onboarding") {
+//                                inclusive = true
+//                            }
+//                        }
+//                    }
+//                )
+//            }
+//        }
         //QuizScreen
         composable(Screens.QuizScreen.route + "/{lesson_index}",
             arguments = listOf(
@@ -86,7 +121,12 @@ fun NavigationGraph(navController: NavHostController) {
                 }
             )
         ) { entry ->
-            QuizScreen(entry.arguments?.getString("lesson_index")?.toInt() ?: 0)
+            QuizScreen(entry.arguments?.getString("lesson_index")?.toInt() ?: 0 , navController)
+        }
+
+        //Quiz Result Screen
+        composable(Screens.QuizResultScreen.route){
+            QuizResultScreen(navController)
         }
 
         //Upgrade To Premium Screen

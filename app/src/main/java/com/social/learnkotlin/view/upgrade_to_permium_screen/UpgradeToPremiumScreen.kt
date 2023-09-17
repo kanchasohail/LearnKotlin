@@ -129,7 +129,7 @@ fun UpgradeToPremiumScreen(navController: NavController) {
                 buttonText = "Get Premium",
                 buttonTextColor = MaterialTheme.colorScheme.onPrimary,
                 buttonColor = primaryColor,
-                modifier = Modifier.padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
+                modifier = Modifier.fillMaxWidth().padding(start = 10.dp, end = 10.dp, bottom = 10.dp),
             ) {
 
             }

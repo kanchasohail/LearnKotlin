@@ -32,13 +32,15 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.social.learnkotlin.navigation.Screens
 import com.social.learnkotlin.ui.layout.DefaultFontText
 import com.social.learnkotlin.ui.layout.MyButton
 import com.social.learnkotlin.ui.theme.cyanColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QuizScreen(lessonIndex: Int) {
+fun QuizScreen(lessonIndex: Int, navController: NavController) {
     val viewModel = viewModel<QuizViewModel>(
         factory = object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -153,7 +155,7 @@ fun QuizScreen(lessonIndex: Int) {
                         ) {
                             viewModel.onPreviousClick()
                         }
-                        if(!viewModel.isLastQuestion){
+                        if (!viewModel.isLastQuestion) {
                             MyButton(
                                 buttonText = "Next",
                                 modifier = Modifier.fillMaxWidth(0.8f),
@@ -163,7 +165,7 @@ fun QuizScreen(lessonIndex: Int) {
                                     viewModel.onNextClick()
                                 }
                             }
-                        }else {
+                        } else {
                             MyButton(
                                 buttonText = "Submit",
                                 modifier = Modifier.fillMaxWidth(0.8f),
@@ -171,7 +173,7 @@ fun QuizScreen(lessonIndex: Int) {
                                 buttonTextColor = Color.Black
                             ) {
                                 if (viewModel.isAnswered) {
-//                                    viewModel.onNextClick()
+                                    navController.navigate(Screens.QuizResultScreen.route)
                                 }
                             }
                         }
@@ -180,6 +182,5 @@ fun QuizScreen(lessonIndex: Int) {
                 }
             }
         }
-
     }
 }

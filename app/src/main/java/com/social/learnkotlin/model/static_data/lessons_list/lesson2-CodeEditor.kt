@@ -62,33 +62,20 @@ val lesson2_CodeEditor = Lesson(
     ),
     quiz = listOf(
         QuizModel(
-            question = "What is Kotlin?",
-            options = listOf(
-                "Kotlin is a markup language",
-                "Kotlin is a Programming language",
-                "Kotlin is an assembly language"
-            ),
-            correctAnswer = "Kotlin is a Programming language"
+            question = "Why do we need a code editor?",
+            options = listOf("To edit photos", "To edit our code", "To play music"),
+            correctAnswer = "To edit our code"
         ),
 
         QuizModel(
-            question = "Kotlin was developed by which company?",
-            options = listOf("Bell Laboratories", "Google", "JetBrains"),
-            correctAnswer = "JetBrains"
+            question = "Do we have inbuilt code editor in this app?",
+            options = listOf("Yes", "No"),
+            correctAnswer = "Yes"
         ),
         QuizModel(
-            question = "What is Kotlin mostly used for?",
-            options = listOf(
-                "Android apps development",
-                "Web development",
-                "Game development"
-            ),
-            correctAnswer = "Android apps development"
-        ),
-        QuizModel(
-            question = "Before Kotlin which language was used for Android apps development?",
-            options = listOf("JavaScript", "HTML/CSS", "Java"),
-            correctAnswer = "Java"
+            question = "What is the extension of Kotlin?",
+            options = listOf(".c", ".kt", ".html"),
+            correctAnswer = ".kt"
         ),
     )
 )

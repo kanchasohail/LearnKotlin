@@ -9,6 +9,8 @@ sealed class Screens(val route: String) {
     object ReadingScreen : Screens("reading_screen")
 
     object QuizScreen:Screens("quiz_screen")
+
+    object QuizResultScreen:Screens("quiz_result_screen")
     object UpgradeToPremiumScreen : Screens("upgrade_to_premium_screen")
 
     //Report problem screens..
