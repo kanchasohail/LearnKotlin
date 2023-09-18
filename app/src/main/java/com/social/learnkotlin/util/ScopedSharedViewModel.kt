@@ -1,4 +1,4 @@
-package com.social.learnkotlin.model.util
+package com.social.learnkotlin.util
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

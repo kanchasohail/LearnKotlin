@@ -40,14 +40,8 @@ import com.social.learnkotlin.ui.theme.cyanColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QuizScreen(lessonIndex: Int, navController: NavController) {
-    val viewModel = viewModel<QuizViewModel>(
-        factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return QuizViewModel(lessonIndex) as T
-            }
-        }
-    )
+fun QuizScreen(navController: NavController , viewModel: QuizViewModel) {
+
     SideEffect {
         viewModel.quizInitialSetup(viewModel.quiz)
     }

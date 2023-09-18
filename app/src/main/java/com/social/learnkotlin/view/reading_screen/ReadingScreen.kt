@@ -233,7 +233,7 @@ private fun BottomButtons(viewModel: ReadingScreenViewModel, navController: NavC
                 buttonTextColor = Color.Black
             ) {
                 viewModel.onStartClick()
-                navController.navigate(Screens.QuizScreen.withArgs(viewModel.thisLessonIndex.toString()))
+                navController.navigate(Screens.QuizScreenGroup.withArgs(viewModel.thisLessonIndex.toString()))
             }
 
         } else {
