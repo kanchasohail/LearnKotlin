@@ -9,10 +9,9 @@ import androidx.lifecycle.ViewModel
 import com.social.learnkotlin.model.data_models.QuizModel
 import com.social.learnkotlin.model.static_data.AllLessons
 
-//class QuizViewModel(lessonIndex: Int) : ViewModel() {
 class QuizViewModel : ViewModel() {
 
-    private var lessonIndex: Int = 0
+    var lessonIndex: Int = 0
 
     private var thisLesson = AllLessons.lessonsList[lessonIndex]
 
@@ -99,6 +98,25 @@ class QuizViewModel : ViewModel() {
             }
             isAnswered = playedQuiz[quizQuestionIndex].selectedAnswer != ""
         }
+    }
+
+    fun getCorrectAnswersCount(): Int {
+        var correctAnswersCount = 0
+        for (answer in playedQuiz) {
+            if (answer.isCorrect) {
+                correctAnswersCount++
+            }
+        }
+        return correctAnswersCount
+    }
+
+    fun getResultText(): String {
+        val resultText: String = when (getCorrectAnswersCount()) {
+            playedQuiz.size -> "Perfect!"
+            playedQuiz.size - 2 -> "Almost There!"
+            else -> "Please Study!"
+        }
+        return resultText
     }
 
 }

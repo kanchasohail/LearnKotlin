@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
-import com.social.learnkotlin.util.sharedViewModel
+import com.social.learnkotlin.model.util.sharedViewModel
 import com.social.learnkotlin.view.codes_screen.CodesScreen
 import com.social.learnkotlin.view.editor_screen.EditorScreen
 import com.social.learnkotlin.view.lessons_screen.LessonsScreen
@@ -96,20 +96,15 @@ fun NavigationGraph(navController: NavHostController) {
                 Screens.QuizScreen.route,
             ) { entry ->
                 val viewModel = entry.sharedViewModel<QuizViewModel>(navController)
-                viewModel.initializeQuizScreen(
-                    entry.arguments?.getString("lesson_index")?.toInt() ?: 0
-                )
+                val lessonIndex = entry.arguments?.getString("lesson_index")?.toInt() ?: 0
 
-                QuizScreen(
-                    navController = navController,
-                    viewModel = viewModel
-                )
+                QuizScreen(lessonIndex, navController, viewModel)
             }
 
             //Quiz Result Screen
             composable(Screens.QuizResultScreen.route) { entry ->
                 val viewModel = entry.sharedViewModel<QuizViewModel>(navController)
-                QuizResultScreen(navController , viewModel)
+                QuizResultScreen(navController, viewModel)
             }
         }
 

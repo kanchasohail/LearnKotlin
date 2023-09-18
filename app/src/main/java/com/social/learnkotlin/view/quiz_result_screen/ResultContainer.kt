@@ -28,7 +28,7 @@ import com.social.learnkotlin.ui.theme.redColor
 import com.social.learnkotlin.view.quiz_screen.QuizViewModel
 
 @Composable
-fun ResultContainer(playedQuiz: QuizViewModel.PlayedQuizModel, modifier: Modifier = Modifier) {
+fun ResultContainer(playedQuiz: QuizViewModel.PlayedQuizModel, questionNo:Int ,modifier: Modifier = Modifier) {
 
     val borderColor: Color = if (playedQuiz.isCorrect) greenColor else redColor
 
@@ -42,10 +42,10 @@ fun ResultContainer(playedQuiz: QuizViewModel.PlayedQuizModel, modifier: Modifie
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(2.dp))
-                .padding(vertical = 16.dp, horizontal = 10.dp)
+                .padding(vertical = 12.dp, horizontal = 10.dp)
         ) {
-            DefaultFontText(text = playedQuiz.question, fontSize = 22.sp)
-            Spacer(modifier = Modifier.height(10.dp))
+            DefaultFontText(text = "$questionNo. ${playedQuiz.question}", fontSize = 20.sp)
+            Spacer(modifier = Modifier.height(6.dp))
             Row(modifier = Modifier.fillMaxWidth() , verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = if (playedQuiz.isCorrect) Icons.Rounded.Check else Icons.Rounded.Close,
@@ -54,7 +54,7 @@ fun ResultContainer(playedQuiz: QuizViewModel.PlayedQuizModel, modifier: Modifie
                     modifier = Modifier.size(22.dp)
                 )
                 Spacer(modifier = Modifier.width(5.dp))
-                DefaultFontText(text = playedQuiz.selectedAnswer , fontSize = 18.sp)
+                DefaultFontText(text = playedQuiz.selectedAnswer , fontSize = 17.sp)
             }
         }
     }
