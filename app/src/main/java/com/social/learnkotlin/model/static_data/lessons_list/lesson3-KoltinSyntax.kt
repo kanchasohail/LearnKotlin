@@ -75,7 +75,7 @@ val lesson3_KotlinSyntax = Lesson(
     ),
     quiz = listOf(
         QuizModel(
-            question = "Which function is executes the code in Kotlin?",
+            question = "Which function executes the code in Kotlin?",
             options = listOf("first() function", "main() function", "start() function"),
             correctAnswer = "main() function"
         ),

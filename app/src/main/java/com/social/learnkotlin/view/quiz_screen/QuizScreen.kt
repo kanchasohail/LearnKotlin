@@ -21,6 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,9 +41,10 @@ import com.social.learnkotlin.ui.theme.cyanColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QuizScreen(navController: NavController , viewModel: QuizViewModel) {
+fun QuizScreen(lessonIndex: Int, navController: NavController , viewModel: QuizViewModel) {
 
-    SideEffect {
+    LaunchedEffect(key1 = lessonIndex) {
+        viewModel.initializeQuizScreen(lessonIndex)
         viewModel.quizInitialSetup(viewModel.quiz)
     }
 
