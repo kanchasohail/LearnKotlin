@@ -1,13 +1,16 @@
 package com.social.learnkotlin.view.quiz_screen
 
+import android.content.Context
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import com.social.learnkotlin.model.data_models.QuizModel
 import com.social.learnkotlin.model.static_data.AllLessons
+import com.social.learnkotlin.navigation.Screens
 
 class QuizViewModel : ViewModel() {
 
@@ -117,6 +120,28 @@ class QuizViewModel : ViewModel() {
             else -> "Please Study!"
         }
         return resultText
+    }
+
+    fun passThisLesson(context: Context, navController: NavController) {
+        val onGoingLessonIndexKey = "on_going_lesson_index"
+        val prefs by lazy {
+            context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+        }
+        prefs.edit().putInt(onGoingLessonIndexKey, lessonIndex + 1).apply()
+
+        //Navigate to the reading screen with next lesson index
+        navController.popBackStack()
+        navController.popBackStack()
+        navController.popBackStack()
+        navController.navigate(Screens.ReadingScreen.withArgs((lessonIndex + 1).toString()))
+
+
+//        navController.navigate(Screens.ReadingScreen.withArgs((lessonIndex + 1).toString())) {
+//            popUpTo(Screens.ReadingScreen.route) {
+//                inclusive = true
+//            }
+//        }
+
     }
 
 }
