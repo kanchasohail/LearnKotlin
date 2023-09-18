@@ -9,13 +9,18 @@ import androidx.lifecycle.ViewModel
 import com.social.learnkotlin.model.data_models.QuizModel
 import com.social.learnkotlin.model.static_data.AllLessons
 
-class QuizViewModel(lessonIndex: Int) : ViewModel() {
+//class QuizViewModel(lessonIndex: Int) : ViewModel() {
+class QuizViewModel : ViewModel() {
 
-    private val thisLesson = AllLessons.lessonsList[lessonIndex]
+    private var lessonIndex: Int = 0
 
-    val lessonTitle = thisLesson.lessonName
+    private var thisLesson = AllLessons.lessonsList[lessonIndex]
 
-    val quiz = thisLesson.quiz
+    var lessonTitle = thisLesson.lessonName
+        private set
+
+    var quiz = thisLesson.quiz
+        private set
 
     var quizQuestionIndex by mutableIntStateOf(0)
 
@@ -38,6 +43,16 @@ class QuizViewModel(lessonIndex: Int) : ViewModel() {
         quiz.size == quizQuestionIndex + 1
     }
 
+
+    //Update the QuizData for initial screen setup
+    fun initializeQuizScreen(pLessonIndex: Int) {
+        lessonIndex = pLessonIndex
+        thisLesson = AllLessons.lessonsList[lessonIndex]
+
+        lessonTitle = thisLesson.lessonName
+
+        quiz = thisLesson.quiz
+    }
 
     //This method is for initial quizSetup
     fun quizInitialSetup(quiz: List<QuizModel>) {

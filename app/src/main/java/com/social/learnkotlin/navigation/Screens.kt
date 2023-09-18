@@ -8,6 +8,7 @@ sealed class Screens(val route: String) {
     object ProfileScreen : Screens("profile_screen")
     object ReadingScreen : Screens("reading_screen")
 
+    object QuizScreenGroup:Screens("quiz_screen_group") //Navigation group for quiz and quiz result screen
     object QuizScreen:Screens("quiz_screen")
 
     object QuizResultScreen:Screens("quiz_result_screen")

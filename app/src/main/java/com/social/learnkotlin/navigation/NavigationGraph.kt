@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
-import com.social.learnkotlin.model.util.sharedViewModel
+import com.social.learnkotlin.util.sharedViewModel
 import com.social.learnkotlin.view.codes_screen.CodesScreen
 import com.social.learnkotlin.view.editor_screen.EditorScreen
 import com.social.learnkotlin.view.lessons_screen.LessonsScreen
@@ -81,53 +81,53 @@ fun NavigationGraph(navController: NavHostController) {
                 lessonIndex = entry.arguments?.getString("lesson_index")?.toInt()
             )
         }
-
-//        navigation(
-//            startDestination = "personal_details",
-//            route = "onboarding"
-//        ) {
-//            composable("personal_details") { entry ->
-//                val viewModel = entry.sharedViewModel<QuizViewModel>(navController)
-//
-//                PersonalDetailsScreen(
-//                    sharedState = state,
-//                    onNavigate = {
-//                        viewModel.updateState()
-//                        navController.navigate("terms_and_conditions")
-//                    }
-//                )
-//            }
-//            composable("terms_and_conditions") { entry ->
-//                val viewModel = entry.sharedViewModel<SharedViewModel>(navController)
-//                val state by viewModel.sharedState.collectAsStateWithLifecycle()
-//
-//                TermsAndConditionsScreen(
-//                    sharedState = state,
-//                    onOnboardingFinished = {
-//                        navController.navigate(route = "other_screen") {
-//                            popUpTo("onboarding") {
-//                                inclusive = true
-//                            }
-//                        }
-//                    }
-//                )
-//            }
-//        }
-        //QuizScreen
-        composable(Screens.QuizScreen.route + "/{lesson_index}",
+        //Quiz Navigation Group
+        navigation(
+            startDestination = Screens.QuizScreen.route,
+            route = Screens.QuizScreenGroup.route + "/{lesson_index}",
             arguments = listOf(
                 navArgument("lesson_index") {
                     type = NavType.StringType
                 }
             )
-        ) { entry ->
-            QuizScreen(entry.arguments?.getString("lesson_index")?.toInt() ?: 0 , navController)
+        ) {
+            //QuizScreen
+            composable(
+                Screens.QuizScreen.route,
+            ) { entry ->
+                val viewModel = entry.sharedViewModel<QuizViewModel>(navController)
+                viewModel.initializeQuizScreen(
+                    entry.arguments?.getString("lesson_index")?.toInt() ?: 0
+                )
+
+                QuizScreen(
+                    navController = navController,
+                    viewModel = viewModel
+                )
+            }
+
+            //Quiz Result Screen
+            composable(Screens.QuizResultScreen.route) { entry ->
+                val viewModel = entry.sharedViewModel<QuizViewModel>(navController)
+                QuizResultScreen(navController , viewModel)
+            }
         }
 
-        //Quiz Result Screen
-        composable(Screens.QuizResultScreen.route){
-            QuizResultScreen(navController)
-        }
+//        //QuizScreen
+//        composable(Screens.QuizScreen.route + "/{lesson_index}",
+//            arguments = listOf(
+//                navArgument("lesson_index") {
+//                    type = NavType.StringType
+//                }
+//            )
+//        ) { entry ->
+//            QuizScreen(entry.arguments?.getString("lesson_index")?.toInt() ?: 0 , navController)
+//        }
+//
+//        //Quiz Result Screen
+//        composable(Screens.QuizResultScreen.route){
+//            QuizResultScreen(navController)
+//        }
 
         //Upgrade To Premium Screen
         composable(
