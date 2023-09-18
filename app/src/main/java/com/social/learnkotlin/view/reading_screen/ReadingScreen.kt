@@ -32,12 +32,9 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.social.learnkotlin.model.static_data.AllLessons
@@ -49,21 +46,14 @@ import com.social.learnkotlin.ui.theme.cyanColor
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
-    val context = LocalContext.current
 
-    val viewModel = viewModel<ReadingScreenViewModel>(
-        factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return ReadingScreenViewModel(
-                    context = context,
-                    onGoingLessonId = lessonIndex ?: 0
-                ) as T
-            }
-        }
-    )
+    val viewModel = viewModel<ReadingScreenViewModel>()
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.completedTopics = 1
+    }
 
     val thisLesson = AllLessons.lessonsList[lessonIndex ?: 0]
-    viewModel.thisLessonIndex = lessonIndex ?: 0
     viewModel.totalTopics = thisLesson.pagesCount
 
     val appBarContentColor = MaterialTheme.colorScheme.onBackground
@@ -120,23 +110,15 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                 modifier = Modifier
                     .height(70.dp)
             ) {
-                BottomButtons(viewModel, navController)
+                BottomButtons(viewModel, navController, lessonIndex ?: 0)
             }
         }
     ) { paddingValues ->
-        val scrollState = rememberScrollState(
-            initial = viewModel.initialScrollPosition
-        )
-
-        LaunchedEffect(scrollState) {
-            viewModel.saveScrollPosition(scrollState)
-        }
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .verticalScroll(scrollState),
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -197,7 +179,11 @@ private fun LessonsCountBar(
 
 
 @Composable
-private fun BottomButtons(viewModel: ReadingScreenViewModel, navController: NavController) {
+private fun BottomButtons(
+    viewModel: ReadingScreenViewModel,
+    navController: NavController,
+    thisLessonIndex: Int
+) {
     val secondaryColor = MaterialTheme.colorScheme.secondary
     val onSecondaryColor = MaterialTheme.colorScheme.onSecondary
 
@@ -232,8 +218,7 @@ private fun BottomButtons(viewModel: ReadingScreenViewModel, navController: NavC
                 buttonColor = cyanColor,
                 buttonTextColor = Color.Black
             ) {
-                viewModel.onStartClick()
-                navController.navigate(Screens.QuizScreenGroup.withArgs(viewModel.thisLessonIndex.toString()))
+                navController.navigate(Screens.QuizScreenGroup.withArgs(thisLessonIndex.toString()))
             }
 
         } else {

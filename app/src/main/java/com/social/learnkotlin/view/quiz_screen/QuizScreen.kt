@@ -61,7 +61,9 @@ fun QuizScreen(lessonIndex: Int, navController: NavController , viewModel: QuizV
                     modifier = Modifier.fillMaxWidth()
                 )
             }, navigationIcon = {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = {
+                    navController.popBackStack()
+                }) {
                     Icon(
                         imageVector = Icons.Rounded.Close,
                         contentDescription = "close",

@@ -1,6 +1,5 @@
 package com.social.learnkotlin.view.quiz_result_screen
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,20 +22,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.social.learnkotlin.navigation.Screens
-import com.social.learnkotlin.ui.common_views.bottomBorder
 import com.social.learnkotlin.ui.layout.DefaultFontText
 import com.social.learnkotlin.ui.layout.MyButton
 import com.social.learnkotlin.view.quiz_screen.QuizViewModel
@@ -45,10 +40,9 @@ import com.social.learnkotlin.view.quiz_screen.QuizViewModel
 @Composable
 fun QuizResultScreen(navController: NavController, viewModel: QuizViewModel) {
 
+    val context = LocalContext.current
+
     val appBarContentColor = MaterialTheme.colorScheme.onBackground
-    val primaryColor = MaterialTheme.colorScheme.primary
-    val secondaryColor = MaterialTheme.colorScheme.secondary
-    val onSecondaryColor = MaterialTheme.colorScheme.onSecondary
 
     Scaffold(topBar = {
         TopAppBar(
@@ -60,7 +54,10 @@ fun QuizResultScreen(navController: NavController, viewModel: QuizViewModel) {
                 )
             },
             navigationIcon = {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = {
+                    navController.popBackStack()
+                    navController.popBackStack()
+                }) {
                     Icon(
                         imageVector = Icons.Rounded.Close,
                         contentDescription = "close",
@@ -91,8 +88,13 @@ fun QuizResultScreen(navController: NavController, viewModel: QuizViewModel) {
                 .height(70.dp)
         ) {
             if (viewModel.getCorrectAnswersCount() == viewModel.playedQuiz.size) {
-                MyButton(buttonText = "Next Lesson", modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)) {
-                    navController.navigate(Screens.ReadingScreen.withArgs((viewModel.lessonIndex + 1).toString()))
+                MyButton(
+                    buttonText = "Next Lesson",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp)
+                ) {
+                    viewModel.passThisLesson(context , navController)
                 }
             } else {
                 Row(
@@ -103,10 +105,12 @@ fun QuizResultScreen(navController: NavController, viewModel: QuizViewModel) {
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     MyButton(buttonText = "Retake Lesson", modifier = Modifier.fillMaxWidth(0.4f)) {
-
+                        navController.popBackStack()
+                        navController.popBackStack()
                     }
                     MyButton(buttonText = "Retake Quiz", modifier = Modifier.fillMaxWidth(0.62f)) {
-
+                        viewModel.quizQuestionIndex = 0
+                        navController.popBackStack()
                     }
                 }
             }
