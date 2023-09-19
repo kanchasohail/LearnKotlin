@@ -22,7 +22,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -30,9 +29,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.social.learnkotlin.navigation.Screens
 import com.social.learnkotlin.ui.layout.DefaultFontText
@@ -41,7 +37,7 @@ import com.social.learnkotlin.ui.theme.cyanColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun QuizScreen(lessonIndex: Int, navController: NavController , viewModel: QuizViewModel) {
+fun QuizScreen(lessonIndex: Int, navController: NavController, viewModel: QuizViewModel) {
 
     LaunchedEffect(key1 = lessonIndex) {
         viewModel.initializeQuizScreen(lessonIndex)
@@ -57,6 +53,7 @@ fun QuizScreen(lessonIndex: Int, navController: NavController , viewModel: QuizV
             TopAppBar(title = {
                 DefaultFontText(
                     text = viewModel.lessonTitle,
+                    fontSize = 24.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -67,7 +64,7 @@ fun QuizScreen(lessonIndex: Int, navController: NavController , viewModel: QuizV
                     Icon(
                         imageVector = Icons.Rounded.Close,
                         contentDescription = "close",
-                        modifier = Modifier.size(35.dp)
+                        modifier = Modifier.size(30.dp)
                     )
                 }
             }, actions = {
@@ -75,7 +72,7 @@ fun QuizScreen(lessonIndex: Int, navController: NavController , viewModel: QuizV
                     Icon(
                         imageVector = Icons.Rounded.Close,
                         contentDescription = "close",
-                        modifier = Modifier.size(35.dp),
+                        modifier = Modifier.size(30.dp),
                         tint = Color.Transparent
                     )
                 }
