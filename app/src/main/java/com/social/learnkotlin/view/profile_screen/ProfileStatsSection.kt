@@ -51,8 +51,7 @@ fun ProfileStatsSection(modifier: Modifier = Modifier) {
             )
 
             DefaultFontText(
-//                text = "Complete this to get your certificate!",
-                text = "Complete all the lessons to get your certificate!",
+                text = "Finish all the lessons to get your certificate!",
                 fontSize = 15.sp,
                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                 modifier = Modifier.padding(5.dp)

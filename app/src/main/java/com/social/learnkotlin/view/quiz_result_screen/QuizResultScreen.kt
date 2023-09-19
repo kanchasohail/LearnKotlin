@@ -49,6 +49,7 @@ fun QuizResultScreen(navController: NavController, viewModel: QuizViewModel) {
             title = {
                 DefaultFontText(
                     text = "Quiz Result",
+                    fontSize = 24.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -61,7 +62,7 @@ fun QuizResultScreen(navController: NavController, viewModel: QuizViewModel) {
                     Icon(
                         imageVector = Icons.Rounded.Close,
                         contentDescription = "close",
-                        modifier = Modifier.size(35.dp)
+                        modifier = Modifier.size(30.dp)
                     )
                 }
             },
@@ -70,7 +71,7 @@ fun QuizResultScreen(navController: NavController, viewModel: QuizViewModel) {
                     Icon(
                         imageVector = Icons.Rounded.Close,
                         contentDescription = "close",
-                        modifier = Modifier.size(35.dp),
+                        modifier = Modifier.size(30.dp),
                         tint = Color.Transparent
                     )
                 }

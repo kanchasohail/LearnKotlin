@@ -14,7 +14,7 @@ import com.social.learnkotlin.navigation.Screens
 
 class QuizViewModel : ViewModel() {
 
-    var lessonIndex: Int = 0
+    private var lessonIndex: Int = 0
 
     private var thisLesson = AllLessons.lessonsList[lessonIndex]
 
@@ -127,7 +127,10 @@ class QuizViewModel : ViewModel() {
         val prefs by lazy {
             context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
         }
-        prefs.edit().putInt(onGoingLessonIndexKey, lessonIndex + 1).apply()
+        val onGoingLesson: Int = prefs.getInt(onGoingLessonIndexKey, 0)
+        if(onGoingLesson <= lessonIndex ){
+            prefs.edit().putInt(onGoingLessonIndexKey, lessonIndex + 1).apply()
+        }
 
         //Navigate to the reading screen with next lesson index
         navController.popBackStack()

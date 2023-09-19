@@ -1,5 +1,6 @@
 package com.social.learnkotlin.view.reading_screen
 
+import android.widget.Toast
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,11 +9,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Close
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -32,11 +35,13 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.social.learnkotlin.R
 import com.social.learnkotlin.model.static_data.AllLessons
 import com.social.learnkotlin.navigation.Screens
 import com.social.learnkotlin.ui.layout.DefaultFontText
@@ -66,6 +71,7 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                         Icon(
                             imageVector = Icons.Rounded.ArrowBack,
                             contentDescription = "Back",
+                            modifier = Modifier.size(28.dp)
                         )
                     }
                 },
@@ -90,10 +96,14 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                     }
                 },
                 actions = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = {
+
+                    }) {
                         Icon(
-                            imageVector = Icons.Rounded.Close,
-                            contentDescription = "Back",
+                            painter = painterResource(id = R.drawable.ic_settings_icon),
+                            contentDescription = "Settings",
+                            modifier = Modifier.size(28.dp)
+
                         )
                     }
                 },
@@ -149,7 +159,7 @@ private fun LessonsCountBar(
 ) {
     val primaryColor = MaterialTheme.colorScheme.primary
     val secondaryColor = MaterialTheme.colorScheme.secondary.copy(.5f)
-    Row(modifier = modifier.fillMaxWidth(0.8f)) {
+    Row(modifier = modifier.fillMaxWidth(0.5f)) {
 
         val totalLength = (dashCount * 2 - 1).toFloat()
 
