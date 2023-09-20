@@ -44,8 +44,8 @@ fun ReadingCard(modifier: Modifier = Modifier, lessonTopic: LessonTopic) {
             }
 
             lessonTopic.article.map {
-                DefaultFontText(text = it, fontSize = 20.sp, color = contentColor)
-                Spacer(modifier = Modifier.height(12.dp))
+                DefaultFontText(text = it, fontSize = 18.sp, color = contentColor)
+                Spacer(modifier = Modifier.height(14.dp))
 
             }
 

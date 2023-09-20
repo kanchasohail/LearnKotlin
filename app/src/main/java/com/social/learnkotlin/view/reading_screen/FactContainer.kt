@@ -40,14 +40,15 @@ fun FactContainer(modifier: Modifier = Modifier , factText:String) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             imageVector = Icons.Rounded.Info,
-                            contentDescription = "Fact"
+                            contentDescription = "Fact",
+                            tint = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         DefaultFontText(
                             text = "Fact -",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = MaterialTheme.colorScheme.onSurface
+                            color = MaterialTheme.colorScheme.primary
                         )
                     }
                     Spacer(modifier = Modifier.height(2.dp))

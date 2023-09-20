@@ -40,14 +40,15 @@ fun NoteContainer(modifier: Modifier = Modifier, noteText: String) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             painter = painterResource(R.drawable.ic_note),
-                            contentDescription = "Note"
+                            contentDescription = "Note",
+                            tint = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         DefaultFontText(
                             text = "Note -",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = MaterialTheme.colorScheme.onSurface
+                            color = MaterialTheme.colorScheme.primary
                         )
                     }
                     Spacer(modifier = Modifier.height(2.dp))
