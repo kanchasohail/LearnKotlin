@@ -102,7 +102,7 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_settings_icon),
                             contentDescription = "Settings",
-                            modifier = Modifier.size(28.dp)
+                            modifier = Modifier.size(27.dp)
 
                         )
                     }

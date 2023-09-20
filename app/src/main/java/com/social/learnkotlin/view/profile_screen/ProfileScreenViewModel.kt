@@ -56,22 +56,23 @@ class ProfileScreenViewModel : ViewModel() {
     }
 
     suspend fun saveProfileImage(context: Context) {
-        if(selectedImage == null){
+        if (selectedImage == null) {
             return
         }
         val imageString = imageUriToBase64(uri = selectedImage!!, context = context)
         context.dataStore.edit { profile ->
-            profile[PROFILE_IMAGE] = imageString ?: null
+            profile[PROFILE_IMAGE] = imageString ?: "null"
         }
     }
 
-    suspend fun getProfilePicture(context: Context){
+    suspend fun getProfilePicture(context: Context) {
         val imageString = context.dataStore.data.first()[PROFILE_IMAGE] ?: ""
-        if(imageString == "" || imageString == null){
+        if (imageString == "" || imageString == "null") {
             return
         }
-        val thisImageUri = base64ToImageUri(base64 = imageString , context = context , fileName = "profile-image")
-        if(thisImageUri != null){
+        val thisImageUri =
+            base64ToImageUri(base64 = imageString, context = context, fileName = "profile-image")
+        if (thisImageUri != null) {
             selectedImage = thisImageUri
         }
 
