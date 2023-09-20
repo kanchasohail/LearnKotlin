@@ -18,10 +18,10 @@ val lesson10_SomeMoreDataTypes = Lesson(
                 "Kotlin is a relatively new programming language developed by JetBrains.",
                 "Nowadays, Kotlin is widely used for Android apps development instead of Java. It is because Kotlin is safe, concise, and fun to read and write.",
             ),
-            codeExample = "null",
+            codeExample = null,
             codeOutPutExample = false,
-            fact = "null",
-            note = "null",
+            fact = null,
+            note = null,
         ),
         LessonTopic(
 
@@ -36,7 +36,7 @@ val lesson10_SomeMoreDataTypes = Lesson(
     println("Hello world")
 }""",
             codeOutPutExample = true,
-            fact = "",
+            fact = null,
             note = "You can click on that \\\"try it yourself\\\" button to open the editor and edit the code.",
         ),
         LessonTopic(
@@ -48,10 +48,10 @@ val lesson10_SomeMoreDataTypes = Lesson(
                 "Kotlin is used to develop Android apps, server side apps, and much more. But it is mostly used to develop Android apps.",
                 "We will learn more about Kotlin in next upcoming lessons. Before that let's see how much we learnt from this lesson (click on this play quiz button).",
             ),
-            codeExample = "",
+            codeExample = null,
             codeOutPutExample = false,
-            fact = "",
-            note = "",
+            fact = null,
+            note= null,
         ),
     ),
     quiz = listOf(

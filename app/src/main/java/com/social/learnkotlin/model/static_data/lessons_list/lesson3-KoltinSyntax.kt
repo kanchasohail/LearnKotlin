@@ -21,8 +21,8 @@ val lesson3_KotlinSyntax = Lesson(
   println("Hello World")
 }""",
             codeOutPutExample = true,
-            fact = "null",
-            note = "",
+            fact = null,
+            note= null,
         ),
         LessonTopic(
             topicId = 1,
@@ -31,9 +31,9 @@ val lesson3_KotlinSyntax = Lesson(
                 "The 'fun' keyword is used to declare a function. A function is a block of code designed to perform a particular task. In the example above, it declares the 'main()' function.",
                 "The 'main()' function is something you will see in every Kotlin program. This function is used to execute code. Any code inside the curly brackets '{}' of 'main()' function will be executed.",
             ),
-            codeExample = "",
+            codeExample = null,
             codeOutPutExample = false,
-            fact = "",
+            fact = null,
             note = "Kotlin executes the code in the 'main()' function or being called from the main() function.",
         ),
         LessonTopic(
@@ -43,9 +43,9 @@ val lesson3_KotlinSyntax = Lesson(
                 "The main function in Kotlin is the entry point to a Kotlin program.",
                 "For example, the 'println()' function is inside the 'main()' function, meaning that this will be executed. The 'println()' function is used to output/print text, and in our example it will output \"Hello World\".",
             ),
-            codeExample = "",
+            codeExample = null,
             codeOutPutExample = false,
-            fact = "",
+            fact = null,
             note = "In Kotlin, code statements do not have to end with a semicolon (';') (which is often required for other programming languages, such as Java, C++, C#, etc.).",
         ),
         LessonTopic(
@@ -58,8 +58,8 @@ val lesson3_KotlinSyntax = Lesson(
   println("Hello World")
 }""",
             codeOutPutExample = true,
-            fact = "",
-            note = "",
+            fact = null,
+            note= null,
         ),
         LessonTopic(
             topicId = 3,
@@ -67,9 +67,9 @@ val lesson3_KotlinSyntax = Lesson(
             article = listOf(
                 "But now, this is no longer required, and the program will run fine without it. However, it will not do any harm if you have been using it in the past, and will continue to use it.",
             ),
-            codeExample = "",
+            codeExample = null,
             codeOutPutExample = false,
-            fact = "",
+            fact = null,
             note = "We don't need to add 'args : Array<String>' these parameters to the main function anymore.",
         ),
     ),

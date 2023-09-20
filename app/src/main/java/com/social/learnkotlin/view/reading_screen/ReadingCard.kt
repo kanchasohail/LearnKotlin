@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -34,20 +33,28 @@ fun ReadingCard(modifier: Modifier = Modifier, lessonTopic: LessonTopic) {
                 .fillMaxWidth()
                 .padding(12.dp)
         ) {
-           if(lessonTopic.header != "" && lessonTopic.header != "null"){
-               DefaultFontText(
-                   text = lessonTopic.header,
-                   fontSize = 22.sp,
-                   fontWeight = FontWeight.SemiBold,
-                   color = MaterialTheme.colorScheme.primary,
-                   modifier = Modifier.padding(bottom = 8.dp)
-               )
-           }
+            if (lessonTopic.header != null) {
+                DefaultFontText(
+                    text = lessonTopic.header,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+            }
 
             lessonTopic.article.map {
                 DefaultFontText(text = it, fontSize = 20.sp, color = contentColor)
                 Spacer(modifier = Modifier.height(12.dp))
 
+            }
+
+            if (lessonTopic.note != null) {
+                NoteContainer(noteText = lessonTopic.note)
+            }
+
+            if (lessonTopic.fact != null) {
+                FactContainer(factText = lessonTopic.fact)
             }
 
             Spacer(modifier = Modifier.height(8.dp))
