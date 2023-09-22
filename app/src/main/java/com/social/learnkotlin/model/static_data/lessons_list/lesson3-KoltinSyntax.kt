@@ -22,11 +22,11 @@ val lesson3_KotlinSyntax = Lesson(
 }""",
             codeOutPutExample = true,
             fact = null,
-            note= null,
+            note = null,
         ),
         LessonTopic(
             topicId = 1,
-            header = "",
+            header = null,
             article = listOf(
                 "The 'fun' keyword is used to declare a function. A function is a block of code designed to perform a particular task. In the example above, it declares the 'main()' function.",
                 "The 'main()' function is something you will see in every Kotlin program. This function is used to execute code. Any code inside the curly brackets '{}' of 'main()' function will be executed.",
@@ -59,11 +59,11 @@ val lesson3_KotlinSyntax = Lesson(
 }""",
             codeOutPutExample = true,
             fact = null,
-            note= null,
+            note = null,
         ),
         LessonTopic(
             topicId = 3,
-            header = "",
+            header = null,
             article = listOf(
                 "But now, this is no longer required, and the program will run fine without it. However, it will not do any harm if you have been using it in the past, and will continue to use it.",
             ),
