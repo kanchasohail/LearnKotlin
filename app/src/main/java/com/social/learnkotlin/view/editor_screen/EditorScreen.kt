@@ -20,9 +20,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,18 +34,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.social.learnkotlin.R
+import kotlinx.coroutines.launch
 
-@Preview(showSystemUi = true)
 @Composable
-//fun EditorScreen(navController: NavController) {
-fun EditorScreen(navController: NavController = rememberNavController()) {
-    var isCodeScreen by remember { mutableStateOf(true) }
+fun EditorScreen(navController: NavController, pCodeString: String) {
     val primaryColor: Color = MaterialTheme.colorScheme.primary
-    val onPrimaryColor:Color = MaterialTheme.colorScheme.onPrimary
+    val onPrimaryColor: Color = MaterialTheme.colorScheme.onPrimary
     val appBarContentColor = MaterialTheme.colorScheme.onBackground
+
+    val viewModel = viewModel<EditorViewModel>()
+    val scope = rememberCoroutineScope()
+
+    SideEffect {
+        viewModel.codeString = pCodeString
+    }
 
     Column(
         modifier = Modifier
@@ -77,7 +85,7 @@ fun EditorScreen(navController: NavController = rememberNavController()) {
                         .width(100.dp)
                         .clip(RoundedCornerShape(topStart = 5.dp, bottomStart = 5.dp))
                         .background(
-                            if (isCodeScreen) primaryColor else Color.Transparent
+                            if (viewModel.isCodeScreen) primaryColor else Color.Transparent
                         )
                         .border(
                             1.dp,
@@ -85,11 +93,14 @@ fun EditorScreen(navController: NavController = rememberNavController()) {
                             shape = RoundedCornerShape(topStart = 5.dp, bottomStart = 5.dp)
                         )
                         .clickable {
-                            isCodeScreen = true
+                            viewModel.showCodesCard()
                         },
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Code" , color = if(isCodeScreen)onPrimaryColor else appBarContentColor)
+                    Text(
+                        text = "Code",
+                        color = if (viewModel.isCodeScreen) onPrimaryColor else appBarContentColor
+                    )
                 }
 
                 Box(
@@ -98,7 +109,7 @@ fun EditorScreen(navController: NavController = rememberNavController()) {
                         .width(100.dp)
                         .clip(RoundedCornerShape(topEnd = 5.dp, bottomEnd = 5.dp))
                         .background(
-                            if (!isCodeScreen) primaryColor else Color.Transparent
+                            if (!viewModel.isCodeScreen) primaryColor else Color.Transparent
                         )
                         .border(
                             1.dp,
@@ -106,11 +117,16 @@ fun EditorScreen(navController: NavController = rememberNavController()) {
                             shape = RoundedCornerShape(topEnd = 5.dp, bottomEnd = 5.dp)
                         )
                         .clickable {
-                            isCodeScreen = false
+                            scope.launch {
+                                viewModel.showOutputCard()
+                            }
                         },
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Output" , color = if(!isCodeScreen)onPrimaryColor else appBarContentColor)
+                    Text(
+                        text = "Output",
+                        color = if (!viewModel.isCodeScreen) onPrimaryColor else appBarContentColor
+                    )
                 }
             }
 
@@ -131,6 +147,8 @@ fun EditorScreen(navController: NavController = rememberNavController()) {
             thickness = 1.dp,
             color = MaterialTheme.colorScheme.primary
         )
+
+        if (viewModel.isCodeScreen) CodesCard(viewModel) else OutputCard()
     }
 
 }

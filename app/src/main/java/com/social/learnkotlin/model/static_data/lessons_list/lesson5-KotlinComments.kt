@@ -79,7 +79,7 @@ val lesson5_KotlinComments = Lesson(
             correctAnswer = "Single-lined comment"
         ),
         QuizModel(
-            question = "Which one is used to write multi-lined comment?",
+            question = "Which one is used to write multi-lined comment in Kotlin?",
             options = listOf("/*   */", "//", "<!--- -->"),
             correctAnswer = "/*   */"
         ),

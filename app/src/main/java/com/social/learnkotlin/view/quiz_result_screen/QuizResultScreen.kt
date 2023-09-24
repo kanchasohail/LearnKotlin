@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.social.learnkotlin.navigation.Screens
 import com.social.learnkotlin.ui.layout.DefaultFontText
 import com.social.learnkotlin.ui.layout.MyButton
 import com.social.learnkotlin.view.quiz_screen.QuizViewModel
@@ -89,13 +90,26 @@ fun QuizResultScreen(navController: NavController, viewModel: QuizViewModel) {
                 .height(70.dp)
         ) {
             if (viewModel.getCorrectAnswersCount() == viewModel.playedQuiz.size) {
+                //Pass the lesson as soon as the screen gets composed and all the answers are true
+                viewModel.passThisLesson(context)
                 MyButton(
                     buttonText = "Next Lesson",
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 8.dp)
                 ) {
-                    viewModel.passThisLesson(context , navController)
+                    //Navigate to the reading screen with next lesson index
+                    navController.popBackStack()
+                    navController.popBackStack()
+                    navController.popBackStack()
+                    navController.navigate(Screens.ReadingScreen.withArgs((viewModel.lessonIndex + 1).toString()))
+
+
+                    //        navController.navigate(Screens.ReadingScreen.withArgs((lessonIndex + 1).toString())) {
+                    //            popUpTo(Screens.ReadingScreen.route) {
+                    //                inclusive = true
+                    //            }
+                    //        }
                 }
             } else {
                 Row(

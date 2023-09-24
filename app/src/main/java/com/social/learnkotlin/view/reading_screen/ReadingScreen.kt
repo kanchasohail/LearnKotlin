@@ -137,7 +137,8 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
             theseTopics.map {
                 ReadingCard(
                     modifier = Modifier.padding(10.dp),
-                    lessonTopic = it
+                    lessonTopic = it,
+                    navController = navController
                 )
             }
 
