@@ -29,10 +29,8 @@ import androidx.navigation.compose.rememberNavController
 import com.social.learnkotlin.navigation.Screens
 import com.social.learnkotlin.ui.layout.DefaultFontText
 
-@Preview(showSystemUi = true)
 @Composable
-//fun CodesScreen(navController: NavController) {
-fun CodesScreen(navController: NavController = rememberNavController()) {
+fun CodesScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -40,7 +38,7 @@ fun CodesScreen(navController: NavController = rememberNavController()) {
         LazyColumn {
             items(22) {
                 CodeFileItem(onClick = {
-                    navController.navigate(Screens.EditorScreen.route)
+                    navController.navigate(Screens.EditorScreen.withArgs("Hello world"))
                 })
             }
         }

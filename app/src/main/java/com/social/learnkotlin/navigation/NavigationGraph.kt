@@ -47,15 +47,23 @@ fun NavigationGraph(navController: NavHostController) {
 
         //Editor Screen
         composable(
-            Screens.EditorScreen.route,
+            Screens.EditorScreen.route + "/{code_string}",
             enterTransition = {
                 slideInVertically(
                     initialOffsetY = { -10 },
                     animationSpec = tween(1000, delayMillis = 40, easing = FastOutSlowInEasing)
                 ) + fadeIn(animationSpec = tween(1000, delayMillis = 100))
             },
-        ) {
-            EditorScreen(navController = navController)
+            arguments = listOf(
+                navArgument("code_string") {
+                    type = NavType.StringType
+                },
+            )
+        ) { entry ->
+            EditorScreen(
+                navController = navController,
+                pCodeString = entry.arguments?.getString("code_string").toString()
+            )
         }
 
         //Profile Screen

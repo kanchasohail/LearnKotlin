@@ -19,7 +19,11 @@ import androidx.compose.ui.unit.sp
 import com.social.learnkotlin.ui.layout.DefaultFontText
 
 @Composable
-fun CodeExampleContainer(modifier: Modifier = Modifier, codeString: String) {
+fun CodeExampleContainer(
+    modifier: Modifier = Modifier,
+    codeString: String,
+    onTryClick: () -> Unit
+) {
     Column(modifier = Modifier.fillMaxWidth()) {
         DefaultFontText(text = "Code Example -", fontSize = 22.sp, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(5.dp))
@@ -33,7 +37,7 @@ fun CodeExampleContainer(modifier: Modifier = Modifier, codeString: String) {
         }
         Spacer(modifier = Modifier.height(5.dp))
 
-        OutlinedButton(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
+        OutlinedButton(onClick = onTryClick, modifier = Modifier.fillMaxWidth()) {
             DefaultFontText(
                 text = "Try it yourself",
                 fontSize = 18.sp,

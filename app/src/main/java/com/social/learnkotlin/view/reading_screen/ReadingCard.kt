@@ -15,11 +15,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.social.learnkotlin.model.data_models.LessonTopic
+import com.social.learnkotlin.navigation.Screens
 import com.social.learnkotlin.ui.layout.DefaultFontText
 
 @Composable
-fun ReadingCard(modifier: Modifier = Modifier, lessonTopic: LessonTopic) {
+fun ReadingCard(modifier: Modifier = Modifier, lessonTopic: LessonTopic, navController: NavController) {
     val contentColor: Color = MaterialTheme.colorScheme.onSecondaryContainer
     Card(
         modifier = modifier
@@ -49,7 +51,9 @@ fun ReadingCard(modifier: Modifier = Modifier, lessonTopic: LessonTopic) {
             }
 
             if (lessonTopic.codeExample != null) {
-                CodeExampleContainer(codeString = lessonTopic.codeExample)
+                CodeExampleContainer(codeString = lessonTopic.codeExample){
+                    navController.navigate(Screens.EditorScreen.withArgs(lessonTopic.codeExample))
+                }
                 if (lessonTopic.codeOutPutExample) {
                     ExampleOutputContainer(codeString = lessonTopic.codeExample)
                 }
