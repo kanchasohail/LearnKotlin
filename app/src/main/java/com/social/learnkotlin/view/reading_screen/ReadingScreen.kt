@@ -4,13 +4,14 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.BottomAppBar
@@ -121,22 +122,27 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
             }
         }
     ) { paddingValues ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             val theseTopics =
                 thisLesson.lessonTopics.filter { it.topicId == viewModel.completedTopics }
-            theseTopics.map {
+            item {
+                Spacer(modifier = Modifier.height(10.dp))
+            }
+
+            items(theseTopics) { item ->
                 ReadingCard(
-                    modifier = Modifier.padding(10.dp),
-                    lessonTopic = it,
-                    navController = navController
+                    lessonTopic = item,
+                    navController = navController,
+                    modifier = Modifier.padding(horizontal = 10.dp)
                 )
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(10.dp))
             }
         }
 

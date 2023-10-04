@@ -66,13 +66,6 @@ fun ReadingCard(modifier: Modifier = Modifier, lessonTopic: LessonTopic, navCont
             if (lessonTopic.fact != null) {
                 FactContainer(factText = lessonTopic.fact)
             }
-
-            Spacer(modifier = Modifier.height(8.dp))
-            Divider(
-                thickness = 2.dp,
-                modifier = Modifier.padding(horizontal = 60.dp),
-                color = MaterialTheme.colorScheme.primary
-            )
         }
     }
 }
