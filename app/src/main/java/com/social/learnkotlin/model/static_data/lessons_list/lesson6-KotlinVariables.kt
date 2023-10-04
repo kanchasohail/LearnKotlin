@@ -10,79 +10,145 @@ val lesson6_KotlinVariables = Lesson(
     lessonDescription = "Kotlin variables and their use",
     pagesCount = 3, lessonTopics = listOf(
         LessonTopic(
-
             topicId = 1,
-            header = "IWhat is Kotlin?",
+            header = "Variable intro - ",
             article = listOf(
-                "Kotlin is a modern, trending programming language.",
-                "Kotlin is a relatively new programming language developed by JetBrains.",
-                "Nowadays, Kotlin is widely used for Android apps development instead of Java. It is because Kotlin is safe, concise, and fun to read and write.",
+                "Variable are used to store data values , in simple words Variable are containers for  storing data values.",
+                "Now that you know what a variable is. Let's have a look on how to make a variable and how to use them in different scenarios.",
+                "To create a variable, we use var or val, and assign a value to it with the equal sign (=):",
+                "For creating a variable we use 'var' or 'val' keyword and then give the variable name after that a '=' sing to assign the value. Pretty confusing right?",
+                "Let's understand this with examples.",
             ),
-            codeExample = null,
-            codeOutPutExample = false,
+            codeExample = """fun main() {
+var variableName = "This is a variable"
+val secondVariableName = "This is another variable"
+
+println(variableName)  // It will print the value of variableName
+println(secondVariableName) //It will print the value of secondVariableName
+}""",
+            codeOutPutExample = true,
             fact = null,
             note = null,
         ),
         LessonTopic(
-
-            topicId = 2,
-            header = "About the tutorial -",
+            topicId = 1,
+            header = null,
             article = listOf(
-                "Our Kotlin tutorial will guide you to learn Kotlin step by step from scratch. Even if you do not have any knowledge about programming.",
-                "In this tutorial you will learn Kotlin with many interesting lessons, quizes and challenges. So, own your marks and let's go.",
-                "Here is an example of basic \"Hello World\" program in Kotlin:",
-            ),
-            codeExample = """fun main() {
-    println("Hello world")
-}""",
-            codeOutPutExample = true,
-            fact = null,
-            note = "You can click on that \\\"try it yourself\\\" button to open the editor and edit the code.",
-        ),
-        LessonTopic(
-
-            topicId = 3,
-            header = "Why should we learn Kotlin?",
-            article = listOf(
-                "Kotlin is easy to learn, especially if you already know Java (it is 100% compatible with Java). But even if you don't know Java this tutorial is going to teach you everything from scratch.",
-                "Kotlin is used to develop Android apps, server side apps, and much more. But it is mostly used to develop Android apps.",
-                "We will learn more about Kotlin in next upcoming lessons. Before that let's see how much we learnt from this lesson (click on this play quiz button).",
+                "In the above example, we can see how we create variables and assign some values to them.",
+                "Click on that \"try it yourself\" button and play around it's values and also try to write the whole program from scratch.",
+                "It's not compulsory to write the variable names that I have written, you can choose any variable name that you want. But we have some rules and best practices for choosing a variable name that we will see later in this lesson.",
             ),
             codeExample = null,
             codeOutPutExample = false,
             fact = null,
-            note= null,
+            note = "There are some reserved keywords in Kotlin which we can not use as a name of our variables.",
         ),
-    ),
+        LessonTopic(
+            topicId = 2,
+            header = "Variable Type -",
+            article = listOf(
+                "Unlike many other programming languages, variables in Kotlin do not need to be declared with a specified type like \"String\" for text or \"Int\" for numbers.",
+                "Let's see an example of how we can create variable for storing text and one for storing number.",
+                "However, it is possible to specify the type if you still want, but there is a different way to make variables by specifying its type.",
+                "Let's have a look how we can declare variables with its type."
+            ),
+            codeExample = """fun main() {
+var name: String = "Alex" // String
+val age: Int = 19 // Int
+
+println(name)
+println(birthyear)
+}̥""",
+            codeOutPutExample = true,
+            fact = null,
+            note = null,
+        ),
+        LessonTopic(
+            topicId = 2,
+            header = null,
+            article = listOf(
+                "In the above example we used the 'var' or 'val' keyword and the variable name followed by ':' (colon) and then its type after that we put '=' sign and its value. This is how we declare variable by specifying its type.",
+            ),
+            codeExample = null,
+            codeOutPutExample = false,
+            fact = "We can declare as many variables as we need in Kotlin or any other programming language.",
+            note = null,
+        ),
+
+        LessonTopic(
+            topicId = 3,
+            header = "Declaring variable without values -",
+            article = listOf(
+                "As far now, we have seen that we have to assign a value to the variable whenever we create them, but what if we want to assign the value later.",
+                "Well Kotlin provides us a way to do it. We can also declare a variable without assigning the value, and assign the value later. However, this is only possible when you specify the type.",
+            ),
+            codeExample = null,
+            codeOutPutExample = false,
+            fact = null,
+            note = "We have to specify the type of the variable if we want to declare it without assigning any value to it.",
+        ),
+        LessonTopic(
+            topicId = 3,
+            header = null,
+            article = listOf(
+                "Let's see an example of declaring variable without assigning any value.",
+            ),
+            codeExample = """fun main() {
+  var name: String
+  name = "Alex"
+  println(name)
+}̥""",
+            codeOutPutExample = true,
+            fact = null,
+            note = null,
+        ),
+        LessonTopic(
+            topicId = 3,
+            header = null,
+            article = listOf(
+                "Well now we have learnt too a lot of things about variable, now it is time to practice them.",
+                "Did you notice something? Why do we have two keywords ('var' and 'val') to declare variables and why and how to use them?",
+                "We will learn them in the next lesson, Now, it's quiz time!"
+            ),
+            codeExample = null,
+            codeOutPutExample = false,
+            fact = null,
+            note = "We will learn more about variables in the next lesson. Specially the difference between 'var' and 'val' .",
+        ),
+
+        ),
+
     quiz = listOf(
         QuizModel(
-            question = "What is Kotlin?",
+            question = "What is variable used for?",
             options = listOf(
-                "Kotlin is a markup language",
-                "Kotlin is a Programming language",
-                "Kotlin is an assembly language"
+                "For printing something",
+                "For writing comments",
+                "For storing data values"
             ),
-            correctAnswer = "Kotlin is a Programming language"
+            correctAnswer = "For storing data values"
         ),
 
         QuizModel(
-            question = "Kotlin was developed by which company?",
-            options = listOf("Bell Laboratories", "Google", "JetBrains"),
-            correctAnswer = "JetBrains"
-        ),
-        QuizModel(
-            question = "What is Kotlin mostly used for?",
+            question = "Which is a correct way of declaring variable?",
             options = listOf(
-                "Android apps development",
-                "Web development",
-                "Game development"
+                "var userName",
+                "var String userName",
+                "var userName = \"Alex\" "
             ),
-            correctAnswer = "Android apps development"
+            correctAnswer = "var userName = \"Alex\" "
         ),
         QuizModel(
-            question = "Before Kotlin which language was used for Android apps development?",
-            options = listOf("JavaScript", "HTML/CSS", "Java"),
-            correctAnswer = "Java"
+            question = "Can we assign Int(number) value to a variable?",
+            options = listOf(
+                "No", "Yes"
+            ),
+            correctAnswer = "Yes"
+        ),
+        QuizModel(
+            question = "How do we declare variable without assigning its value?",
+            options = listOf("var name: String", "var name", "val name"),
+            correctAnswer = "var name: String"
         ),
     )
 )
