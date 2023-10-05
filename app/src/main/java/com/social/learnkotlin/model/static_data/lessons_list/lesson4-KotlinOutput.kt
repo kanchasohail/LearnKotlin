@@ -8,14 +8,43 @@ val lesson4_KotlinOutput = Lesson(
     id = 4,
     lessonName = "Kotlin Output",
     lessonDescription = "All about kotlin output",
-    pagesCount = 3, lessonTopics = listOf(
+    pagesCount = 2, lessonTopics = listOf(
         LessonTopic(
             topicId = 1,
-            header = "IWhat is Kotlin?",
+            header = "Kotlin Output",
             article = listOf(
-                "Kotlin is a modern, trending programming language.",
-                "Kotlin is a relatively new programming language developed by JetBrains.",
-                "Nowadays, Kotlin is widely used for Android apps development instead of Java. It is because Kotlin is safe, concise, and fun to read and write.",
+                "Kotlin Output  means displaying any output on the screen.",
+                "In this lesson, we will learn how to display output to the screen in Kotlin.",
+                "The functions 'println()' and 'print()' are used to are used to show output/print text on the screen.",
+                "Let's take a look on how these functions work with simple examples.",
+                "This code example uses 'println()' function -",
+            ),
+            codeExample = """fun main() {
+  println("Hello World")
+}""",
+            codeOutPutExample = true,
+            fact = null,
+            note = null,
+        ),
+        LessonTopic(
+            topicId = 1,
+            header = null,
+            article = listOf(
+                "This code example uses 'print()' function -",
+            ),
+            codeExample = """fun main() {
+  print("Hello World")
+}""",
+            codeOutPutExample = true,
+            fact = null,
+            note = null,
+        ),
+        LessonTopic(
+            topicId = 1,
+            header = null,
+            article = listOf(
+                "Here, 'print()' and 'println()' both outputs the text under the quotes.",
+                "So, how are they different and why do we need different functions if both are doing the same thing?",
             ),
             codeExample = null,
             codeOutPutExample = false,
@@ -24,37 +53,61 @@ val lesson4_KotlinOutput = Lesson(
         ),
         LessonTopic(
             topicId = 2,
-            header = "About the tutorial -",
+            header = "Difference between print() and println() -",
             article = listOf(
-                "Our Kotlin tutorial will guide you to learn Kotlin step by step from scratch. Even if you do not have any knowledge about programming.",
-                "In this tutorial you will learn Kotlin with many interesting lessons, quizes and challenges. So, own your marks and let's go.",
-                "Here is an example of basic \"Hello World\" program in Kotlin:",
+                "There is not too much difference between the both , the only difference is -",
+                "• print() - simply prints values/string inside the quotes.",
+                "• println() - prints values/string inside the quotes similar like print() function and then it adds a new line at the end of the output.",
+                "Let's take a closer look on their differences:",
+                "print() function - ",
             ),
             codeExample = """fun main() {
-    println("Hello world")
+  print("Hello World 1 ")
+  print("Hello World 2 ")
+  print("Hello World 3 ")
 }""",
             codeOutPutExample = true,
             fact = null,
-            note = "You can click on that \\\"try it yourself\\\" button to open the editor and edit the code.",
+            note = null,
         ),
         LessonTopic(
-            topicId = 3,
-            header = "Why should we learn Kotlin?",
+            topicId = 2,
+            header = null,
             article = listOf(
-                "Kotlin is easy to learn, especially if you already know Java (it is 100% compatible with Java). But even if you don't know Java this tutorial is going to teach you everything from scratch.",
-                "Kotlin is used to develop Android apps, server side apps, and much more. But it is mostly used to develop Android apps.",
-                "We will learn more about Kotlin in next upcoming lessons. Before that let's see how much we learnt from this lesson (click on this play quiz button).",
+                "In the above example we can clearly see that the output text is printed in one single line instead of adding new line for each 'print()' function.",
+                "Now, let's see an example of println() function:",
+                "println() function -",
+            ),
+            codeExample = """fun main() {
+  println("Hello World 1 ")
+  println("Hello World 2 ")
+  println("Hello World 3 ")
+}""",
+            codeOutPutExample = true,
+            fact = null,
+            note = null,
+        ),
+        LessonTopic(
+            topicId = 2,
+            header = null,
+            article = listOf(
+                "In this example output, the 'println()' function adds a new line for each 'println()' function.",
+                "I hope the difference between print() and println() functions is clear. Now, I have a task for you.",
+                "Try to create this pattern by just using print() and println() functions and share the output on Social media and tag @mdsohail.00 . I will be glad to see that you guy's are doing well.",
+                "Here is the pattern - ",
+                "photo4",
+                "Keep practicing! See you in the next lessons.",
             ),
             codeExample = null,
             codeOutPutExample = false,
             fact = null,
-            note= null,
+            note = "We can add as many print() and println() functions as we want. Note that it will add a new line for each function.",
         ),
     ),
     quiz = listOf(
         QuizModel(
             question = "What does output mean is Kotlin?",
-            options = listOf("Play music", "Display Images", "Print something on screen" ),
+            options = listOf("Play music", "Display Images", "Print something on screen"),
             correctAnswer = "Print something on screen"
         ),
 
