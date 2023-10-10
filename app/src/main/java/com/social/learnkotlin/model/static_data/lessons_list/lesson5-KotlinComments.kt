@@ -8,15 +8,14 @@ val lesson5_KotlinComments = Lesson(
     id = 5,
     lessonName = "Kotlin Comments",
     lessonDescription = "Kotlin comments and their use cases",
-    pagesCount = 3,
+    pagesCount = 4,
     lessonTopics = listOf(
         LessonTopic(
             topicId = 1,
-            header = "IWhat is Kotlin?",
+            header = "Kotlin Comments",
             article = listOf(
-                "Kotlin is a modern, trending programming language.",
-                "Kotlin is a relatively new programming language developed by JetBrains.",
-                "Nowadays, Kotlin is widely used for Android apps development instead of Java. It is because Kotlin is safe, concise, and fun to read and write.",
+                "Hey, you have passed all the previous lessons! Congratulations for this achievement and I am glad to see you here.",
+                "In this lesson, we will learn about Kotlin comments, and why do we need comments and how to use them.",
             ),
             codeExample = null,
             codeOutPutExample = false,
@@ -25,33 +24,80 @@ val lesson5_KotlinComments = Lesson(
         ),
         LessonTopic(
             topicId = 2,
-            header = "About the tutorial -",
+            header = "What are comments?",
             article = listOf(
-                "Our Kotlin tutorial will guide you to learn Kotlin step by step from scratch. Even if you do not have any knowledge about programming.",
-                "In this tutorial you will learn Kotlin with many interesting lessons, quizes and challenges. So, own your marks and let's go.",
-                "Here is an example of basic \"Hello World\" program in Kotlin:",
-            ),
-            codeExample = """fun main() {
-    println("Hello world")
-}""",
-            codeOutPutExample = true,
-            fact = null,
-            note = "You can click on that \\\"try it yourself\\\" button to open the editor and edit the code.",
-        ),
-        LessonTopic(
-            topicId = 3,
-            header = "Why should we learn Kotlin?",
-            article = listOf(
-                "Kotlin is easy to learn, especially if you already know Java (it is 100% compatible with Java). But even if you don't know Java this tutorial is going to teach you everything from scratch.",
-                "Kotlin is used to develop Android apps, server side apps, and much more. But it is mostly used to develop Android apps.",
-                "We will learn more about Kotlin in next upcoming lessons. Before that let's see how much we learnt from this lesson (click on this play quiz button).",
+                "In programming, comments are portion of the program intended for you and your fellow programmers to understand the code. They are completely ignored by the compiler.",
+                "Comments are used to explain the code, and to make it more readable. It can also be used to prevent execution when testing alternative code.",
+                "There are two types of comments in Kotlin.",
+                "      • Single-line Comments",
+                "      • Multi-line Comments",
+                "Let's have a detailed look about how these comments work in Kotlin.",
             ),
             codeExample = null,
             codeOutPutExample = false,
             fact = null,
-            note= null,
+            note = null,
         ),
-    ),
+        LessonTopic(
+            topicId = 3,
+            header = "Single-lined comments -",
+            article = listOf(
+                "Single-lined comments are also known as End of Line Comments it is called so because, if we use single line comments the code get ignored by the compiler till the end of that line.",
+                "We use '//' to write a single-lined comment.",
+            ),
+            codeExample = """fun main() {
+ // This is an example of single-line comment
+   println("Hello, World!") // It ignores all the code till the end of that line
+// Comments are always ignored by the compiler
+}""",
+            codeOutPutExample = true,
+            fact = null,
+            note = null,
+        ),
+        LessonTopic(
+            topicId = 3,
+            header = null,
+            article = listOf(
+                "In the above example , we can see the the lines written after '//' double forward-slash are being ignored by the compiler. Simply , they are considered as a comment by the compiler.",
+            ),
+            codeExample = null,
+            codeOutPutExample = false,
+            fact = null,
+            note = null,
+        ),
+        LessonTopic(
+            topicId = 4,
+            header = "Multi-lined comments -",
+            article = listOf(
+                "Multi-lined comments are also known as Traditional comments. Multi-lined comments can span over multiple lines.",
+                "We use '/*     */' to write multi-lined comments.",
+                "Multi-lined Comments  start with '/*' and ends with '*/' . The Kotlin compiler ignores everything from '/*' to '*/'.",
+                "Let's see an example of multi-lined comments.",
+            ),
+            codeExample = """fun main() {
+/* This is a multi-line comment.
+ * This code prints "Hello, World!".
+ */
+   println("Hello, World!")
+}""",
+            codeOutPutExample = true,
+            fact = null,
+            note = null,
+        ),
+        LessonTopic(
+            topicId = 4,
+            header = null,
+            article = listOf(
+                "In the above code example , all the code/text gets ignored by the compiler between '/*' and '*/'. It becomes very useful if we want to comment multiple lines.",
+            ),
+            codeExample = null,
+            codeOutPutExample = false,
+            fact = "We can also use // (single-lined comment) to comment multiple lines by using // on all the lines.",
+            note = null,
+        ),
+
+        ),
+
     quiz = listOf(
         QuizModel(
             question = "Why do we use comments in Kotlin?",
