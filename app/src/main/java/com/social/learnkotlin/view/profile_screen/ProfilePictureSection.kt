@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -40,6 +41,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewModelScope
 import coil.compose.rememberAsyncImagePainter
+import com.canhub.cropper.CropImageContract
+import com.canhub.cropper.CropImageContractOptions
+import com.canhub.cropper.CropImageOptions
+import com.canhub.cropper.CropImageView
 import com.social.learnkotlin.R
 import kotlinx.coroutines.launch
 import java.io.InputStream
@@ -51,13 +56,39 @@ fun ProfilePictureSection(
     context: Context
 ) {
     val image = viewModel.profileImage
-    val galleryLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-            viewModel.selectedImage = uri
-            viewModel.viewModelScope.launch {
-                viewModel.saveProfileImage(context)
+    val avatarCropLauncher =
+        rememberLauncherForActivityResult(contract = CropImageContract()) { result ->
+            if (result.isSuccessful) {
+                // use the cropped image
+                val uriContent = result.uriContent
+                viewModel.selectedImage = uriContent
+                viewModel.viewModelScope.launch {
+                    viewModel.saveProfileImage(context)
+                }
+            } else {
+                // an error occurred cropping
+                val exception = result.error
+                Log.e("Image Cropper", "profileImageCropLauncher Exception $exception")
             }
         }
+
+    val avatarPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+
+        val cropImageOptions = CropImageOptions(
+            cropShape = CropImageView.CropShape.RECTANGLE,
+            aspectRatioX = 1,
+            aspectRatioY = 1,
+            scaleType = CropImageView.ScaleType.CENTER,
+            cornerShape = CropImageView.CropCornerShape.RECTANGLE,
+            fixAspectRatio = true
+        )
+        val cropOptions = CropImageContractOptions(uri, cropImageOptions)
+        avatarCropLauncher.launch(cropOptions)
+
+    }
+
     LaunchedEffect(Unit) {
         viewModel.getProfilePicture(context)
     }
@@ -100,7 +131,8 @@ fun ProfilePictureSection(
                 )
                 IconButton(
                     onClick = {
-                        galleryLauncher.launch("image/*")
+                        avatarPickerLauncher.launch("image/*")
+
                     },
                     modifier = Modifier
                         .shadow(
