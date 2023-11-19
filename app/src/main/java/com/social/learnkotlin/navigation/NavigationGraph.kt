@@ -22,18 +22,12 @@ import com.social.learnkotlin.view.quiz_screen.QuizViewModel
 import com.social.learnkotlin.view.reading_screen.ReadingScreen
 import com.social.learnkotlin.view.report_problem_screen.IssueDescribingScreen
 import com.social.learnkotlin.view.report_problem_screen.IssueSelectingScreen
-import com.social.learnkotlin.view.splash_screen.SplashScreen
 import com.social.learnkotlin.view.upgrade_to_permium_screen.UpgradeToPremiumScreen
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {
-//    NavHost(navController = navController, startDestination = Screens.SplashScreen.route) {
     NavHost(navController = navController, startDestination = Screens.LessonsScreen.route) {
 
-        //Splash Screen
-        composable(Screens.SplashScreen.route) {
-            SplashScreen(navController)
-        }
 
         //Lessons Screen
         composable(Screens.LessonsScreen.route) {
