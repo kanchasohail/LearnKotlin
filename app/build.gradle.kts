@@ -85,4 +85,7 @@ dependencies {
     //Image Cropper
     implementation("com.vanniktech:android-image-cropper:4.5.0")
 
+    //Splash Api
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
 }
