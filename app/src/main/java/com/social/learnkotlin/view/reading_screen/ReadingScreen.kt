@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material3.BottomAppBar
@@ -58,6 +59,7 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
 
     val thisLesson = AllLessons.lessonsList[lessonIndex ?: 0]
     viewModel.totalTopics = thisLesson.pagesCount
+
 
     val appBarContentColor = MaterialTheme.colorScheme.onBackground
 
@@ -125,7 +127,8 @@ fun ReadingScreen(navController: NavController, lessonIndex: Int?) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
+                .padding(paddingValues),
+            state = viewModel.listState.value
         ) {
             val theseTopics =
                 thisLesson.lessonTopics.filter { it.topicId == viewModel.completedTopics }
